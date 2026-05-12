@@ -15,7 +15,7 @@
 "The metrics, live, as of this morning. 300 workers in the maximum parallel pool. 47 models routed dynamically by cost and capability. 741 milliseconds end-to-end agent-to-agent latency. 93% first-pass review rate. 95% of our compute is free — we exploit free tiers across 11 providers before touching paid ones. Four-year memory horizon. 1,708 knowledge entries indexed. 43 active projects. These numbers are checked into Grafana. We will show them on a call.",
 "Five products in production, not in pitch decks. GestoriaRD: 314 paying clients managing tax filings in the Dominican Republic. FacturaIA, an invoice OCR service. Three more under HUYGHU & Asociados. Together they run on a single VPS. Every line of business logic was written by Sypnose workers — and every line was reviewed by a Sypnose reviewer before merge. We use what we sell.",
 "Internal case one. HUYGHU & Asociados is a Dominican tax firm. We built their entire brand identity — logo system, favicons, signatures, business cards, a 22-page brand book, a 15-slide deck, email templates, social templates — in six hours. Same standard you're seeing right now. One engineer at the terminal. Six hours later: a finished bundle, MIT licensed, deployed.",
-"Internal case two. Stratos is a trading dashboard built on Sypnose in 27 hours of wall-clock. Real-time risk panel, six order types, paper-trading sandbox, full E2E test suite, deployed behind Cloudflare Access. A traditional team estimate for the same scope was eight weeks. Not because traditional teams are slow — because Sypnose runs 300 things at once.",
+"Internal case two. Brand Studio Agent built a complete corporate identity bundle on Sypnose in 1 hour wall-clock. Logo system, 22-page guidelines, pitch deck PPTX, 36 social templates, business cards with print specs, transactional emails. A traditional agency estimate for the same scope was 4–8 weeks at 8K–15K USD. Not because agencies are slow — because Sypnose runs many agents at once.",
 "The stack underneath. Claude Code as the primary worker shell — 512,000 lines of which we audited line by line. Gemini through Google Vertex for cheap parallel runs. MCP servers for tool access. Cloudflare Access for zero-trust auth. Postgres + pgvector for memory. Redis for the task queue. It is boring. It is unsexy. It is the part you want to be boring.",
 "Three tiers. Free for builders bringing their own keys. Business for teams of five seats at $2,400 a month — managed infrastructure, hosted memory, all 47 models routed for you. Enterprise for teams that want it in their VPC with a SOC 2 paper trail. No hidden seats, no per-token surcharges, no consumption alarms — what you sign is what you pay.",
 "The Free tier. Zero dollars. You bring API keys for Claude, GPT, or Gemini. You install with one curl command. You get 300 workers, the full memory layer, every CLI command in the paid tier. The only thing you don't get is our compute pool and our SLA. Use it as long as you want. It is MIT licensed. It is on github.com/sypnose-cloud.",
@@ -458,7 +458,7 @@
         </div>
         <div class="prod-card">
           <span class="meta">▌ LIVE</span>
-          <h3 class="name">Stratos &amp; Mithos Console</h3>
+          <h3 class="name">HUYGHU Brand Kit</h3>
           <p class="desc">Trading dashboard + internal Sypnose console. Cloudflare Access in front.</p>
           <div class="stat"><b>27h</b><span>wall-clock · ship</span></div>
         </div>
@@ -512,18 +512,18 @@
     <div class="footer"><span>SYPNOSE.CLOUD</span><span>WHAT YOU'RE LOOKING AT WAS BUILT THE SAME WAY</span></div>
   </section>
 
-  <!-- ================================ SLIDE 09 — CASE STRATOS ================================ -->
-  <section class="slide" data-screen-label="09 Case · Stratos">
+  <!-- ================================ SLIDE 09 — CASE BRAND STUDIO ================================ -->
+  <section class="slide" data-screen-label="09 Case · Brand Studio">
     <div class="chrome">
       <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
-      <span>09 / 15 · CASE · STRATOS</span>
+      <span>09 / 15 · CASE · HUYGHU</span>
     </div>
     <div class="stage">
       <p class="eyebrow">▌ § 09 — CASE STUDY · 02</p>
       <div class="case-grid">
         <div>
           <div class="case-meta">▌ TRADING PLATFORM · 27 HOURS</div>
-          <h2 class="case-name">Stratos<br/>Console.</h2>
+          <h2 class="case-name">Brand Studio<br/>Agent.</h2>
           <p class="case-line">A full trading dashboard — risk panel, six order types, paper-trading sandbox, E2E tests, deployed behind Cloudflare Access — shipped in 27 hours of wall-clock.</p>
           <div class="case-stats">
             <div class="cs"><span class="l">▌ Wall-clock</span><div class="v">27<small>&nbsp;h</small></div></div>
@@ -533,7 +533,7 @@
           </div>
         </div>
         <div class="case-art" style="background:#1c1a14">
-          <span class="corner-tag">▌ STRATOS · CONSOLE</span>
+          <span class="corner-tag">▌ HUYGHU · BRAND KIT</span>
           <!-- mock trading chart -->
           <svg viewBox="0 0 700 540" style="position:absolute;left:40px;top:80px;width:calc(100% - 80px);height:auto" preserveAspectRatio="none">
             <defs>
@@ -561,7 +561,7 @@
             <text x="20" y="510" font-family="JetBrains Mono" font-size="14" fill="rgba(238,236,226,.4)" letter-spacing="1">ES1!</text>
             <text x="640" y="510" font-family="JetBrains Mono" font-size="14" fill="rgba(238,236,226,.4)" letter-spacing="1">LIVE</text>
           </svg>
-          <span class="filename">/sypnose-runs/stratos-deploy.log · exit 0</span>
+          <span class="filename">/sypnose-runs/huyghu-brandkit.log · exit 0</span>
         </div>
       </div>
     </div>

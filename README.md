@@ -87,7 +87,7 @@ All four ship through Google Fonts under the OFL — safe to embed in production
 - **314** — paying clients on GestoriaRD
 - **312** tasks · **0** errors · 9 agents — overnight benchmark
 - **512K** — lines of Claude Code source audited
-- **27 h** — Stratos trading console end-to-end ship time
+- **1 h** — Brand Studio Agent · complete corporate identity ship time
 - **6 h** — HUYGHU full brand kit build time
 - **1** — VPS running all 5 products
 
