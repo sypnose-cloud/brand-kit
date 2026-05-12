@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose — Email Signatures</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--terra:#da7756;--terra-deep:#b85f3f;--cream:#eeece2;--cream-2:#e6e2d2;--slate:#3d3929;--slate-2:#5a5443;--slate-3:#8a8472;--rule:rgba(61,57,41,.14);--rule-strong:rgba(61,57,41,.28)}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:var(--cream);color:var(--slate);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1480px;margin:0 auto;padding:64px 56px 120px}
+  .meta{display:flex;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-2)}
+  .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:8px;vertical-align:middle}
+  .hero{padding:56px 0 40px;max-width:980px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra-deep);margin:0 0 24px}
+  h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:72px;line-height:.98;letter-spacing:-0.035em;margin:0 0 22px}
+  h1 em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--terra)}
+  .lede{font-family:'Lora',serif;font-style:italic;font-size:22px;line-height:1.45;color:var(--slate-2);max-width:760px}
+  .section{margin-top:96px}
+  .section-head{display:grid;grid-template-columns:220px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .section-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate-3);padding-top:8px}
+  .section-tag b{color:var(--terra-deep);font-weight:600}
+  .section-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:36px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px}
+  .section-desc{font-size:15px;line-height:1.6;color:var(--slate-2);max-width:680px;margin:0}
+
+  /* email preview chrome */
+  .mail-row{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  @media (max-width:1100px){.mail-row{grid-template-columns:1fr}}
+  .mail{background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;box-shadow:0 1px 0 rgba(61,57,41,.04),0 24px 60px -36px rgba(61,57,41,.18)}
+  .mail.dark .mail-body{background:#1c1a14;color:#e6e2d2}
+  .mail.dark .mail-body .body-text{color:#bfb9a4}
+  .mail-chrome{padding:14px 18px;background:#f6f4ec;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-2);letter-spacing:.08em}
+  .mail.dark .mail-chrome{background:#15130d;border-bottom:1px solid rgba(255,255,255,.06);color:#8a8472}
+  .traffic{display:flex;gap:6px}.traffic i{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .mail-meta{margin-left:auto;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-3)}
+  .mail-head{padding:22px 28px 16px;border-bottom:1px solid var(--rule);font-family:'DM Sans'}
+  .mail.dark .mail-head{border-bottom:1px solid rgba(255,255,255,.06)}
+  .mail-head .subj{font-family:'Poppins';font-weight:600;font-size:16px;margin-bottom:6px;color:var(--slate)}
+  .mail.dark .mail-head .subj{color:#eeece2}
+  .mail-head .from{font-size:13px;color:var(--slate-3)}
+  .mail.dark .mail-head .from{color:#8a8472}
+  .mail-body{padding:28px;font-size:14.5px;line-height:1.6}
+  .body-text{color:var(--slate-2);max-width:520px}
+  .body-text p{margin:0 0 12px}
+
+  /* signature card pattern */
+  .sig{margin-top:22px;padding-top:22px;border-top:1px solid var(--rule)}
+  .mail.dark .sig{border-top:1px solid rgba(255,255,255,.08)}
+  .sig table{border-collapse:collapse;font-family:'DM Sans',sans-serif}
+
+  /* HTML source card */
+  .code-card{background:var(--slate);color:var(--cream);border-radius:8px;padding:24px 28px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.65;overflow:auto;border:1px solid rgba(255,255,255,.06);margin-top:28px}
+  .code-card .head{display:flex;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a8472}
+  .code-card .k{color:#da7756}.code-card .s{color:#cfb98a}.code-card .c{color:#7a7460;font-style:italic}
+
+  .colophon{margin-top:96px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-3)}
+  .swatches{display:flex;gap:14px}.sw{display:flex;align-items:center;gap:8px}.sw i{width:14px;height:14px;border-radius:3px;border:1px solid var(--rule);display:inline-block}
+
+  .sig-label{
+    position:absolute;top:14px;right:18px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
+    color:var(--terra-deep);text-transform:uppercase;
+  }
+  .mail{position:relative}
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="Sypnose Email Signatures">
+
+  <div class="meta">
+    <span><span class="dot"></span>Sypnose · Brand Identity · Mithos Edition</span>
+    <span>Vol. 03 / 08 — Email Signatures · v1.0 · 12 May 2026</span>
+  </div>
+
+  <section class="hero">
+    <p class="eyebrow">▌ Block 03 — Sign-off System</p>
+    <h1>Three styles.<br/>Two themes.<br/><em>Six signatures.</em></h1>
+    <p class="lede">Every email Carlos sends is a credibility surface. Minimal for replies, Complete for new threads, Promotional when a 6-hour POC offer is live — each rendered for light and dark mail clients. Table-based HTML, web-safe stacks, terra cotta accent rule.</p>
+  </section>
+
+  <!-- ============================================= MINIMAL ============================================= -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 03.A &nbsp;·&nbsp; <b>STYLE 01 · MINIMAL</b></div>
+      <div>
+        <h2 class="section-title">For replies. Three lines and a wordmark.</h2>
+        <p class="section-desc">When the thread is already established. Name, role, the domain. No links, no CTA, no badge — the Iron Rule applies to sign-offs too.</p>
+      </div>
+    </header>
+
+    <div class="mail-row">
+
+      <!-- 3.1 Minimal Light -->
+      <article class="mail">
+        <span class="sig-label">3.1 · MIN · LIGHT</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">SENT · GMAIL · 09:14</span></div>
+        <div class="mail-head"><div class="subj">Re: Quick clarification on the orchestrator timeout</div><div class="from">Carlos De La Torre &lt;carlos@huyghusrl.com&gt; · to: dev@acme.io</div></div>
+        <div class="mail-body">
+          <div class="body-text">
+            <p>Confirmed — the 741 ms is end-to-end including memory hydration. We'll have the patch in the next worker pool tonight.</p>
+            <p>Carlos</p>
+          </div>
+          <div class="sig">
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
+              <tr>
+                <td valign="top" style="padding-right:18px;border-right:2px solid #da7756">
+                  <svg viewBox="0 0 200 200" width="44" height="44">
+                    <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="3" opacity="0.55"/>
+                    <g stroke="#3d3929" stroke-width="3" stroke-linecap="round">
+                      <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                      <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                      <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                    </g>
+                    <g fill="#3d3929"><circle cx="160" cy="100" r="10"/><circle cx="130" cy="151.96" r="10"/><circle cx="70" cy="151.96" r="10"/>
+                      <circle cx="40" cy="100" r="10"/><circle cx="70" cy="48.04" r="10"/><circle cx="130" cy="48.04" r="10"/></g>
+                    <circle cx="100" cy="100" r="20" fill="#da7756"/>
+                  </svg>
+                </td>
+                <td valign="top" style="padding-left:18px;font-family:'DM Sans',Arial,sans-serif">
+                  <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;color:#3d3929;letter-spacing:-0.01em">Carlos De La Torre</div>
+                  <div style="font-size:12.5px;color:#5a5443;margin-top:2px">Architect of <b style="color:#da7756;font-weight:600">SYPNOSE</b></div>
+                  <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#8a8472;letter-spacing:1px;margin-top:8px">SYPNOSE.CLOUD</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3.2 Minimal Dark -->
+      <article class="mail dark">
+        <span class="sig-label">3.2 · MIN · DARK</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">SENT · SUPERHUMAN · 09:14</span></div>
+        <div class="mail-head"><div class="subj">Re: Quick clarification on the orchestrator timeout</div><div class="from">Carlos De La Torre · to: dev@acme.io</div></div>
+        <div class="mail-body">
+          <div class="body-text">
+            <p>Confirmed — the 741 ms is end-to-end including memory hydration. We'll have the patch in the next worker pool tonight.</p>
+            <p>Carlos</p>
+          </div>
+          <div class="sig">
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
+              <tr>
+                <td valign="top" style="padding-right:18px;border-right:2px solid #da7756">
+                  <svg viewBox="0 0 200 200" width="44" height="44">
+                    <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="3" opacity="0.5"/>
+                    <g stroke="#eeece2" stroke-width="3" stroke-linecap="round">
+                      <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                      <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                      <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                    </g>
+                    <g fill="#eeece2"><circle cx="160" cy="100" r="10"/><circle cx="130" cy="151.96" r="10"/><circle cx="70" cy="151.96" r="10"/>
+                      <circle cx="40" cy="100" r="10"/><circle cx="70" cy="48.04" r="10"/><circle cx="130" cy="48.04" r="10"/></g>
+                    <circle cx="100" cy="100" r="20" fill="#da7756"/>
+                  </svg>
+                </td>
+                <td valign="top" style="padding-left:18px;font-family:'DM Sans',Arial,sans-serif">
+                  <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;color:#eeece2;letter-spacing:-0.01em">Carlos De La Torre</div>
+                  <div style="font-size:12.5px;color:#bfb9a4;margin-top:2px">Architect of <b style="color:#da7756;font-weight:600">SYPNOSE</b></div>
+                  <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#8a8472;letter-spacing:1px;margin-top:8px">SYPNOSE.CLOUD</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================= COMPLETE ============================================= -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 03.B &nbsp;·&nbsp; <b>STYLE 02 · COMPLETE</b></div>
+      <div>
+        <h2 class="section-title">For new threads. Full contact card.</h2>
+        <p class="section-desc">Phone, LinkedIn, GitHub, location — everything a prospect needs to verify Sypnose is real before opening a second tab. Below the rule: one live metric in monospace.</p>
+      </div>
+    </header>
+
+    <div class="mail-row">
+
+      <!-- 3.3 Complete Light -->
+      <article class="mail">
+        <span class="sig-label">3.3 · FULL · LIGHT</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">SENT · GMAIL · 11:02</span></div>
+        <div class="mail-head"><div class="subj">Sypnose for the platform team — short note</div><div class="from">Carlos De La Torre · to: cto@series-b-startup.io</div></div>
+        <div class="mail-body">
+          <div class="body-text">
+            <p>Hi — saw your post about the migration sprint. Sypnose dispatches up to 300 parallel workers from one command and our last overnight run closed 312 tasks with 0 errors. Happy to show, no pitch.</p>
+            <p>Carlos</p>
+          </div>
+          <div class="sig">
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;max-width:560px">
+              <tr>
+                <td valign="top" style="padding-right:20px;border-right:2px solid #da7756;width:64px">
+                  <svg viewBox="0 0 200 200" width="56" height="56">
+                    <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+                    <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                      <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                      <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                      <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                    </g>
+                    <g fill="#3d3929"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                      <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+                    <circle cx="100" cy="100" r="18" fill="#da7756"/>
+                  </svg>
+                </td>
+                <td valign="top" style="padding-left:20px;font-family:'DM Sans',Arial,sans-serif">
+                  <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:16px;color:#3d3929;letter-spacing:-0.01em">Carlos De La Torre</div>
+                  <div style="font-size:13px;color:#5a5443;margin-top:2px">Architect of <b style="color:#da7756;font-weight:600">SYPNOSE</b> · Puerto Plata, DR</div>
+
+                  <table cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;font-size:12.5px;color:#3d3929">
+                    <tr>
+                      <td style="padding:2px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">EMAIL</span>
+                        <a href="mailto:carlos@huyghusrl.com" style="color:#3d3929;text-decoration:none">carlos@huyghusrl.com</a>
+                      </td>
+                      <td style="padding:2px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">TEL</span>
+                        <a href="tel:+18094240731" style="color:#3d3929;text-decoration:none">+1 809 424 0731</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">WEB</span>
+                        <a href="https://sypnose.cloud" style="color:#da7756;text-decoration:none;font-weight:600">sypnose.cloud</a>
+                      </td>
+                      <td style="padding:8px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">SOCIAL</span>
+                        <a href="https://linkedin.com/in/carlosdelatorre-ai" style="color:#3d3929;text-decoration:none">linkedin</a>
+                        <span style="color:#cfcabf">·</span>
+                        <a href="https://github.com/sypnose-cloud" style="color:#3d3929;text-decoration:none">github</a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <div style="margin-top:14px;padding-top:10px;border-top:1px dashed rgba(61,57,41,.2);font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8a8472;letter-spacing:1px">
+                    300 WORKERS · 47 MODELS · 741 MS A2A · LIVE
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3.4 Complete Dark -->
+      <article class="mail dark">
+        <span class="sig-label">3.4 · FULL · DARK</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">SENT · SUPERHUMAN · 11:02</span></div>
+        <div class="mail-head"><div class="subj">Sypnose for the platform team — short note</div><div class="from">Carlos De La Torre · to: cto@series-b-startup.io</div></div>
+        <div class="mail-body">
+          <div class="body-text">
+            <p>Hi — saw your post about the migration sprint. Sypnose dispatches up to 300 parallel workers from one command and our last overnight run closed 312 tasks with 0 errors. Happy to show, no pitch.</p>
+            <p>Carlos</p>
+          </div>
+          <div class="sig">
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;max-width:560px">
+              <tr>
+                <td valign="top" style="padding-right:20px;border-right:2px solid #da7756;width:64px">
+                  <svg viewBox="0 0 200 200" width="56" height="56">
+                    <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+                    <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                      <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                      <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                      <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                    </g>
+                    <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                      <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+                    <circle cx="100" cy="100" r="18" fill="#da7756"/>
+                  </svg>
+                </td>
+                <td valign="top" style="padding-left:20px;font-family:'DM Sans',Arial,sans-serif">
+                  <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:16px;color:#eeece2;letter-spacing:-0.01em">Carlos De La Torre</div>
+                  <div style="font-size:13px;color:#bfb9a4;margin-top:2px">Architect of <b style="color:#da7756;font-weight:600">SYPNOSE</b> · Puerto Plata, DR</div>
+
+                  <table cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;font-size:12.5px;color:#e6e2d2">
+                    <tr>
+                      <td style="padding:2px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">EMAIL</span>
+                        <a href="mailto:carlos@huyghusrl.com" style="color:#e6e2d2;text-decoration:none">carlos@huyghusrl.com</a>
+                      </td>
+                      <td style="padding:2px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">TEL</span>
+                        <a href="tel:+18094240731" style="color:#e6e2d2;text-decoration:none">+1 809 424 0731</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">WEB</span>
+                        <a href="https://sypnose.cloud" style="color:#da7756;text-decoration:none;font-weight:600">sypnose.cloud</a>
+                      </td>
+                      <td style="padding:8px 14px 2px 0">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8472;letter-spacing:1px;display:block">SOCIAL</span>
+                        <a href="https://linkedin.com/in/carlosdelatorre-ai" style="color:#e6e2d2;text-decoration:none">linkedin</a>
+                        <span style="color:#5a5443">·</span>
+                        <a href="https://github.com/sypnose-cloud" style="color:#e6e2d2;text-decoration:none">github</a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <div style="margin-top:14px;padding-top:10px;border-top:1px dashed rgba(238,236,226,.18);font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#8a8472;letter-spacing:1px">
+                    300 WORKERS · 47 MODELS · 741 MS A2A · LIVE
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================= PROMOTIONAL ============================================= -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 03.C &nbsp;·&nbsp; <b>STYLE 03 · PROMOTIONAL</b></div>
+      <div>
+        <h2 class="section-title">When a 6-hour POC slot is open.</h2>
+        <p class="section-desc">Adds a terra cotta CTA band under the contact block: "6h POC · Free · DM to book". One offer, one button — no banner gymnastics.</p>
+      </div>
+    </header>
+
+    <div class="mail-row">
+
+      <!-- 3.5 Promo Light -->
+      <article class="mail">
+        <span class="sig-label">3.5 · PROMO · LIGHT</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">SENT · GMAIL · 16:48</span></div>
+        <div class="mail-head"><div class="subj">Two POC slots opening this Friday</div><div class="from">Carlos De La Torre · to: founders@batch-26.fund</div></div>
+        <div class="mail-body">
+          <div class="body-text">
+            <p>We open two 6-hour POC slots this Friday. We pick one feature you've been postponing and ship it end-to-end on Sypnose — tests included, no slides.</p>
+            <p>If interesting, just reply with the feature.</p>
+          </div>
+          <div class="sig">
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;max-width:560px">
+              <tr>
+                <td valign="top" style="padding-right:20px;border-right:2px solid #da7756;width:60px">
+                  <svg viewBox="0 0 200 200" width="50" height="50">
+                    <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+                    <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                      <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                      <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                      <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                    </g>
+                    <g fill="#3d3929"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                      <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+                    <circle cx="100" cy="100" r="18" fill="#da7756"/>
+                  </svg>
+                </td>
+                <td valign="top" style="padding-left:20px;font-family:'DM Sans',Arial,sans-serif">
+                  <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;color:#3d3929;letter-spacing:-0.01em">Carlos De La Torre</div>
+                  <div style="font-size:12.5px;color:#5a5443;margin-top:2px">Architect of <b style="color:#da7756;font-weight:600">SYPNOSE</b></div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a8472;letter-spacing:1px;margin-top:6px">carlos@huyghusrl.com · +1 809 424 0731</div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- promotional band -->
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;max-width:560px;margin-top:14px">
+              <tr>
+                <td style="background:#3d3929;padding:18px 22px;border-radius:6px" valign="middle">
+                  <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+                    <tr>
+                      <td valign="middle" style="font-family:'DM Sans',Arial,sans-serif;color:#eeece2">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#da7756;letter-spacing:2px">▌ 6H POC · FREE</div>
+                        <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;color:#eeece2;margin-top:4px">Ship one real feature in a day.</div>
+                        <div style="font-size:12px;color:#bfb9a4;margin-top:2px">No slides. Tests included. You keep the PR.</div>
+                      </td>
+                      <td valign="middle" align="right" style="width:120px">
+                        <a href="mailto:hello@sypnose.cloud?subject=6h%20POC" style="display:inline-block;background:#da7756;color:#3d3929;font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:12px;text-decoration:none;padding:11px 16px;border-radius:4px;letter-spacing:0.5px">Book a slot →</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3.6 Promo Dark -->
+      <article class="mail dark">
+        <span class="sig-label">3.6 · PROMO · DARK</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">SENT · SUPERHUMAN · 16:48</span></div>
+        <div class="mail-head"><div class="subj">Two POC slots opening this Friday</div><div class="from">Carlos De La Torre · to: founders@batch-26.fund</div></div>
+        <div class="mail-body">
+          <div class="body-text">
+            <p>We open two 6-hour POC slots this Friday. We pick one feature you've been postponing and ship it end-to-end on Sypnose — tests included, no slides.</p>
+            <p>If interesting, just reply with the feature.</p>
+          </div>
+          <div class="sig">
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;max-width:560px">
+              <tr>
+                <td valign="top" style="padding-right:20px;border-right:2px solid #da7756;width:60px">
+                  <svg viewBox="0 0 200 200" width="50" height="50">
+                    <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+                    <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                      <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                      <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                      <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                    </g>
+                    <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                      <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+                    <circle cx="100" cy="100" r="18" fill="#da7756"/>
+                  </svg>
+                </td>
+                <td valign="top" style="padding-left:20px;font-family:'DM Sans',Arial,sans-serif">
+                  <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;color:#eeece2;letter-spacing:-0.01em">Carlos De La Torre</div>
+                  <div style="font-size:12.5px;color:#bfb9a4;margin-top:2px">Architect of <b style="color:#da7756;font-weight:600">SYPNOSE</b></div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a8472;letter-spacing:1px;margin-top:6px">carlos@huyghusrl.com · +1 809 424 0731</div>
+                </td>
+              </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;max-width:560px;margin-top:14px">
+              <tr>
+                <td style="background:#da7756;padding:18px 22px;border-radius:6px" valign="middle">
+                  <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+                    <tr>
+                      <td valign="middle" style="font-family:'DM Sans',Arial,sans-serif;color:#3d3929">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3d3929;letter-spacing:2px;opacity:0.7">▌ 6H POC · FREE</div>
+                        <div style="font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;color:#3d3929;margin-top:4px">Ship one real feature in a day.</div>
+                        <div style="font-size:12px;color:#3d3929;opacity:0.8;margin-top:2px">No slides. Tests included. You keep the PR.</div>
+                      </td>
+                      <td valign="middle" align="right" style="width:120px">
+                        <a href="mailto:hello@sypnose.cloud?subject=6h%20POC" style="display:inline-block;background:#3d3929;color:#eeece2;font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:12px;text-decoration:none;padding:11px 16px;border-radius:4px;letter-spacing:0.5px">Book a slot →</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========== HTML source ========== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 03.D &nbsp;·&nbsp; <b>SOURCE · MINIMAL</b></div>
+      <div>
+        <h2 class="section-title">Drop-in HTML for Gmail / Apple Mail.</h2>
+        <p class="section-desc">Paste into the signature editor as raw HTML. Tables, inline styles, web-safe fallback stacks — no external CSS, no images larger than the SVG mark.</p>
+      </div>
+    </header>
+
+    <div class="code-card">
+      <div class="head"><span>signature-minimal.html · light</span><span>1.4 KB · table-based</span></div>
+<pre style="margin:0">&lt;<span class="k">table</span> cellpadding=<span class="s">"0"</span> cellspacing=<span class="s">"0"</span> border=<span class="s">"0"</span> style=<span class="s">"border-collapse:collapse;font-family:'DM Sans',Arial,sans-serif"</span>&gt;
+  &lt;<span class="k">tr</span>&gt;
+    &lt;<span class="k">td</span> valign=<span class="s">"top"</span> style=<span class="s">"padding-right:18px;border-right:2px solid #da7756"</span>&gt;
+      &lt;<span class="k">img</span> src=<span class="s">"https://sypnose.cloud/email/symbol.png"</span> width=<span class="s">"44"</span> height=<span class="s">"44"</span> alt=<span class="s">"Sypnose"</span>&gt;
+    &lt;/<span class="k">td</span>&gt;
+    &lt;<span class="k">td</span> valign=<span class="s">"top"</span> style=<span class="s">"padding-left:18px"</span>&gt;
+      &lt;<span class="k">div</span> style=<span class="s">"font-family:Poppins,Arial,sans-serif;font-weight:600;font-size:15px;color:#3d3929"</span>&gt;Carlos De La Torre&lt;/<span class="k">div</span>&gt;
+      &lt;<span class="k">div</span> style=<span class="s">"font-size:12.5px;color:#5a5443"</span>&gt;Architect of &lt;<span class="k">b</span> style=<span class="s">"color:#da7756"</span>&gt;SYPNOSE&lt;/<span class="k">b</span>&gt;&lt;/<span class="k">div</span>&gt;
+      &lt;<span class="k">div</span> style=<span class="s">"font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a8472;letter-spacing:1px;margin-top:8px"</span>&gt;SYPNOSE.CLOUD&lt;/<span class="k">div</span>&gt;
+    &lt;/<span class="k">td</span>&gt;
+  &lt;/<span class="k">tr</span>&gt;
+&lt;/<span class="k">table</span>&gt;</pre>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div>SYPNOSE © 2026 · Identity v1.0 · Block 03</div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#da7756"></i>#DA7756</span>
+      <span class="sw"><i style="background:#eeece2"></i>#EEECE2</span>
+      <span class="sw"><i style="background:#3d3929"></i>#3D3929</span>
+    </div>
+    <div>Next ▸ Block 04 — Business Cards</div>
+  </footer>
+
+</main>
+</body>
+</html>

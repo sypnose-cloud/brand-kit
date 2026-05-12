@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose — Logo System</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terra:#da7756;
+    --terra-deep:#b85f3f;
+    --cream:#eeece2;
+    --cream-2:#e6e2d2;
+    --slate:#3d3929;
+    --slate-2:#5a5443;
+    --slate-3:#8a8472;
+    --rule: rgba(61,57,41,.14);
+    --rule-strong: rgba(61,57,41,.28);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--slate);
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-feature-settings:"ss01","cv11";
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ============ canvas frame ============ */
+  .page{max-width:1480px; margin:0 auto; padding:64px 56px 120px}
+
+  /* ============ top meta bar ============ */
+  .meta{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom:18px; border-bottom:1px solid var(--rule);
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--slate-2);
+  }
+  .meta .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--terra); margin-right:8px; vertical-align:middle}
+
+  /* ============ hero ============ */
+  .hero{padding:56px 0 40px; max-width:980px}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--terra-deep);
+    margin:0 0 24px;
+  }
+  h1{
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:72px; line-height:.98; letter-spacing:-0.035em;
+    margin:0 0 22px;
+    color:var(--slate);
+  }
+  h1 em{ font-family:'Lora',serif; font-style:italic; font-weight:500; color:var(--terra); }
+  .lede{
+    font-family:'Lora',serif; font-style:italic; font-weight:400;
+    font-size:22px; line-height:1.45; color:var(--slate-2);
+    max-width:760px;
+  }
+
+  /* ============ section ============ */
+  .section{margin-top:96px}
+  .section-head{
+    display:grid; grid-template-columns: 220px 1fr; gap:48px;
+    padding-bottom:24px; border-bottom:1px solid var(--rule);
+    margin-bottom:40px;
+  }
+  .section-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--slate-3); padding-top:8px;
+  }
+  .section-tag b{color:var(--terra-deep); font-weight:600}
+  .section-title{
+    font-family:'Poppins',sans-serif; font-weight:600;
+    font-size:36px; line-height:1.05; letter-spacing:-0.02em;
+    margin:0 0 12px;
+  }
+  .section-desc{
+    font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6;
+    color:var(--slate-2); max-width:680px; margin:0;
+  }
+
+  /* ============ construction grid ============ */
+  .construction{
+    display:grid; grid-template-columns: 1.1fr 1fr; gap:48px; align-items:center;
+  }
+  .grid-card{
+    background:#fff; border:1px solid var(--rule);
+    border-radius:8px; padding:40px;
+    box-shadow:0 1px 0 rgba(61,57,41,.04), 0 24px 60px -36px rgba(61,57,41,.22);
+  }
+  .grid-stage{
+    position:relative; width:100%; aspect-ratio:1/1; max-width:560px; margin:0 auto;
+    background:
+      repeating-linear-gradient(to right, transparent 0 calc(100%/12 - 1px), var(--rule) calc(100%/12 - 1px) calc(100%/12)),
+      repeating-linear-gradient(to bottom, transparent 0 calc(100%/12 - 1px), var(--rule) calc(100%/12 - 1px) calc(100%/12));
+    background-color: #fafaf3;
+  }
+  .grid-stage::before{
+    /* outer guides for clearspace = 1 unit */
+    content:""; position:absolute; inset:8.333%;
+    border:1px dashed var(--rule-strong);
+  }
+  .grid-stage svg{
+    position:absolute; inset:16.66%; width:66.66%; height:66.66%;
+  }
+  /* measurement annotations */
+  .measure{
+    position:absolute; font-family:'JetBrains Mono',monospace;
+    font-size:10px; letter-spacing:.08em; color:var(--terra-deep);
+    background:#fff; padding:2px 6px; border:1px solid var(--rule); border-radius:3px;
+  }
+  .m1{ top:-12px; left:8.333%; }
+  .m2{ bottom:-12px; right:8.333%; }
+  .m3{ top:50%; left:-44px; transform:translateY(-50%); }
+  .m4{ top:50%; right:-44px; transform:translateY(-50%); }
+
+  .grid-specs{
+    font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.65; color:var(--slate-2);
+  }
+  .grid-specs h3{
+    font-family:'Poppins',sans-serif; font-weight:600;
+    font-size:20px; color:var(--slate); margin:0 0 18px; letter-spacing:-0.01em;
+  }
+  .spec-row{
+    display:grid; grid-template-columns: 120px 1fr; gap:16px;
+    padding:12px 0; border-bottom:1px dashed var(--rule);
+  }
+  .spec-row:last-child{border-bottom:none}
+  .spec-row b{
+    font-family:'JetBrains Mono',monospace; font-weight:500;
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--terra-deep);
+  }
+
+  /* ============ variant grid ============ */
+  .variants{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;
+  }
+  .v{
+    background:#fff; border:1px solid var(--rule); border-radius:8px;
+    overflow:hidden; display:flex; flex-direction:column;
+    box-shadow:0 1px 0 rgba(61,57,41,.04);
+  }
+  .v-stage{
+    height:240px; display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .v-stage.cream{background:var(--cream)}
+  .v-stage.dark{background:var(--slate)}
+  .v-stage.white{background:#fff; border-bottom:1px solid var(--rule)}
+  .v-stage.terra{background:var(--terra)}
+  .v-foot{
+    padding:16px 20px; border-top:1px solid var(--rule);
+    display:flex; align-items:baseline; justify-content:space-between;
+    background:#fff;
+  }
+  .v-num{
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em;
+    color:var(--slate-3); text-transform:uppercase;
+  }
+  .v-name{
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:14px;
+    color:var(--slate); letter-spacing:-0.01em;
+  }
+  .v-tag{
+    font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--slate-3);
+    letter-spacing:.06em;
+  }
+
+  /* ============ wordmark ============ */
+  .wm{
+    font-family:'Poppins',sans-serif; font-weight:700;
+    letter-spacing:-0.04em;
+  }
+  .wm .dot-mid{ color:var(--terra) }
+
+  /* ============ animated nodes ============ */
+  @keyframes pulse-hub{
+    0%,100%{ transform:scale(1); opacity:1 }
+    50%{ transform:scale(1.18); opacity:.85 }
+  }
+  @keyframes pulse-sat{
+    0%,100%{ opacity:.55 }
+    50%{ opacity:1 }
+  }
+  @keyframes flow{
+    0%{ stroke-dashoffset:60 }
+    100%{ stroke-dashoffset:0 }
+  }
+  .ani circle.hub{ transform-origin:100px 100px; animation: pulse-hub 2.4s ease-in-out infinite }
+  .ani circle.sat{ animation: pulse-sat 2.4s ease-in-out infinite }
+  .ani circle.sat:nth-of-type(2){ animation-delay:.1s }
+  .ani circle.sat:nth-of-type(3){ animation-delay:.2s }
+  .ani circle.sat:nth-of-type(4){ animation-delay:.3s }
+  .ani circle.sat:nth-of-type(5){ animation-delay:.4s }
+  .ani circle.sat:nth-of-type(6){ animation-delay:.5s }
+  .ani line, .ani path.hex{
+    stroke-dasharray:6 4;
+    animation: flow 1.6s linear infinite;
+  }
+
+  /* footer note */
+  .colophon{
+    margin-top:96px; padding-top:24px; border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--slate-3);
+  }
+  .swatches{ display:flex; gap:14px; align-items:center }
+  .sw{ display:flex; align-items:center; gap:8px }
+  .sw i{ display:inline-block; width:14px; height:14px; border-radius:3px; border:1px solid var(--rule)}
+
+  @media (max-width:1100px){
+    .variants{grid-template-columns:repeat(2,1fr)}
+    .construction{grid-template-columns:1fr}
+    .section-head{grid-template-columns:1fr; gap:16px}
+    h1{font-size:54px}
+  }
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="Sypnose Logo System">
+
+  <!-- top meta -->
+  <div class="meta">
+    <span><span class="dot"></span>Sypnose · Brand Identity · Mithos Edition</span>
+    <span>Vol. 01 / 08 — Logo System · v1.0 · 12 May 2026</span>
+  </div>
+
+  <!-- hero -->
+  <section class="hero">
+    <p class="eyebrow">▌ Block 01 — The Mark</p>
+    <h1>One hub.<br/>Six workers.<br/><em>One command.</em></h1>
+    <p class="lede">The Sypnose mark is a literal diagram of the platform: a single architect node at the center, dispatching parallel agents around a hex perimeter. It is not an abstract logo — it is the system, drawn in seven circles.</p>
+  </section>
+
+  <!-- =================== CONSTRUCTION =================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 01.A &nbsp;·&nbsp; <b>CONSTRUCTION</b></div>
+      <div>
+        <h2 class="section-title">A 12 × 12 grid. Seven circles. No ornament.</h2>
+        <p class="section-desc">The symbol lives inside a 12-unit square. The architect circle is 4 units in diameter; satellite workers are 2 units. Spokes run on 60° radials. Clearspace equals one full unit on every edge — never crowd the mark.</p>
+      </div>
+    </header>
+
+    <div class="construction">
+      <div class="grid-card">
+        <div class="grid-stage" aria-label="Construction grid for Sypnose symbol">
+          <span class="measure m1">12u × 12u canvas</span>
+          <span class="measure m2">1u clearspace</span>
+          <span class="measure m3">⌀ 4u hub</span>
+          <span class="measure m4">⌀ 2u sat</span>
+          <svg viewBox="0 0 200 200">
+            <!-- radial guides -->
+            <g stroke="#da7756" stroke-width="0.6" opacity="0.4" stroke-dasharray="2 2" fill="none">
+              <circle cx="100" cy="100" r="60"/>
+              <circle cx="100" cy="100" r="40"/>
+              <line x1="100" y1="0" x2="100" y2="200"/>
+              <line x1="0" y1="100" x2="200" y2="100"/>
+              <line x1="30" y1="30" x2="170" y2="170"/>
+              <line x1="170" y1="30" x2="30" y2="170"/>
+            </g>
+            <!-- hex perimeter -->
+            <path class="hex" d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z"
+                  fill="none" stroke="#3d3929" stroke-width="1.6" opacity="0.55"/>
+            <!-- spokes -->
+            <g stroke="#3d3929" stroke-width="1.6" stroke-linecap="round" opacity="0.65">
+              <line x1="100" y1="100" x2="160" y2="100"/>
+              <line x1="100" y1="100" x2="130" y2="151.96"/>
+              <line x1="100" y1="100" x2="70" y2="151.96"/>
+              <line x1="100" y1="100" x2="40" y2="100"/>
+              <line x1="100" y1="100" x2="70" y2="48.04"/>
+              <line x1="100" y1="100" x2="130" y2="48.04"/>
+            </g>
+            <!-- satellites -->
+            <g fill="#3d3929">
+              <circle cx="160" cy="100" r="9"/>
+              <circle cx="130" cy="151.96" r="9"/>
+              <circle cx="70" cy="151.96" r="9"/>
+              <circle cx="40" cy="100" r="9"/>
+              <circle cx="70" cy="48.04" r="9"/>
+              <circle cx="130" cy="48.04" r="9"/>
+            </g>
+            <!-- hub -->
+            <circle cx="100" cy="100" r="18" fill="#da7756"/>
+            <!-- centerline crosshair -->
+            <circle cx="100" cy="100" r="1.2" fill="#fff"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-specs">
+        <h3>Build specs</h3>
+        <div class="spec-row"><b>Canvas</b><span>12 × 12 units, square. Marks render cleanly from 16 px (favicon) to architectural scale.</span></div>
+        <div class="spec-row"><b>Hub</b><span>Diameter 4 units. Centered at (6, 6). Always terra cotta <code style="font-family:'JetBrains Mono'">#da7756</code>.</span></div>
+        <div class="spec-row"><b>Satellites</b><span>Diameter 2 units. Placed on a circle of radius 6, at 0°/60°/120°/180°/240°/300°.</span></div>
+        <div class="spec-row"><b>Spokes</b><span>2.4 px stroke at 200-unit reference. Round caps. Same ink as satellites.</span></div>
+        <div class="spec-row"><b>Hex perimeter</b><span>Connects all 6 satellites. 55% opacity of ink — a whisper, not a frame.</span></div>
+        <div class="spec-row"><b>Clearspace</b><span>1 unit on every side. No type, rule or graphic may enter this zone.</span></div>
+        <div class="spec-row"><b>Min size</b><span>16 px (digital) · 8 mm (print). Below 24 px, swap to the simplified symbol (1.8).</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== VARIANTS =================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 01.B &nbsp;·&nbsp; <b>VARIANTS · 12 OF 12</b></div>
+      <div>
+        <h2 class="section-title">Twelve approved expressions of the mark.</h2>
+        <p class="section-desc">Each variant solves a specific surface: dark IDE, cream pitch deck, print spot color, mobile favicon, animated splash. Pick by context — never modify the mark itself.</p>
+      </div>
+    </header>
+
+    <div class="variants">
+
+      <!-- 1.1 Light -->
+      <article class="v">
+        <div class="v-stage cream">
+          <svg viewBox="0 0 360 140" width="280" height="108" aria-label="Sypnose primary light">
+            <g transform="translate(20,20)">
+              <!-- symbol scaled 100x100 -->
+              <g transform="scale(0.5)">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+                <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/>
+                  <line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/>
+                  <line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/>
+                  <line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g fill="#3d3929">
+                  <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+                </g>
+                <circle cx="100" cy="100" r="18" fill="#da7756"/>
+              </g>
+            </g>
+            <text x="130" y="80" class="wm" font-family="Poppins" font-weight="700" font-size="46" fill="#3d3929" letter-spacing="-1.8">sypnose</text>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.1</span>
+          <span class="v-name">Primary · Light</span>
+          <span class="v-tag">cream / ink / terra</span>
+        </div>
+      </article>
+
+      <!-- 1.2 Dark -->
+      <article class="v">
+        <div class="v-stage dark">
+          <svg viewBox="0 0 360 140" width="280" height="108" aria-label="Sypnose primary dark">
+            <g transform="translate(20,20)">
+              <g transform="scale(0.5)">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+                <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g fill="#eeece2">
+                  <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+                </g>
+                <circle cx="100" cy="100" r="18" fill="#da7756"/>
+              </g>
+            </g>
+            <text x="130" y="80" font-family="Poppins" font-weight="700" font-size="46" fill="#eeece2" letter-spacing="-1.8">sypnose</text>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.2</span>
+          <span class="v-name">Primary · Dark</span>
+          <span class="v-tag">slate / cream / terra</span>
+        </div>
+      </article>
+
+      <!-- 1.3 Mono black -->
+      <article class="v">
+        <div class="v-stage white">
+          <svg viewBox="0 0 360 140" width="280" height="108" aria-label="Monochrome black">
+            <g transform="translate(20,20)">
+              <g transform="scale(0.5)" fill="#0c0a06" stroke="#0c0a06">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke-width="2.4" opacity="0.55"/>
+                <g stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g stroke="none">
+                  <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+                  <circle cx="100" cy="100" r="18"/>
+                </g>
+              </g>
+            </g>
+            <text x="130" y="80" font-family="Poppins" font-weight="700" font-size="46" fill="#0c0a06" letter-spacing="-1.8">sypnose</text>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.3</span>
+          <span class="v-name">Monochrome · Black</span>
+          <span class="v-tag">print B&amp;W</span>
+        </div>
+      </article>
+
+      <!-- 1.4 Mono terra -->
+      <article class="v">
+        <div class="v-stage white">
+          <svg viewBox="0 0 360 140" width="280" height="108" aria-label="Monochrome terra cotta">
+            <g transform="translate(20,20)">
+              <g transform="scale(0.5)" fill="#da7756" stroke="#da7756">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke-width="2.4" opacity="0.55"/>
+                <g stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g stroke="none">
+                  <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+                  <circle cx="100" cy="100" r="18"/>
+                </g>
+              </g>
+            </g>
+            <text x="130" y="80" font-family="Poppins" font-weight="700" font-size="46" fill="#da7756" letter-spacing="-1.8">sypnose</text>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.4</span>
+          <span class="v-name">Monochrome · Terra</span>
+          <span class="v-tag">spot color · foil</span>
+        </div>
+      </article>
+
+      <!-- 1.5 Icon only square -->
+      <article class="v">
+        <div class="v-stage cream">
+          <div style="width:160px; height:160px; background:#fff; border-radius:36px; box-shadow:0 1px 0 rgba(61,57,41,.06), 0 18px 40px -24px rgba(61,57,41,.35); display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 200 200" width="118" height="118">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+              <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <g fill="#3d3929">
+                <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+              </g>
+              <circle cx="100" cy="100" r="18" fill="#da7756"/>
+            </svg>
+          </div>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.5</span>
+          <span class="v-name">App Icon · 1:1</span>
+          <span class="v-tag">avatar · iOS · android</span>
+        </div>
+      </article>
+
+      <!-- 1.6 Wordmark only -->
+      <article class="v">
+        <div class="v-stage cream">
+          <svg viewBox="0 0 280 80" width="260" height="74">
+            <text x="0" y="56" font-family="Poppins" font-weight="700" font-size="58" fill="#3d3929" letter-spacing="-2.2">sypnose</text>
+            <circle cx="245" cy="46" r="6" fill="#da7756"/>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.6</span>
+          <span class="v-name">Wordmark · Horizontal</span>
+          <span class="v-tag">headers · site nav</span>
+        </div>
+      </article>
+
+      <!-- 1.7 Stacked -->
+      <article class="v">
+        <div class="v-stage cream">
+          <svg viewBox="0 0 220 220" width="160" height="160">
+            <g transform="translate(35,12) scale(0.75)">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+              <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <g fill="#3d3929">
+                <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+              </g>
+              <circle cx="100" cy="100" r="18" fill="#da7756"/>
+            </g>
+            <text x="110" y="210" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="32" fill="#3d3929" letter-spacing="-1.2">sypnose</text>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.7</span>
+          <span class="v-name">Stacked Lockup</span>
+          <span class="v-tag">poster · cover</span>
+        </div>
+      </article>
+
+      <!-- 1.8 Simplified favicon -->
+      <article class="v">
+        <div class="v-stage cream">
+          <div style="display:flex; gap:24px; align-items:flex-end">
+            <!-- 16px example -->
+            <div style="text-align:center">
+              <div style="width:16px; height:16px; background:var(--terra); border-radius:3px; position:relative; margin:0 auto 8px; box-shadow:0 0 0 1px rgba(61,57,41,.15)">
+                <span style="position:absolute; inset:3px; border-radius:1px; background:#eeece2"></span>
+                <span style="position:absolute; left:50%; top:50%; width:6px; height:6px; background:var(--terra); border-radius:50%; transform:translate(-50%,-50%)"></span>
+              </div>
+              <div style="font-family:'JetBrains Mono'; font-size:9px; color:var(--slate-3); letter-spacing:.1em">16PX</div>
+            </div>
+            <!-- 32px example -->
+            <div style="text-align:center">
+              <svg viewBox="0 0 200 200" width="48" height="48">
+                <rect width="200" height="200" rx="44" fill="#eeece2"/>
+                <circle cx="100" cy="100" r="48" fill="#da7756"/>
+                <g fill="#3d3929">
+                  <circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/>
+                  <circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/>
+                  <circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/>
+                </g>
+              </svg>
+              <div style="font-family:'JetBrains Mono'; font-size:9px; color:var(--slate-3); letter-spacing:.1em; margin-top:8px">32PX</div>
+            </div>
+            <!-- 64px example -->
+            <div style="text-align:center">
+              <svg viewBox="0 0 200 200" width="86" height="86">
+                <rect width="200" height="200" rx="44" fill="#eeece2"/>
+                <circle cx="100" cy="100" r="40" fill="#da7756"/>
+                <g stroke="#3d3929" stroke-width="3" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/>
+                  <line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/>
+                </g>
+                <g fill="#3d3929">
+                  <circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/>
+                  <circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/>
+                  <circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/>
+                </g>
+              </svg>
+              <div style="font-family:'JetBrains Mono'; font-size:9px; color:var(--slate-3); letter-spacing:.1em; margin-top:8px">64PX</div>
+            </div>
+          </div>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.8</span>
+          <span class="v-name">Symbol · Simplified</span>
+          <span class="v-tag">favicon · tab · ≤24px</span>
+        </div>
+      </article>
+
+      <!-- 1.9 Animated -->
+      <article class="v">
+        <div class="v-stage cream">
+          <svg class="ani" viewBox="0 0 200 200" width="140" height="140">
+            <path class="hex" d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.5"/>
+            <g stroke="#da7756" stroke-width="2.4" stroke-linecap="round">
+              <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+              <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+              <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+            </g>
+            <g fill="#3d3929">
+              <circle class="sat" cx="160" cy="100" r="9"/><circle class="sat" cx="130" cy="151.96" r="9"/>
+              <circle class="sat" cx="70" cy="151.96" r="9"/><circle class="sat" cx="40" cy="100" r="9"/>
+              <circle class="sat" cx="70" cy="48.04" r="9"/><circle class="sat" cx="130" cy="48.04" r="9"/>
+            </g>
+            <circle class="hub" cx="100" cy="100" r="18" fill="#da7756"/>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.9</span>
+          <span class="v-name">Animated · Pulse + Flow</span>
+          <span class="v-tag">splash · loader · CLI boot</span>
+        </div>
+      </article>
+
+      <!-- 1.10 Monogram S -->
+      <article class="v">
+        <div class="v-stage terra">
+          <svg viewBox="0 0 200 200" width="150" height="150">
+            <text x="100" y="148" text-anchor="middle" font-family="Lora" font-style="italic" font-weight="500" font-size="180" fill="#eeece2" letter-spacing="-4">S</text>
+            <circle cx="138" cy="62" r="9" fill="#eeece2"/>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.10</span>
+          <span class="v-name">Monogram · S</span>
+          <span class="v-tag">stamps · seals · social avatar</span>
+        </div>
+      </article>
+
+      <!-- 1.11 With "Mithos" -->
+      <article class="v">
+        <div class="v-stage cream">
+          <svg viewBox="0 0 360 160" width="280" height="126">
+            <g transform="translate(16,30)">
+              <g transform="scale(0.5)">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+                <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g fill="#3d3929">
+                  <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+                </g>
+                <circle cx="100" cy="100" r="18" fill="#da7756"/>
+              </g>
+            </g>
+            <text x="128" y="78" font-family="Poppins" font-weight="700" font-size="42" fill="#3d3929" letter-spacing="-1.6">sypnose</text>
+            <line x1="128" y1="92" x2="320" y2="92" stroke="#3d3929" stroke-width="1" opacity="0.25"/>
+            <text x="128" y="116" font-family="Lora" font-style="italic" font-weight="500" font-size="20" fill="#da7756" letter-spacing="0.5">— Mithos</text>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.11</span>
+          <span class="v-name">Lockup · with “Mithos”</span>
+          <span class="v-tag">product mark</span>
+        </div>
+      </article>
+
+      <!-- 1.12 With tagline -->
+      <article class="v">
+        <div class="v-stage cream">
+          <svg viewBox="0 0 360 160" width="280" height="126">
+            <g transform="translate(16,18)">
+              <g transform="scale(0.46)">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+                <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g fill="#3d3929">
+                  <circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/>
+                </g>
+                <circle cx="100" cy="100" r="18" fill="#da7756"/>
+              </g>
+            </g>
+            <text x="116" y="62" font-family="Poppins" font-weight="700" font-size="36" fill="#3d3929" letter-spacing="-1.4">sypnose</text>
+            <text x="116" y="92" font-family="JetBrains Mono" font-weight="500" font-size="11" fill="#da7756" letter-spacing="2">ONE COMMAND.</text>
+            <text x="116" y="110" font-family="JetBrains Mono" font-weight="500" font-size="11" fill="#5a5443" letter-spacing="2">ENTIRE AI ORGANIZATION.</text>
+          </svg>
+        </div>
+        <div class="v-foot">
+          <span class="v-num">1.12</span>
+          <span class="v-name">Lockup · with Tagline</span>
+          <span class="v-tag">ads · keynote · cover</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- =================== COLOPHON =================== -->
+  <footer class="colophon">
+    <div>SYPNOSE © 2026 · Identity v1.0 · Carlos De La Torre</div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#da7756"></i>#DA7756</span>
+      <span class="sw"><i style="background:#eeece2"></i>#EEECE2</span>
+      <span class="sw"><i style="background:#3d3929"></i>#3D3929</span>
+    </div>
+    <div>Next ▸ Block 02 — Favicon Set</div>
+  </footer>
+
+</main>
+</body>
+</html>

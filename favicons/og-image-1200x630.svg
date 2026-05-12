@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#eeece2"></rect>
+
+<g stroke="#3d3929" stroke-width="0.5" opacity="0.06">
+  <line x1="0" y1="0" x2="0" y2="630"></line><line x1="50" y1="0" x2="50" y2="630"></line><line x1="100" y1="0" x2="100" y2="630"></line><line x1="150" y1="0" x2="150" y2="630"></line><line x1="200" y1="0" x2="200" y2="630"></line><line x1="250" y1="0" x2="250" y2="630"></line><line x1="300" y1="0" x2="300" y2="630"></line><line x1="350" y1="0" x2="350" y2="630"></line><line x1="400" y1="0" x2="400" y2="630"></line><line x1="450" y1="0" x2="450" y2="630"></line><line x1="500" y1="0" x2="500" y2="630"></line><line x1="550" y1="0" x2="550" y2="630"></line><line x1="600" y1="0" x2="600" y2="630"></line><line x1="650" y1="0" x2="650" y2="630"></line><line x1="700" y1="0" x2="700" y2="630"></line><line x1="750" y1="0" x2="750" y2="630"></line><line x1="800" y1="0" x2="800" y2="630"></line><line x1="850" y1="0" x2="850" y2="630"></line><line x1="900" y1="0" x2="900" y2="630"></line><line x1="950" y1="0" x2="950" y2="630"></line><line x1="1000" y1="0" x2="1000" y2="630"></line><line x1="1050" y1="0" x2="1050" y2="630"></line><line x1="1100" y1="0" x2="1100" y2="630"></line><line x1="1150" y1="0" x2="1150" y2="630"></line>
+  <line x1="0" y1="0" x2="1200" y2="0"></line><line x1="0" y1="50" x2="1200" y2="50"></line><line x1="0" y1="100" x2="1200" y2="100"></line><line x1="0" y1="150" x2="1200" y2="150"></line><line x1="0" y1="200" x2="1200" y2="200"></line><line x1="0" y1="250" x2="1200" y2="250"></line><line x1="0" y1="300" x2="1200" y2="300"></line><line x1="0" y1="350" x2="1200" y2="350"></line><line x1="0" y1="400" x2="1200" y2="400"></line><line x1="0" y1="450" x2="1200" y2="450"></line><line x1="0" y1="500" x2="1200" y2="500"></line><line x1="0" y1="550" x2="1200" y2="550"></line><line x1="0" y1="600" x2="1200" y2="600"></line>
+</g>
+
+<g transform="translate(80, 175) scale(1.4)">
+<path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"></path>
+<g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+<line x1="100" y1="100" x2="160" y2="100"></line><line x1="100" y1="100" x2="130" y2="151.96"></line>
+<line x1="100" y1="100" x2="70" y2="151.96"></line><line x1="100" y1="100" x2="40" y2="100"></line>
+<line x1="100" y1="100" x2="70" y2="48.04"></line><line x1="100" y1="100" x2="130" y2="48.04"></line>
+</g>
+<g fill="#3d3929"><circle cx="160" cy="100" r="9"></circle><circle cx="130" cy="151.96" r="9"></circle><circle cx="70" cy="151.96" r="9"></circle><circle cx="40" cy="100" r="9"></circle><circle cx="70" cy="48.04" r="9"></circle><circle cx="130" cy="48.04" r="9"></circle></g>
+<circle cx="100" cy="100" r="18" fill="#da7756"></circle>
+</g>
+
+<text x="430" y="220" font-family="Poppins, sans-serif" font-weight="700" font-size="92" fill="#3d3929" letter-spacing="-4">sypnose</text>
+<text x="430" y="280" font-family="Lora, serif" font-style="italic" font-weight="500" font-size="36" fill="#da7756">— Mithos</text>
+<line x1="430" y1="320" x2="1100" y2="320" stroke="#3d3929" stroke-width="1" opacity="0.25"></line>
+<text x="430" y="380" font-family="DM Sans, sans-serif" font-weight="500" font-size="34" fill="#3d3929">One command.</text>
+<text x="430" y="424" font-family="DM Sans, sans-serif" font-weight="500" font-size="34" fill="#3d3929">An entire AI organization.</text>
+
+<g font-family="JetBrains Mono, monospace" font-size="16" fill="#5a5443" letter-spacing="2">
+  <text x="430" y="540">300 WORKERS</text>
+  <text x="620" y="540">·  47 MODELS</text>
+  <text x="800" y="540">·  741ms A2A</text>
+  <text x="980" y="540">·  4-YEAR MEMORY</text>
+</g>
+<text x="80" y="590" font-family="JetBrains Mono, monospace" font-size="14" fill="#8a8472" letter-spacing="2">SYPNOSE.CLOUD  /  INSTALL  /  curl -fsSL sypnose.cloud/install | bash</text>
+</svg>

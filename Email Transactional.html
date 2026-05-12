@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose — Email Transactional</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--terra:#da7756;--terra-deep:#b85f3f;--cream:#eeece2;--cream-2:#e6e2d2;--slate:#3d3929;--slate-2:#5a5443;--slate-3:#8a8472;--slate-4:#2a261b;--rule:rgba(61,57,41,.14);--success:#5b8a72;--warning:#d9a45a;--danger:#c25b4c}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:var(--cream);color:var(--slate);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1480px;margin:0 auto;padding:64px 56px 120px}
+  .meta{display:flex;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-2)}
+  .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:8px;vertical-align:middle}
+  .hero{padding:56px 0 40px;max-width:980px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra-deep);margin:0 0 24px}
+  h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:72px;line-height:.98;letter-spacing:-0.035em;margin:0 0 22px}
+  h1 em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--terra)}
+  .lede{font-family:'Lora',serif;font-style:italic;font-size:22px;line-height:1.45;color:var(--slate-2);max-width:760px}
+  .section{margin-top:96px}
+  .section-head{display:grid;grid-template-columns:220px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .section-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate-3);padding-top:8px}
+  .section-tag b{color:var(--terra-deep);font-weight:600}
+  .section-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:36px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px}
+  .section-desc{font-size:15px;line-height:1.6;color:var(--slate-2);max-width:680px;margin:0}
+
+  /* === preview card === */
+  .mail-row{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  @media (max-width:1180px){.mail-row{grid-template-columns:1fr}}
+  .mail-card{background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;box-shadow:0 1px 0 rgba(61,57,41,.04),0 24px 60px -36px rgba(61,57,41,.2);position:relative}
+  .mail-label{position:absolute;top:14px;right:18px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-deep);z-index:5}
+  .mail-chrome{padding:14px 18px;background:#f6f4ec;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-2);letter-spacing:.08em}
+  .traffic{display:flex;gap:6px}.traffic i{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .mail-meta{margin-left:auto;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-3)}
+
+  /* email body table styles - real inline html email */
+  .email-frame{background:var(--cream);padding:30px}
+  .em-table{border-collapse:collapse;width:100%;max-width:600px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 0 rgba(61,57,41,.04);border-left:4px solid var(--terra)}
+  .em-table td{padding:0}
+  .em-pad{padding:36px 36px 28px}
+  .em-pad-tight{padding:0 36px 28px}
+  .em-foot{padding:24px 36px 30px;background:#fafaf3;border-top:1px solid var(--rule);font-family:'DM Sans',Arial,sans-serif;font-size:12px;color:var(--slate-3);line-height:1.55}
+  .em-foot a{color:var(--slate-2);text-decoration:none}
+  .em-foot .bm{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--terra-deep);text-transform:uppercase;margin-bottom:6px;display:block}
+
+  .em-mark{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .em-mark .name{font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.6px;color:var(--slate)}
+  .em-mark .tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--terra);letter-spacing:1.6px;text-transform:uppercase}
+
+  .em-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--terra-deep);text-transform:uppercase;margin:0 0 10px}
+  .em-title{font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:32px;line-height:1.08;letter-spacing:-0.02em;color:var(--slate);margin:0 0 14px}
+  .em-title em{font-family:'Lora',serif;font-style:italic;color:var(--terra);font-weight:500}
+  .em-body{font-family:'DM Sans',Arial,sans-serif;font-size:15px;line-height:1.6;color:var(--slate-2);margin:0 0 14px}
+  .em-body b{color:var(--slate);font-weight:600}
+
+  .em-btn{display:inline-block;background:var(--terra);color:#ffffff !important;font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:14px;text-decoration:none;padding:14px 22px;border-radius:5px;letter-spacing:0.3px}
+  .em-btn-secondary{display:inline-block;background:transparent;color:var(--slate) !important;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:12px;text-decoration:none;padding:14px 0;letter-spacing:1.2px;text-transform:uppercase;border-bottom:1px solid var(--slate)}
+
+  /* metrics row */
+  .em-metrics{border-collapse:collapse;width:100%;margin:18px 0}
+  .em-metrics td{padding:14px 16px;background:#fafaf3;border-radius:6px;vertical-align:top}
+  .em-met-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--terra-deep);text-transform:uppercase;display:block}
+  .em-met-v{font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:28px;color:var(--slate);letter-spacing:-0.5px;line-height:1;display:block;margin-top:4px}
+  .em-met-v .u{font-size:14px;color:var(--terra);font-weight:600;margin-left:3px}
+
+  /* warn / fail blocks */
+  .em-alert{background:#fcf4ea;border:1px solid #f0d9b2;border-left:4px solid var(--warning);border-radius:6px;padding:14px 16px;margin:14px 0;font-family:'DM Sans';font-size:14px;color:var(--slate);line-height:1.5}
+  .em-alert b{color:var(--warning);font-weight:600;font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+  .em-alert.danger{background:#f9eae8;border-color:#e8c0bc;border-left-color:var(--danger)}
+  .em-alert.danger b{color:var(--danger)}
+  .em-alert.success{background:#ecf2ee;border-color:#c4d6cc;border-left-color:var(--success)}
+  .em-alert.success b{color:var(--success)}
+
+  /* terminal log block */
+  .em-term{background:#2a261b;color:#eeece2;border-radius:6px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.65;margin:14px 0;border:1px solid rgba(238,236,226,.08)}
+  .em-term .pr{color:var(--terra)}
+  .em-term .ok{color:#a3c9aa}
+  .em-term .wn{color:#e8c068}
+  .em-term .er{color:#e09080}
+  .em-term .cm{color:#7a7460;font-style:italic}
+
+  /* invoice */
+  .em-invoice{border-collapse:collapse;width:100%;margin:14px 0;font-family:'DM Sans';font-size:13px}
+  .em-invoice td{padding:10px 14px;border-bottom:1px solid var(--rule);color:var(--slate-2)}
+  .em-invoice tr.total td{font-family:'Poppins';font-weight:700;font-size:18px;color:var(--slate);background:#fafaf3;border-bottom:none}
+  .em-invoice td:last-child{text-align:right;font-family:'JetBrains Mono';color:var(--slate)}
+  .em-invoice tr.total td:last-child{color:var(--terra);font-family:'Poppins'}
+
+  /* weekly digest mini chart */
+  .digest-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:14px 0}
+  .digest-grid .day{background:#fafaf3;border-radius:4px;padding:10px 6px;text-align:center;font-family:'JetBrains Mono';font-size:9px;color:var(--slate-3);letter-spacing:.06em;text-transform:uppercase}
+  .digest-grid .day b{display:block;font-family:'Poppins';font-weight:700;font-size:18px;color:var(--slate);margin-top:4px;letter-spacing:-0.5px}
+  .digest-grid .day.peak{background:var(--terra)}
+  .digest-grid .day.peak,.digest-grid .day.peak b{color:var(--slate)}
+
+  /* poc booked */
+  .em-calendar{background:#fafaf3;border:1px solid var(--rule);border-radius:8px;padding:16px;display:flex;gap:18px;align-items:center;margin:14px 0}
+  .em-calendar .date{background:var(--terra);color:var(--slate);border-radius:6px;width:70px;text-align:center;padding:8px 0;flex-shrink:0}
+  .em-calendar .date .m{font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
+  .em-calendar .date .d{font-family:'Poppins';font-weight:800;font-size:30px;line-height:1}
+  .em-calendar .info{flex:1}
+  .em-calendar .info .t{font-family:'Poppins';font-weight:600;font-size:14px;color:var(--slate);letter-spacing:-0.2px}
+  .em-calendar .info .s{font-family:'DM Sans';font-size:12px;color:var(--slate-2);margin-top:2px}
+
+  .colophon{margin-top:96px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-3)}
+  .swatches{display:flex;gap:14px}.sw{display:flex;align-items:center;gap:8px}.sw i{width:14px;height:14px;border-radius:3px;border:1px solid var(--rule);display:inline-block}
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="Sypnose Email Transactional">
+
+  <div class="meta">
+    <span><span class="dot"></span>Sypnose · Brand Identity · Mithos Edition</span>
+    <span>Vol. 07 / 08 — Email Transactional · v1.0 · 12 May 2026</span>
+  </div>
+
+  <section class="hero">
+    <p class="eyebrow">▌ Block 07 — Transactional Mail</p>
+    <h1>Six emails<br/>the system<br/><em>actually sends.</em></h1>
+    <p class="lede">Every customer-facing email the Sypnose SaaS dispatches in production. Table-based HTML, 600 px max, terra cotta left rule, web-safe fallback stacks — Gmail, Outlook 2019+, Apple Mail, all clean.</p>
+  </section>
+
+  <!-- ============================ WELCOME ============================ -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 07.A &nbsp;·&nbsp; <b>01 · WELCOME</b></div>
+      <div>
+        <h2 class="section-title">When a Business seat goes live.</h2>
+        <p class="section-desc">Sent the moment Stripe confirms the seat. Sets expectations: console URL, the install command, the Slack channel, the one number that matters first.</p>
+      </div>
+    </header>
+
+    <div class="mail-row">
+      <article class="mail-card">
+        <span class="mail-label">7.1 · WELCOME · BUSINESS</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">FROM: hello@sypnose.cloud · 09:14</span></div>
+        <div class="email-frame">
+          <table class="em-table" cellpadding="0" cellspacing="0" border="0" role="presentation">
+            <tr><td class="em-pad">
+              <div class="em-mark">
+                <svg viewBox="0 0 200 200" width="36" height="36">
+                  <circle cx="100" cy="100" r="40" fill="#da7756"/>
+                  <g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g>
+                  <g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g>
+                </svg>
+                <div>
+                  <div class="name">sypnose</div>
+                  <div class="tag">▌ MITHOS · BUSINESS TIER</div>
+                </div>
+              </div>
+
+              <p class="em-eyebrow">▌ WELCOME · SEAT #04 ACTIVATED</p>
+              <h1 class="em-title">Five seats. One terminal away from <em>shipping.</em></h1>
+              <p class="em-body">Hi <b>Mariana</b> — your Business tier seat is live as of 09:13 UTC. Carlos is in your Slack channel right now. Below is everything you need for the next hour.</p>
+
+              <table class="em-metrics" cellpadding="0" cellspacing="0" border="0" role="presentation">
+                <tr>
+                  <td style="width:33%"><span class="em-met-l">Workers in pool</span><span class="em-met-v">300</span></td>
+                  <td style="width:33%;padding-left:8px"><span class="em-met-l">Models routed</span><span class="em-met-v">47</span></td>
+                  <td style="width:33%;padding-left:8px"><span class="em-met-l">Memory horizon</span><span class="em-met-v">4<span class="u">yr</span></span></td>
+                </tr>
+              </table>
+
+              <div class="em-term">
+                <span class="cm"># install on any seat · macOS · Linux</span><br/>
+                <span class="pr">$</span> curl -fsSL <span style="color:#cfb98a">https://sypnose.cloud/install</span> | bash<br/>
+                <span class="pr">$</span> sypnose auth login --org acme<br/>
+                <span class="ok">✓</span> 5 seats · console.sypnose.cloud/acme
+              </div>
+
+              <p style="margin:18px 0 22px">
+                <a href="#" class="em-btn">Open the console →</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="#" class="em-btn-secondary">▌ JOIN SLACK</a>
+              </p>
+
+              <p class="em-body" style="font-size:13px;color:var(--slate-3)">No proof, no done — that's our rule. Look for the 93% first-pass review badge on your dashboard before you brag.</p>
+            </td></tr>
+
+            <tr><td class="em-foot">
+              <span class="bm">▌ SYPNOSE · MITHOS</span>
+              SYPNOSE.CLOUD &nbsp;·&nbsp; <a href="#">unsubscribe transactional</a> &nbsp;·&nbsp; HUYGHU SRL · Puerto Plata, DR &nbsp;·&nbsp; You're getting this because you activated a paid seat.
+            </td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- ============================ QUOTA80 ============================ -->
+      <article class="mail-card">
+        <span class="mail-label">7.2 · QUOTA 80% · WORKERS</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">FROM: alerts@sypnose.cloud · 14:22</span></div>
+        <div class="email-frame">
+          <table class="em-table" cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-left-color:var(--warning)">
+            <tr><td class="em-pad">
+              <div class="em-mark">
+                <svg viewBox="0 0 200 200" width="36" height="36"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg>
+                <div><div class="name">sypnose</div><div class="tag" style="color:var(--warning)">▌ WORKER POOL · ALERT</div></div>
+              </div>
+
+              <p class="em-eyebrow" style="color:var(--warning)">▌ QUOTA · 80% USED · 13 MIN AGO</p>
+              <h1 class="em-title">Worker pool is<br/><em style="color:var(--warning)">at the edge.</em></h1>
+              <p class="em-body">Your team has used <b>240 of 300</b> parallel workers in the last hour. Not blocking yet — but the next overnight run will queue if no headroom opens.</p>
+
+              <div class="em-alert">
+                <b>▌ WARNING · 80% UTILIZATION</b>
+                Spike started at 13:47 UTC. Largest contributor: <code style="font-family:'JetBrains Mono'">project=stratos · task=backfill-trades</code> with 142 concurrent workers.
+              </div>
+
+              <table class="em-metrics" cellpadding="0" cellspacing="0" border="0" role="presentation">
+                <tr>
+                  <td><span class="em-met-l">Used now</span><span class="em-met-v">240</span></td>
+                  <td style="padding-left:8px"><span class="em-met-l">Available</span><span class="em-met-v" style="color:var(--warning)">60</span></td>
+                  <td style="padding-left:8px"><span class="em-met-l">Cooldown ETA</span><span class="em-met-v">22<span class="u">min</span></span></td>
+                </tr>
+              </table>
+
+              <p style="margin:18px 0 22px">
+                <a href="#" class="em-btn">Open worker map →</a>
+                &nbsp;&nbsp;
+                <a href="#" class="em-btn-secondary">▌ THROTTLE PROJECT</a>
+              </p>
+
+              <p class="em-body" style="font-size:13px;color:var(--slate-3)">You will get a second alert at 95% and a hard email at 100%. Sypnose never auto-suspends a project without your approval.</p>
+            </td></tr>
+            <tr><td class="em-foot"><span class="bm">▌ ALERTS · WORKER POOL</span>SYPNOSE.CLOUD &nbsp;·&nbsp; <a href="#">alert preferences</a> &nbsp;·&nbsp; Sent because your org enabled 80%-threshold alerts.</td></tr>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ BUILD FAILED + POC BOOKED ============================ -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 07.B &nbsp;·&nbsp; <b>03 · BUILD FAILED &nbsp;·&nbsp; 04 · POC BOOKED</b></div>
+      <div>
+        <h2 class="section-title">When workers exit. When prospects book.</h2>
+        <p class="section-desc">The fail-state mail leads with the exit code, then the actual stderr. The POC mail confirms the slot and pre-loads the agenda.</p>
+      </div>
+    </header>
+
+    <div class="mail-row">
+      <!-- BUILD FAILED -->
+      <article class="mail-card">
+        <span class="mail-label">7.3 · BUILD FAILED</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">FROM: alerts@sypnose.cloud · 03:14</span></div>
+        <div class="email-frame">
+          <table class="em-table" cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-left-color:var(--danger)">
+            <tr><td class="em-pad">
+              <div class="em-mark">
+                <svg viewBox="0 0 200 200" width="36" height="36"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg>
+                <div><div class="name">sypnose</div><div class="tag" style="color:var(--danger)">▌ BUILD · EXIT 1</div></div>
+              </div>
+
+              <p class="em-eyebrow" style="color:var(--danger)">▌ BUILD #2,481 · FAILED · 03:11 UTC</p>
+              <h1 class="em-title">Worker exit. The Iron Rule held.</h1>
+              <p class="em-body">Build <b>#2,481</b> on project <b>gestoria-rd</b> failed at the reviewer stage. No PR was merged — the test suite caught a regression in <code style="font-family:'JetBrains Mono'">invoice.normalize()</code>.</p>
+
+              <div class="em-alert danger">
+                <b>▌ EXIT · 1 · REVIEWER · UNIT TEST FAIL</b>
+                3 of 218 unit tests failed. Reviewer refused to mark task done. No proof, no done.
+              </div>
+
+              <div class="em-term">
+                <span class="cm"># sypnose build #2481 · gestoria-rd</span><br/>
+                <span class="ok">✓</span> 23 tasks · 142 workers spawned<br/>
+                <span class="ok">✓</span> 22 tasks · merged · green<br/>
+                <span class="er">✕</span> 01 task · invoice-normalize · <span class="wn">3 unit tests failed</span><br/>
+                <span class="cm">  · test_round_half_even · expected 14.50 got 14.49</span><br/>
+                <span class="cm">  · test_currency_doop  · expected DOP got USD</span><br/>
+                <span class="cm">  · test_null_vat       · expected raise got null</span><br/>
+                <span class="er">✕</span> reviewer.exit_code = 1 · build aborted
+              </div>
+
+              <p style="margin:18px 0 22px">
+                <a href="#" class="em-btn">Open the worker log →</a>
+                &nbsp;&nbsp;
+                <a href="#" class="em-btn-secondary">▌ RERUN BUILD</a>
+              </p>
+
+              <p class="em-body" style="font-size:13px;color:var(--slate-3)">Build #2,481 cost $0.00 — 95% of its workers ran on free tiers, and the failure was caught before any paid step. Reviewer logged the run in memory; next attempt starts smarter.</p>
+            </td></tr>
+            <tr><td class="em-foot"><span class="bm">▌ BUILDS · gestoria-rd</span>SYPNOSE.CLOUD &nbsp;·&nbsp; <a href="#">view build</a> &nbsp;·&nbsp; You receive build-failure mails because you're an Architect on this project.</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- POC BOOKED -->
+      <article class="mail-card">
+        <span class="mail-label">7.4 · POC BOOKED</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">FROM: hello@sypnose.cloud · 11:47</span></div>
+        <div class="email-frame">
+          <table class="em-table" cellpadding="0" cellspacing="0" border="0" role="presentation">
+            <tr><td class="em-pad">
+              <div class="em-mark">
+                <svg viewBox="0 0 200 200" width="36" height="36"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg>
+                <div><div class="name">sypnose</div><div class="tag">▌ POC · CONFIRMED</div></div>
+              </div>
+
+              <p class="em-eyebrow">▌ 6H POC · LOCKED IN</p>
+              <h1 class="em-title">See you Friday.<br/><em>One feature. One day.</em></h1>
+              <p class="em-body">Hi <b>Daniel</b> — your 6-hour POC slot is confirmed. We'll pick up the feature you sent (<i>invoice OCR with VAT extraction</i>) and ship it end-to-end on Sypnose. You keep the PR — no obligation after.</p>
+
+              <div class="em-calendar">
+                <div class="date"><div class="m">MAY</div><div class="d">22</div></div>
+                <div class="info">
+                  <div class="t">Friday · 09:00 → 15:00 UTC-4</div>
+                  <div class="s">Carlos De La Torre · Architect · Slack: #poc-acme</div>
+                </div>
+              </div>
+
+              <div class="em-alert success">
+                <b>▌ HOUR-BY-HOUR · WHAT TO EXPECT</b>
+                09:00 kickoff · 10:00 architect drafts plan · 11:30 first worker swarm · 13:30 reviewer pass · 14:30 walk-through · 15:00 PR handed to you.
+              </div>
+
+              <p style="margin:18px 0 22px">
+                <a href="#" class="em-btn">Add to calendar →</a>
+                &nbsp;&nbsp;
+                <a href="#" class="em-btn-secondary">▌ RESCHEDULE</a>
+              </p>
+
+              <p class="em-body" style="font-size:13px;color:var(--slate-3)">Bring read access to the repo and one test suite we can target. Everything else is on us. <b>No proof, no done</b> — by 15:00 you'll either have a green PR or a clear written reason why not.</p>
+            </td></tr>
+            <tr><td class="em-foot"><span class="bm">▌ POC · ACME · MAY 22</span>SYPNOSE.CLOUD &nbsp;·&nbsp; Calendar: <a href="#">.ics</a> &nbsp;·&nbsp; This is a transactional booking confirmation — not promotional.</td></tr>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ INVOICE + DIGEST ============================ -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 07.C &nbsp;·&nbsp; <b>05 · INVOICE &nbsp;·&nbsp; 06 · WEEKLY DIGEST</b></div>
+      <div>
+        <h2 class="section-title">Billing &amp; the Monday morning recap.</h2>
+        <p class="section-desc">The Stripe invoice mail keeps line items short — what you signed is what you pay. The weekly digest shows the seven-day shape of your worker pool with one terra cotta peak day.</p>
+      </div>
+    </header>
+
+    <div class="mail-row">
+      <!-- INVOICE -->
+      <article class="mail-card">
+        <span class="mail-label">7.5 · INVOICE DUE</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">FROM: billing@sypnose.cloud · 08:00</span></div>
+        <div class="email-frame">
+          <table class="em-table" cellpadding="0" cellspacing="0" border="0" role="presentation">
+            <tr><td class="em-pad">
+              <div class="em-mark">
+                <svg viewBox="0 0 200 200" width="36" height="36"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg>
+                <div><div class="name">sypnose</div><div class="tag">▌ INVOICE · MAY 2026</div></div>
+              </div>
+
+              <p class="em-eyebrow">▌ INV-2026-0512-ACME · DUE IN 7 DAYS</p>
+              <h1 class="em-title">Invoice <em>2026-0512.</em></h1>
+              <p class="em-body">Hi <b>Mariana</b> — your May 2026 subscription is ready. Auto-charge to the card on file (<code style="font-family:'JetBrains Mono'">visa ··4242</code>) will run on <b>19 May</b>. Pay early any time below.</p>
+
+              <table class="em-invoice" cellpadding="0" cellspacing="0" border="0" role="presentation">
+                <tr><td>Business tier · 5 seats · monthly</td><td>$2,400.00</td></tr>
+                <tr><td>Add-on seat #6 · pro-rated</td><td>$240.00</td></tr>
+                <tr><td>Overnight queue · capacity bump · 1 pool</td><td>$180.00</td></tr>
+                <tr class="total"><td>Total due · USD</td><td>$2,820.00</td></tr>
+              </table>
+
+              <table class="em-metrics" cellpadding="0" cellspacing="0" border="0" role="presentation">
+                <tr>
+                  <td><span class="em-met-l">Tasks closed</span><span class="em-met-v">1,247</span></td>
+                  <td style="padding-left:8px"><span class="em-met-l">Free-tier compute</span><span class="em-met-v">95<span class="u">%</span></span></td>
+                  <td style="padding-left:8px"><span class="em-met-l">First-pass PRs</span><span class="em-met-v">93<span class="u">%</span></span></td>
+                </tr>
+              </table>
+
+              <p style="margin:18px 0 22px">
+                <a href="#" class="em-btn">Pay invoice →</a>
+                &nbsp;&nbsp;
+                <a href="#" class="em-btn-secondary">▌ DOWNLOAD PDF</a>
+              </p>
+
+              <p class="em-body" style="font-size:13px;color:var(--slate-3)">Questions about a line item? Reply to this email — billing@sypnose.cloud goes to Carlos and Maria, not a ticket system.</p>
+            </td></tr>
+            <tr><td class="em-foot"><span class="bm">▌ BILLING · HUYGHU SRL</span>HUYGHU SRL · Puerto Plata · DR · RNC 1-30-12345-6 &nbsp;·&nbsp; Stripe receipt #ch_3OXp...4242 &nbsp;·&nbsp; <a href="#">tax docs</a></td></tr>
+          </table>
+        </div>
+      </article>
+
+      <!-- WEEKLY DIGEST -->
+      <article class="mail-card">
+        <span class="mail-label">7.6 · WEEKLY DIGEST</span>
+        <div class="mail-chrome"><div class="traffic"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="mail-meta">FROM: digest@sypnose.cloud · MON 09:00</span></div>
+        <div class="email-frame">
+          <table class="em-table" cellpadding="0" cellspacing="0" border="0" role="presentation">
+            <tr><td class="em-pad">
+              <div class="em-mark">
+                <svg viewBox="0 0 200 200" width="36" height="36"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg>
+                <div><div class="name">sypnose</div><div class="tag">▌ WEEKLY DIGEST · W19</div></div>
+              </div>
+
+              <p class="em-eyebrow">▌ ACME · MAY 5 → 12 · 7 DAYS</p>
+              <h1 class="em-title">Last week, in numbers.</h1>
+              <p class="em-body">Hi <b>Mariana</b> — a quick five-line recap of the week. Wednesday was your peak: 312 tasks closed, 0 errors, 9 overnight agents running simultaneously.</p>
+
+              <div class="digest-grid">
+                <div class="day">MON<b>184</b></div>
+                <div class="day">TUE<b>210</b></div>
+                <div class="day peak">WED<b>312</b></div>
+                <div class="day">THU<b>241</b></div>
+                <div class="day">FRI<b>198</b></div>
+                <div class="day">SAT<b>112</b></div>
+                <div class="day">SUN<b>74</b></div>
+              </div>
+
+              <table class="em-metrics" cellpadding="0" cellspacing="0" border="0" role="presentation">
+                <tr>
+                  <td><span class="em-met-l">Tasks closed</span><span class="em-met-v">1,331</span></td>
+                  <td style="padding-left:8px"><span class="em-met-l">Errors</span><span class="em-met-v" style="color:var(--success)">0</span></td>
+                  <td style="padding-left:8px"><span class="em-met-l">Tokens spent</span><span class="em-met-v">2.4<span class="u">M</span></span></td>
+                </tr>
+              </table>
+
+              <div class="em-alert success">
+                <b>▌ NOTABLE · WED 03:00 OVERNIGHT</b>
+                9 agents · 312 tasks · 0 errors · 6h 22m. Largest overnight run on your account since signup.
+              </div>
+
+              <p style="margin:18px 0 22px">
+                <a href="#" class="em-btn">Open Grafana →</a>
+                &nbsp;&nbsp;
+                <a href="#" class="em-btn-secondary">▌ EXPORT CSV</a>
+              </p>
+
+              <p class="em-body" style="font-size:13px;color:var(--slate-3)">Want this delivered to Slack instead of email? Reply DIGEST→SLACK and Carlos will flip the toggle.</p>
+            </td></tr>
+            <tr><td class="em-foot"><span class="bm">▌ DIGEST · WEEKLY · MON 09:00 UTC</span>SYPNOSE.CLOUD &nbsp;·&nbsp; <a href="#">digest preferences</a> &nbsp;·&nbsp; Sent Monday mornings — never on Friday afternoons.</td></tr>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div>SYPNOSE © 2026 · Identity v1.0 · Block 07</div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#da7756"></i>#DA7756</span>
+      <span class="sw"><i style="background:#eeece2"></i>#EEECE2</span>
+      <span class="sw"><i style="background:#3d3929"></i>#3D3929</span>
+    </div>
+    <div>Next ▸ Block 08 — Social Templates</div>
+  </footer>
+</main>
+</body>
+</html>

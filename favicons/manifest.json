@@ -1,0 +1,71 @@
+{
+  "name": "Sypnose Mithos",
+  "short_name": "Sypnose",
+  "description": "One command. An entire AI organization. 300 parallel workers, 4-year memory, model-agnostic.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#3d3929",
+  "background_color": "#eeece2",
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicons/favicon-16x16.svg",
+      "sizes": "16x16",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicons/favicon-32x32.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicons/favicon-48x48.svg",
+      "sizes": "48x48",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicons/apple-touch-icon-180x180.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicons/android-chrome-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicons/android-chrome-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicons/maskable-icon-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": [
+    "productivity",
+    "developer-tools",
+    "business"
+  ],
+  "shortcuts": [
+    {
+      "name": "Run Sypnose CLI",
+      "short_name": "CLI",
+      "url": "/cli",
+      "description": "Launch the agent in your terminal"
+    },
+    {
+      "name": "Book 6h POC",
+      "short_name": "POC",
+      "url": "/poc",
+      "description": "Free 6-hour proof of concept"
+    }
+  ]
+}

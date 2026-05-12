@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose Mithos — Pitch Deck</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/json" id="speaker-notes">
+[
+"Welcome. I'm Carlos De La Torre, Architect of Sypnose. In the next twelve minutes I'm going to show you a product that is not a chatbot, not an autocomplete, not another wrapper. Sypnose Mithos is an operating layer for AI workers. One command in your terminal — and an entire engineering organization gets to work. I will not promise anything I can't put a number against. That is our Iron Rule, and you'll see it on every slide.",
+"The bottleneck is not creativity. The bottleneck is hands. A typical product team takes three to twelve weeks to ship one mid-size feature: scoping, branching, coding, reviewing, testing, deploying, monitoring. Each step waits on a human. Each handoff loses context. Each retrospective concludes the same thing — we need more engineers. You can't hire your way out of this anymore. You need an army that runs in parallel and never forgets.",
+"Sypnose Mithos is that army. One command — sypnose build feature.md — fans out into up to 300 parallel workers: an architect, four engineers, a reviewer, a researcher, a memory keeper. They communicate at 741 milliseconds agent-to-agent latency. They are model-agnostic — Claude, GPT, Gemini, Mistral — routed across 47 models. They remember everything for four years. And they only finish a task when tests pass. Not when it looks done. When it is proven done.",
+"This is the five-step pipeline. The Gateway receives your natural-language command. The Architect breaks it into a dependency graph. Up to 300 Workers — across 47 models — execute in parallel. The Reviewer scores every PR against the spec and the tests. The Memory layer indexes the result so the next command starts smarter than this one. 93% of PRs pass review on the first attempt. The other 7% are routed back automatically.",
+"The Iron Rule. No proof, no done. Every Sypnose worker must produce a passing test before it can mark a task complete. Vibes do not ship. Promises do not ship. Green tests ship. This is enforced in the orchestrator, not in a code review process — it is impossible to bypass. This is also why we will not tell you something works on this stage unless we have the metric to back it.",
+"The metrics, live, as of this morning. 300 workers in the maximum parallel pool. 47 models routed dynamically by cost and capability. 741 milliseconds end-to-end agent-to-agent latency. 93% first-pass review rate. 95% of our compute is free — we exploit free tiers across 11 providers before touching paid ones. Four-year memory horizon. 1,708 knowledge entries indexed. 43 active projects. These numbers are checked into Grafana. We will show them on a call.",
+"Five products in production, not in pitch decks. GestoriaRD: 314 paying clients managing tax filings in the Dominican Republic. FacturaIA, an invoice OCR service. Three more under HUYGHU & Asociados. Together they run on a single VPS. Every line of business logic was written by Sypnose workers — and every line was reviewed by a Sypnose reviewer before merge. We use what we sell.",
+"Internal case one. HUYGHU & Asociados is a Dominican tax firm. We built their entire brand identity — logo system, favicons, signatures, business cards, a 22-page brand book, a 15-slide deck, email templates, social templates — in six hours. Same standard you're seeing right now. One engineer at the terminal. Six hours later: a finished bundle, MIT licensed, deployed.",
+"Internal case two. Stratos is a trading dashboard built on Sypnose in 27 hours of wall-clock. Real-time risk panel, six order types, paper-trading sandbox, full E2E test suite, deployed behind Cloudflare Access. A traditional team estimate for the same scope was eight weeks. Not because traditional teams are slow — because Sypnose runs 300 things at once.",
+"The stack underneath. Claude Code as the primary worker shell — 512,000 lines of which we audited line by line. Gemini through Google Vertex for cheap parallel runs. MCP servers for tool access. Cloudflare Access for zero-trust auth. Postgres + pgvector for memory. Redis for the task queue. It is boring. It is unsexy. It is the part you want to be boring.",
+"Three tiers. Free for builders bringing their own keys. Business for teams of five seats at $2,400 a month — managed infrastructure, hosted memory, all 47 models routed for you. Enterprise for teams that want it in their VPC with a SOC 2 paper trail. No hidden seats, no per-token surcharges, no consumption alarms — what you sign is what you pay.",
+"The Free tier. Zero dollars. You bring API keys for Claude, GPT, or Gemini. You install with one curl command. You get 300 workers, the full memory layer, every CLI command in the paid tier. The only thing you don't get is our compute pool and our SLA. Use it as long as you want. It is MIT licensed. It is on github.com/sypnose-cloud.",
+"The Business tier. $2,400 a month, five seats, managed. You get our compute pool, our 95% free-compute routing, our hosted memory, our Grafana dashboards, our overnight build queue, and a Slack channel with the team. We have run nine agents overnight closing 312 tasks with zero errors. That is the ceiling we aim to give every Business customer.",
+"The Enterprise tier. Annual contract. We deploy Sypnose in your VPC. SOC 2 paper trail. SSO, audit logging, IP allowlisting, your choice of model providers, your retention policy on the memory layer. We don't quote a list price — we quote per-deployment. The customers on this tier are not buying software, they are buying an extra team that runs at night.",
+"That's it. One command. Entire AI organization. If you want to see your own backlog run through Sypnose, book a six-hour POC — free. We pick one feature you've been postponing and we ship it on Sypnose end-to-end. Tests included. You keep the PR. hello@sypnose.cloud. Thank you."
+]
+</script>
+<style>
+  :root{
+    --terra:#da7756;--terra-deep:#b85f3f;--terra-soft:#e89a7d;
+    --cream:#eeece2;--cream-2:#e6e2d2;--cream-3:#dcd7c4;
+    --slate:#3d3929;--slate-2:#5a5443;--slate-3:#8a8472;--slate-4:#2a261b;
+    --rule:rgba(61,57,41,.14);--rule-strong:rgba(61,57,41,.28);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#0c0a06;color:var(--slate);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  deck-stage{display:block;width:100vw;height:100vh}
+
+  /* every slide = 1920 × 1080 absolute canvas */
+  .slide{
+    width:1920px;height:1080px;position:relative;overflow:hidden;
+    font-family:'DM Sans',sans-serif;
+    color:var(--slate);background:var(--cream);
+  }
+  .slide.dark{background:var(--slate);color:var(--cream)}
+  .slide.terra{background:var(--terra);color:var(--slate)}
+
+  /* shared chrome */
+  .chrome{
+    position:absolute;left:80px;right:80px;top:48px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:.18em;
+    color:rgba(61,57,41,.45);text-transform:uppercase;
+  }
+  .slide.dark .chrome{color:rgba(238,236,226,.4)}
+  .slide.terra .chrome{color:rgba(61,57,41,.55)}
+  .chrome .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--terra);margin-right:12px;vertical-align:middle}
+
+  .footer{
+    position:absolute;left:80px;right:80px;bottom:48px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:.18em;
+    color:rgba(61,57,41,.4);text-transform:uppercase;
+  }
+  .slide.dark .footer{color:rgba(238,236,226,.35)}
+  .slide.terra .footer{color:rgba(61,57,41,.55)}
+
+  /* wordmark / logo mini */
+  .wm-mini{display:flex;align-items:center;gap:14px}
+  .wm-mini svg{width:32px;height:32px}
+  .wm-mini .name{font-family:'Poppins';font-weight:700;font-size:22px;letter-spacing:-0.5px;color:inherit;text-transform:none}
+
+  /* type scale */
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--terra-deep);margin:0 0 28px;
+  }
+  .slide.dark .eyebrow{color:var(--terra)}
+  .h-display{
+    font-family:'Poppins',sans-serif;font-weight:700;
+    font-size:180px;line-height:.92;letter-spacing:-0.045em;
+    margin:0 0 32px;color:inherit;
+  }
+  .h-1{font-family:'Poppins',sans-serif;font-weight:700;font-size:120px;line-height:.96;letter-spacing:-0.04em;margin:0 0 28px}
+  .h-2{font-family:'Poppins',sans-serif;font-weight:600;font-size:84px;line-height:1.0;letter-spacing:-0.03em;margin:0 0 24px}
+  .h-3{font-family:'Poppins',sans-serif;font-weight:600;font-size:48px;line-height:1.05;letter-spacing:-0.015em;margin:0 0 16px}
+  .lede{font-family:'Lora',serif;font-style:italic;font-weight:400;font-size:42px;line-height:1.32;color:rgba(61,57,41,.7);margin:0;max-width:1500px}
+  .slide.dark .lede{color:rgba(238,236,226,.7)}
+  .slide.terra .lede{color:rgba(61,57,41,.75)}
+  .body{font-family:'DM Sans',sans-serif;font-size:26px;line-height:1.55;color:rgba(61,57,41,.78);max-width:880px}
+  .slide.dark .body{color:rgba(238,236,226,.72)}
+
+  /* small caps mono */
+  .mono-tag{font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:.22em;color:var(--terra);text-transform:uppercase}
+  .slide.dark .mono-tag{color:var(--terra)}
+
+  /* helper layout */
+  .stage{position:absolute;left:120px;right:120px;top:160px;bottom:160px}
+  .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+
+  /* ============================ S01 cover ============================ */
+  .cover-bg{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 1400px 700px at 20% 110%, rgba(218,119,86,.18), transparent 60%),
+      radial-gradient(ellipse 1100px 600px at 90% -10%, rgba(218,119,86,.12), transparent 55%),
+      var(--slate);
+  }
+  .cover-grid{
+    position:absolute;inset:0;opacity:0.06;
+    background-image:linear-gradient(rgba(238,236,226,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(238,236,226,.5) 1px,transparent 1px);
+    background-size:80px 80px;
+  }
+  .s01 .word{font-family:'Poppins';font-weight:800;font-size:300px;line-height:.86;letter-spacing:-0.055em;color:var(--cream);margin:0}
+  .s01 .word em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--terra)}
+
+  /* ============================ S02 problem ============================ */
+  .s02 .wait-line{
+    display:flex;align-items:center;gap:32px;padding:30px 0;border-bottom:1px solid var(--rule);
+  }
+  .s02 .wait-line:last-of-type{border-bottom:none}
+  .s02 .wait-line .step{
+    font-family:'Poppins';font-weight:600;font-size:36px;color:var(--slate);width:340px;letter-spacing:-0.01em;
+  }
+  .s02 .wait-line .bar{flex:1;height:14px;background:var(--cream-3);border-radius:3px;position:relative;overflow:hidden}
+  .s02 .wait-line .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--slate);border-radius:3px}
+  .s02 .wait-line .bar i.terra{background:var(--terra)}
+  .s02 .wait-line .days{font-family:'JetBrains Mono';font-size:22px;color:var(--terra-deep);font-weight:600;width:180px;text-align:right}
+
+  /* ============================ S03 solution ============================ */
+  .terminal{
+    background:var(--slate-4);border-radius:12px;padding:32px 40px 40px;
+    font-family:'JetBrains Mono',monospace;color:var(--cream);
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.5);
+    border:1px solid rgba(238,236,226,.08);
+  }
+  .terminal .bar{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid rgba(238,236,226,.08)}
+  .terminal .bar i{width:14px;height:14px;border-radius:50%;display:inline-block}
+  .terminal .bar i.r{background:#ff5f57}.terminal .bar i.y{background:#febc2e}.terminal .bar i.g{background:#28c840}
+  .terminal .bar .title{margin-left:auto;font-size:14px;color:#8a8472;letter-spacing:1.2px;text-transform:uppercase}
+  .terminal pre{margin:0;font-family:'JetBrains Mono';font-size:28px;line-height:1.55;white-space:pre-wrap}
+  .terminal .prompt{color:var(--terra)}
+  .terminal .comment{color:#7a7460;font-style:italic}
+  .terminal .ok{color:#a3c9aa}
+  .terminal .warn{color:#e8c068}
+  .terminal .key{color:#cfb98a}
+
+  /* ============================ S04 pipeline ============================ */
+  .pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;align-items:stretch;margin-top:40px}
+  .pipe-node{
+    background:var(--cream);border:2px solid var(--slate);border-radius:14px;padding:28px 24px;
+    display:flex;flex-direction:column;gap:14px;position:relative;
+  }
+  .pipe-node .step-no{font-family:'JetBrains Mono';font-size:16px;letter-spacing:2px;color:var(--terra-deep)}
+  .pipe-node h4{font-family:'Poppins';font-weight:700;font-size:34px;letter-spacing:-0.015em;margin:0;color:var(--slate)}
+  .pipe-node p{font-family:'DM Sans';font-size:18px;line-height:1.45;color:var(--slate-2);margin:0}
+  .pipe-node .metric{margin-top:auto;font-family:'JetBrains Mono';font-size:22px;color:var(--terra);letter-spacing:1px;font-weight:600}
+  .pipe-arrow{position:absolute;right:-22px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono';font-size:32px;color:var(--terra);z-index:2}
+  .pipe-node:last-child .pipe-arrow{display:none}
+
+  /* ============================ S05 iron rule ============================ */
+  .s05 .quote-block{max-width:1500px}
+  .s05 .quote-block .q{font-family:'Lora',serif;font-style:italic;font-weight:500;font-size:160px;line-height:1.0;color:var(--cream);letter-spacing:-0.03em;margin:0 0 40px}
+  .s05 .quote-block .q em{color:var(--terra);font-style:italic}
+  .s05 .quote-block .attr{font-family:'JetBrains Mono';font-size:22px;color:rgba(238,236,226,.5);letter-spacing:.18em;text-transform:uppercase}
+
+  /* ============================ S06 metrics ============================ */
+  .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:60px}
+  .m-card{background:var(--cream);border:1px solid var(--rule);border-radius:14px;padding:36px 32px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+  .m-card .label{font-family:'JetBrains Mono';font-size:16px;letter-spacing:.16em;color:var(--terra-deep);text-transform:uppercase}
+  .m-card .value{font-family:'Poppins';font-weight:700;font-size:96px;line-height:1;letter-spacing:-0.04em;color:var(--slate)}
+  .m-card .value .unit{font-size:36px;color:var(--terra);font-weight:600;margin-left:6px}
+  .m-card .desc{font-family:'DM Sans';font-size:18px;line-height:1.45;color:var(--slate-2);margin-top:auto}
+  .m-card.accent{background:var(--terra);color:var(--slate)}
+  .m-card.accent .label{color:var(--slate)}
+  .m-card.accent .desc{color:var(--slate-4)}
+  .m-card.accent .value .unit{color:var(--slate)}
+
+  /* ============================ S07 production ============================ */
+  .prod-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:24px;margin-top:48px}
+  .prod-card{background:var(--cream);border:1px solid var(--rule);border-radius:14px;padding:28px 24px;display:flex;flex-direction:column;gap:8px;min-height:280px}
+  .prod-card.hero{background:var(--slate);color:var(--cream);grid-row:span 1}
+  .prod-card .name{font-family:'Poppins';font-weight:700;font-size:36px;letter-spacing:-0.015em;color:var(--slate);margin:0}
+  .prod-card.hero .name{color:var(--cream);font-size:48px}
+  .prod-card .meta{font-family:'JetBrains Mono';font-size:14px;color:var(--terra-deep);letter-spacing:1.5px;text-transform:uppercase}
+  .prod-card.hero .meta{color:var(--terra)}
+  .prod-card .desc{font-family:'DM Sans';font-size:18px;line-height:1.45;color:var(--slate-2);margin-top:4px}
+  .prod-card.hero .desc{color:rgba(238,236,226,.7)}
+  .prod-card .stat{margin-top:auto;display:flex;align-items:baseline;gap:8px}
+  .prod-card .stat b{font-family:'Poppins';font-weight:700;font-size:54px;color:var(--terra);letter-spacing:-0.02em;line-height:1}
+  .prod-card.hero .stat b{color:var(--terra);font-size:80px}
+  .prod-card .stat span{font-family:'JetBrains Mono';font-size:14px;color:var(--slate-3);letter-spacing:1.5px;text-transform:uppercase}
+
+  /* ============================ S08 / S09 case ============================ */
+  .case-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;margin-top:40px;align-items:start}
+  .case-grid .case-meta{font-family:'JetBrains Mono';font-size:20px;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-deep);margin-bottom:16px}
+  .case-grid .case-name{font-family:'Poppins';font-weight:700;font-size:96px;line-height:.96;letter-spacing:-0.035em;margin:0 0 28px}
+  .case-grid .case-line{font-family:'Lora';font-style:italic;font-size:34px;line-height:1.35;color:rgba(61,57,41,.7);margin-bottom:36px;max-width:680px}
+  .case-grid .case-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .case-stats .cs{background:var(--cream-2);border-radius:10px;padding:22px 24px}
+  .case-stats .cs .l{font-family:'JetBrains Mono';font-size:14px;letter-spacing:1.6px;color:var(--terra-deep);text-transform:uppercase}
+  .case-stats .cs .v{font-family:'Poppins';font-weight:700;font-size:64px;color:var(--slate);line-height:1;margin-top:4px;letter-spacing:-0.025em}
+  .case-stats .cs .v small{font-family:'Poppins';font-size:24px;color:var(--terra);font-weight:600}
+  .case-art{background:var(--slate);border-radius:18px;height:660px;position:relative;overflow:hidden;color:var(--cream)}
+  .case-art .corner-tag{position:absolute;top:24px;left:24px;font-family:'JetBrains Mono';font-size:14px;letter-spacing:.18em;color:var(--terra);text-transform:uppercase}
+  .case-art .filename{position:absolute;bottom:24px;left:24px;font-family:'JetBrains Mono';font-size:14px;color:rgba(238,236,226,.4);letter-spacing:1.5px}
+
+  /* ============================ S10 stack ============================ */
+  .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+  .stack-card{background:var(--cream);border:1px solid var(--rule);border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:14px}
+  .stack-card .layer{font-family:'JetBrains Mono';font-size:14px;letter-spacing:1.8px;color:var(--terra-deep);text-transform:uppercase}
+  .stack-card h4{font-family:'Poppins';font-weight:600;font-size:32px;margin:0;letter-spacing:-0.012em}
+  .stack-card .list{font-family:'DM Sans';font-size:20px;line-height:1.7;color:var(--slate-2)}
+  .stack-card .list b{font-family:'JetBrains Mono';font-weight:500;color:var(--slate);font-size:18px}
+
+  /* ============================ S11 pricing ============================ */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:60px}
+  .tier{background:var(--cream);border:2px solid var(--slate);border-radius:18px;padding:44px 36px;display:flex;flex-direction:column;gap:18px;position:relative}
+  .tier.best{background:var(--slate);color:var(--cream);transform:translateY(-30px)}
+  .tier.best .name,.tier.best .price-row,.tier.best .features li{color:var(--cream)}
+  .tier .label{font-family:'JetBrains Mono';font-size:14px;letter-spacing:.22em;color:var(--terra-deep);text-transform:uppercase}
+  .tier.best .label{color:var(--terra)}
+  .tier .name{font-family:'Poppins';font-weight:700;font-size:54px;color:var(--slate);letter-spacing:-0.025em;line-height:1;margin:0}
+  .tier .price-row{display:flex;align-items:baseline;gap:8px}
+  .tier .price{font-family:'Poppins';font-weight:700;font-size:80px;color:var(--slate);letter-spacing:-0.03em;line-height:1}
+  .tier .per{font-family:'JetBrains Mono';font-size:16px;letter-spacing:1.5px;color:var(--slate-3);text-transform:uppercase}
+  .tier.best .price{color:var(--terra)}
+  .tier.best .per{color:rgba(238,236,226,.5)}
+  .tier .features{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+  .tier .features li{font-family:'DM Sans';font-size:20px;line-height:1.4;color:var(--slate-2);display:flex;gap:14px;align-items:flex-start}
+  .tier .features li:before{content:"▸";font-family:'JetBrains Mono';color:var(--terra);font-weight:700;flex-shrink:0}
+  .tier .ribbon{position:absolute;top:-18px;right:36px;background:var(--terra);color:var(--slate);font-family:'JetBrains Mono';font-size:14px;letter-spacing:2px;padding:8px 14px;border-radius:4px;text-transform:uppercase;font-weight:600}
+
+  /* ============================ S12-14 detail tiers ============================ */
+  .detail-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;margin-top:40px;align-items:start}
+  .feat-list{display:flex;flex-direction:column;gap:24px;margin-top:32px}
+  .feat-list .feat{display:grid;grid-template-columns:50px 1fr;gap:24px;align-items:start}
+  .feat-list .feat .num{font-family:'JetBrains Mono';font-size:22px;color:var(--terra-deep);font-weight:600}
+  .feat-list .feat h5{font-family:'Poppins';font-weight:600;font-size:28px;margin:0 0 4px;letter-spacing:-0.012em}
+  .feat-list .feat p{font-family:'DM Sans';font-size:20px;line-height:1.5;color:var(--slate-2);margin:0}
+  .slide.dark .feat-list .feat p{color:rgba(238,236,226,.7)}
+  .price-card{background:var(--cream);border:2px solid var(--slate);border-radius:18px;padding:48px 44px;position:sticky;top:0}
+  .slide.dark .price-card{background:var(--slate-4);border-color:var(--terra)}
+  .price-card .pl{font-family:'JetBrains Mono';font-size:16px;letter-spacing:2px;color:var(--terra-deep);text-transform:uppercase}
+  .slide.dark .price-card .pl{color:var(--terra)}
+  .price-card .pp{font-family:'Poppins';font-weight:700;font-size:140px;color:var(--slate);letter-spacing:-0.04em;line-height:.95;margin:14px 0}
+  .slide.dark .price-card .pp{color:var(--cream)}
+  .price-card .pn{font-family:'Poppins';font-size:36px;color:var(--slate);font-weight:600;letter-spacing:-0.015em;line-height:1.1;margin-bottom:14px}
+  .slide.dark .price-card .pn{color:var(--cream)}
+  .price-card .pd{font-family:'DM Sans';font-size:20px;line-height:1.5;color:var(--slate-2)}
+  .slide.dark .price-card .pd{color:rgba(238,236,226,.6)}
+  .price-card .ph{height:1px;background:rgba(61,57,41,.15);margin:24px 0}
+  .slide.dark .price-card .ph{background:rgba(238,236,226,.15)}
+
+  /* ============================ S15 contact ============================ */
+  .s15 .lockup{display:flex;align-items:center;gap:48px;margin-bottom:80px}
+  .s15 .lockup svg{width:140px;height:140px}
+  .s15 .lockup .tx{font-family:'Poppins';font-weight:700;font-size:120px;letter-spacing:-0.04em;color:var(--cream);line-height:.95}
+  .s15 .lockup .tx span{color:var(--terra)}
+  .s15 .lockup .mn{font-family:'Lora';font-style:italic;font-size:36px;color:rgba(238,236,226,.6);margin-top:8px;letter-spacing:0}
+  .s15 .cta{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;margin-top:40px}
+  .cta-card{background:var(--terra);color:var(--slate);padding:48px;border-radius:18px;display:flex;flex-direction:column;gap:18px}
+  .cta-card.dark{background:var(--cream);color:var(--slate)}
+  .cta-card .ll{font-family:'JetBrains Mono';font-size:18px;letter-spacing:.22em;text-transform:uppercase;color:var(--slate-4);opacity:0.7}
+  .cta-card .hh{font-family:'Poppins';font-weight:700;font-size:60px;letter-spacing:-0.025em;line-height:1;margin:0;color:var(--slate)}
+  .cta-card.dark .hh{color:var(--slate)}
+  .cta-card .dd{font-family:'DM Sans';font-size:22px;line-height:1.45;color:var(--slate-4);opacity:0.85}
+  .cta-card .bb{margin-top:auto;font-family:'JetBrains Mono';font-size:24px;letter-spacing:.16em;color:var(--slate-4);font-weight:600;border-top:1px solid rgba(61,57,41,.2);padding-top:18px}
+
+  /* logo lockups shared */
+  .logo-svg-sm{width:48px;height:48px}
+</style>
+</head>
+<body>
+
+<deck-stage data-width="1920" data-height="1080" data-bg="#0c0a06">
+
+  <!-- ================================ SLIDE 01 — COVER ================================ -->
+  <section class="slide dark s01" data-screen-label="01 Cover">
+    <div class="cover-bg"></div>
+    <div class="cover-grid"></div>
+    <div class="chrome">
+      <span><span class="dot"></span>SYPNOSE · MITHOS — PITCH DECK 2026</span>
+      <span>01 / 15 · CONFIDENTIAL</span>
+    </div>
+    <div style="position:absolute;left:120px;right:120px;top:280px;bottom:120px;display:flex;flex-direction:column;justify-content:space-between">
+      <div>
+        <p class="eyebrow" style="color:var(--terra);margin-bottom:48px">▌ ONE COMMAND. ENTIRE AI ORGANIZATION.</p>
+        <h1 class="word">sypnose<br/><em>mithos.</em></h1>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end">
+        <div>
+          <div class="mono-tag" style="margin-bottom:8px">▌ ARCHITECT</div>
+          <div style="font-family:'Poppins';font-weight:600;font-size:36px;color:var(--cream);letter-spacing:-0.015em">Carlos De La Torre</div>
+          <div style="font-family:'DM Sans';font-size:22px;color:rgba(238,236,226,.55);margin-top:4px">Puerto Plata, Dominican Republic · Live since Jan 2026</div>
+        </div>
+        <div style="text-align:right">
+          <div class="mono-tag" style="margin-bottom:8px">▌ CONTACT</div>
+          <div style="font-family:'JetBrains Mono';font-size:24px;color:var(--cream);letter-spacing:1px">hello@sypnose.cloud</div>
+          <div style="font-family:'JetBrains Mono';font-size:20px;color:rgba(238,236,226,.55);margin-top:4px">SYPNOSE.CLOUD</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================ SLIDE 02 — THE PROBLEM ================================ -->
+  <section class="slide" data-screen-label="02 Problem">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>02 / 15 · THE PROBLEM</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 02 — THE BOTTLENECK</p>
+      <h2 class="h-1">Engineering<br/>is a queue.</h2>
+      <p class="lede" style="margin-bottom:48px">A mid-size feature takes 8–12 weeks. Not because the code is hard — because every step waits on a human.</p>
+
+      <div class="s02">
+        <div class="wait-line"><span class="step">01 · Scoping</span><div class="bar"><i style="width:8%"></i></div><span class="days">~ 3 days</span></div>
+        <div class="wait-line"><span class="step">02 · Design review</span><div class="bar"><i style="width:14%"></i></div><span class="days">~ 5 days</span></div>
+        <div class="wait-line"><span class="step">03 · Implementation</span><div class="bar"><i class="terra" style="width:62%"></i></div><span class="days">~ 22 days</span></div>
+        <div class="wait-line"><span class="step">04 · PR review · QA</span><div class="bar"><i style="width:32%"></i></div><span class="days">~ 11 days</span></div>
+        <div class="wait-line"><span class="step">05 · Deploy · monitor</span><div class="bar"><i style="width:18%"></i></div><span class="days">~ 6 days</span></div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>SOURCE · DORA 2024 · STATE OF DEVOPS</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 03 — THE SOLUTION ================================ -->
+  <section class="slide dark" data-screen-label="03 Solution">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#eeece2"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name" style="color:var(--cream)">sypnose</span></span>
+      <span>03 / 15 · THE SOLUTION</span>
+    </div>
+
+    <div class="stage" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+      <div>
+        <p class="eyebrow">▌ § 03 — THE SOLUTION</p>
+        <h2 class="h-1" style="color:var(--cream)">One command.<br/>Three<br/>hundred <em style="font-family:Lora;font-style:italic;color:var(--terra);font-weight:500">workers.</em></h2>
+        <p class="lede" style="color:rgba(238,236,226,.65)">An entire AI organization spins up the moment you press enter. Architect, engineers, reviewer, researcher, memory keeper — all running in parallel, all routed across 47 models.</p>
+      </div>
+
+      <div class="terminal">
+        <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="title">~/sypnose · zsh</span></div>
+<pre><span class="prompt">$</span> sypnose build feature.md
+
+<span class="comment"># Architect dispatching plan...</span>
+<span class="ok">✓</span> 23 tasks · 7 dependency layers
+<span class="ok">✓</span> spawning 142 parallel workers
+
+  <span class="key">[ architect ]</span>     thinking · model: claude-opus
+  <span class="key">[ engineer-01 ]</span>   route: gpt-5 · cost: $0.00
+  <span class="key">[ engineer-02 ]</span>   route: gemini · cost: $0.00
+  <span class="key">[ engineer-03 ]</span>   route: mistral · cost: $0.00
+  <span class="key">[ reviewer ]</span>      idle · awaiting PR
+  <span class="key">[ memory ]</span>        1708 entries · 4-yr index
+  <span class="key">[ researcher ]</span>    47 models routed
+
+<span class="comment"># Iron rule active</span>
+<span class="warn">⚡</span> no proof → no done</pre>
+      </div>
+    </div>
+
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>$ curl -fsSL https://sypnose.cloud/install | bash</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 04 — PIPELINE ================================ -->
+  <section class="slide" data-screen-label="04 Pipeline">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>04 / 15 · THE PIPELINE</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 04 — FIVE-STEP PIPELINE</p>
+      <h2 class="h-1">Gateway. Architect. Workers. Reviewer. Memory.</h2>
+
+      <div class="pipe">
+        <div class="pipe-node"><span class="step-no">▌ 01</span><h4>Gateway</h4><p>Accepts your natural-language command. Routes intent. Loads project memory.</p><div class="metric">741 ms · A2A</div><span class="pipe-arrow">→</span></div>
+        <div class="pipe-node"><span class="step-no">▌ 02</span><h4>Architect</h4><p>Decomposes into a dependency graph. 23 tasks across 7 layers, on average.</p><div class="metric">7 layers · avg</div><span class="pipe-arrow">→</span></div>
+        <div class="pipe-node" style="background:var(--terra);border-color:var(--slate)"><span class="step-no" style="color:var(--slate)">▌ 03</span><h4>300 Workers</h4><p>Spawned in parallel. Routed across 47 models. 95% on free tiers.</p><div class="metric" style="color:var(--slate)">300 · 47 models</div><span class="pipe-arrow" style="color:var(--slate)">→</span></div>
+        <div class="pipe-node"><span class="step-no">▌ 04</span><h4>Reviewer</h4><p>Scores every PR against spec and tests. The Iron Rule lives here.</p><div class="metric">93% · 1st pass</div><span class="pipe-arrow">→</span></div>
+        <div class="pipe-node"><span class="step-no">▌ 05</span><h4>Memory</h4><p>Indexes the result. Next command starts smarter. Postgres + pgvector.</p><div class="metric">4-year · horizon</div></div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>ARCHITECTURE · NO MIDDLEWARE · NO MAGIC</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 05 — IRON RULE ================================ -->
+  <section class="slide dark s05" data-screen-label="05 Iron Rule">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#eeece2"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name" style="color:var(--cream)">sypnose</span></span>
+      <span>05 / 15 · THE IRON RULE</span>
+    </div>
+    <div class="stage" style="display:flex;flex-direction:column;justify-content:center">
+      <p class="eyebrow">▌ § 05 — THE IRON RULE</p>
+      <div class="quote-block">
+        <p class="q">“No proof,<br/><em>no done.”</em></p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1400px;margin-top:60px">
+          <p class="body" style="font-size:30px;color:rgba(238,236,226,.75);max-width:none">Every Sypnose worker must produce a passing test before it can mark a task complete. Vibes do not ship. Promises do not ship. Green tests ship.</p>
+          <p class="body" style="font-size:30px;color:rgba(238,236,226,.75);max-width:none">Enforced in the orchestrator, not in a code review process. Impossible to bypass — including by Carlos. Especially by Carlos.</p>
+        </div>
+        <div class="attr" style="margin-top:60px">▌ ENFORCED · ORCHESTRATOR LAYER · SINCE JAN 2026</div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>THE ONE RULE WE WILL NOT BREAK</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 06 — METRICS ================================ -->
+  <section class="slide" data-screen-label="06 Live Metrics">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>06 / 15 · LIVE METRICS</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 06 — LIVE METRICS · MAY 2026</p>
+      <h2 class="h-1">The numbers, in Grafana, this morning.</h2>
+
+      <div class="metric-grid">
+        <div class="m-card"><span class="label">Max parallel workers</span><div class="value">300</div><div class="desc">Architect + engineers + reviewer + researcher + memory keeper.</div></div>
+        <div class="m-card accent"><span class="label">Models routed</span><div class="value">47</div><div class="desc">Claude, GPT, Gemini, Mistral — by cost &amp; capability.</div></div>
+        <div class="m-card"><span class="label">Agent-to-agent latency</span><div class="value">741<span class="unit">ms</span></div><div class="desc">End-to-end, including memory hydration.</div></div>
+        <div class="m-card"><span class="label">First-pass review rate</span><div class="value">93<span class="unit">%</span></div><div class="desc">PRs that pass on the first reviewer attempt.</div></div>
+        <div class="m-card"><span class="label">Free-tier compute</span><div class="value">95<span class="unit">%</span></div><div class="desc">Across 11 providers. Paid only when needed.</div></div>
+        <div class="m-card"><span class="label">Memory horizon</span><div class="value">4<span class="unit">yr</span></div><div class="desc">Indexed at pgvector. Searchable. Auditable.</div></div>
+        <div class="m-card"><span class="label">Knowledge entries</span><div class="value">1.7<span class="unit">K</span></div><div class="desc">1,708 — checked into project memory.</div></div>
+        <div class="m-card"><span class="label">Active projects</span><div class="value">43</div><div class="desc">Internal + Business tier customers, May 2026.</div></div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>EVERY NUMBER IS LIVE · ASK FOR THE DASHBOARD</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 07 — PRODUCTION ================================ -->
+  <section class="slide" data-screen-label="07 Production">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>07 / 15 · IN PRODUCTION</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 07 — FIVE PRODUCTS IN PRODUCTION</p>
+      <h2 class="h-1">We use what<br/>we sell.</h2>
+
+      <div class="prod-grid">
+        <div class="prod-card hero">
+          <span class="meta">▌ FLAGSHIP · LIVE</span>
+          <h3 class="name">GestoriaRD</h3>
+          <p class="desc">Tax filing &amp; corporate compliance platform for Dominican SMEs. Built entirely by Sypnose workers, reviewed by Sypnose.</p>
+          <div class="stat"><b>314</b><span>paying clients</span></div>
+        </div>
+        <div class="prod-card">
+          <span class="meta">▌ LIVE</span>
+          <h3 class="name">FacturaIA</h3>
+          <p class="desc">Invoice OCR + ledger reconciliation. Postgres + pgvector under the hood.</p>
+          <div class="stat"><b>9.4K</b><span>invoices · month</span></div>
+        </div>
+        <div class="prod-card">
+          <span class="meta">▌ LIVE</span>
+          <h3 class="name">HUYGHU Portal</h3>
+          <p class="desc">Client portal for HUYGHU &amp; Asociados. Document vault, e-signing, audit log.</p>
+          <div class="stat"><b>6h</b><span>brand kit · built</span></div>
+        </div>
+        <div class="prod-card">
+          <span class="meta">▌ LIVE</span>
+          <h3 class="name">Stratos &amp; Mithos Console</h3>
+          <p class="desc">Trading dashboard + internal Sypnose console. Cloudflare Access in front.</p>
+          <div class="stat"><b>27h</b><span>wall-clock · ship</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>5 PRODUCTS · 1 VPS · ZERO OUTAGES MAY 2026</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 08 — CASE HUYGHU ================================ -->
+  <section class="slide" data-screen-label="08 Case · HUYGHU">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>08 / 15 · CASE · HUYGHU</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 08 — CASE STUDY · 01</p>
+      <div class="case-grid">
+        <div>
+          <div class="case-meta">▌ FULL BRAND IDENTITY · 6 HOURS</div>
+          <h2 class="case-name">HUYGHU &amp;<br/>Asociados.</h2>
+          <p class="case-line">A Dominican tax-advisory firm needed a complete identity bundle before a Monday board meeting. Friday night, one terminal.</p>
+          <div class="case-stats">
+            <div class="cs"><span class="l">▌ Wall-clock</span><div class="v">6<small>&nbsp;h</small></div></div>
+            <div class="cs"><span class="l">▌ Deliverables</span><div class="v">8<small>&nbsp;blocks</small></div></div>
+            <div class="cs"><span class="l">▌ Files shipped</span><div class="v">142</div></div>
+            <div class="cs"><span class="l">▌ Re-runs needed</span><div class="v">0</div></div>
+          </div>
+        </div>
+        <div class="case-art">
+          <span class="corner-tag">▌ HUYGHU · BUNDLE</span>
+          <!-- mock filetree -->
+          <div style="position:absolute;inset:80px 40px 80px 40px;font-family:'JetBrains Mono';font-size:18px;line-height:2;color:rgba(238,236,226,.75)">
+            <div style="color:var(--terra)">huyghu-identity/</div>
+            <div>├── <span style="color:var(--cream)">README.md</span></div>
+            <div>├── BRAND-PALETTE.md</div>
+            <div>├── assets/ <span style="color:rgba(238,236,226,.4)">— 12 SVG variants</span></div>
+            <div>├── favicons/ <span style="color:rgba(238,236,226,.4)">— 10 + manifest</span></div>
+            <div>├── signatures/ <span style="color:rgba(238,236,226,.4)">— 6 HTML</span></div>
+            <div>├── cards/ <span style="color:rgba(238,236,226,.4)">— vCard + PDF</span></div>
+            <div>├── deck/ <span style="color:rgba(238,236,226,.4)">— 15-slide PPTX</span></div>
+            <div>├── guidelines/ <span style="color:rgba(238,236,226,.4)">— 22pp printable</span></div>
+            <div>├── emails/ <span style="color:rgba(238,236,226,.4)">— 6 transactional</span></div>
+            <div>└── social/ <span style="color:rgba(238,236,226,.4)">— 36 SVG + PNG</span></div>
+            <div style="margin-top:24px;color:var(--terra)">▶ <span style="color:var(--cream)">sypnose build brand.md</span></div>
+            <div style="color:rgba(238,236,226,.5)"># exit 0 · 6h 04m 22s · 0 errors</div>
+          </div>
+          <span class="filename">/sypnose-runs/huyghu-brand.log</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>WHAT YOU'RE LOOKING AT WAS BUILT THE SAME WAY</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 09 — CASE STRATOS ================================ -->
+  <section class="slide" data-screen-label="09 Case · Stratos">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>09 / 15 · CASE · STRATOS</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 09 — CASE STUDY · 02</p>
+      <div class="case-grid">
+        <div>
+          <div class="case-meta">▌ TRADING PLATFORM · 27 HOURS</div>
+          <h2 class="case-name">Stratos<br/>Console.</h2>
+          <p class="case-line">A full trading dashboard — risk panel, six order types, paper-trading sandbox, E2E tests, deployed behind Cloudflare Access — shipped in 27 hours of wall-clock.</p>
+          <div class="case-stats">
+            <div class="cs"><span class="l">▌ Wall-clock</span><div class="v">27<small>&nbsp;h</small></div></div>
+            <div class="cs"><span class="l">▌ Order types</span><div class="v">6</div></div>
+            <div class="cs"><span class="l">▌ E2E tests</span><div class="v">218</div></div>
+            <div class="cs"><span class="l">▌ Reviewer fails</span><div class="v">0</div></div>
+          </div>
+        </div>
+        <div class="case-art" style="background:#1c1a14">
+          <span class="corner-tag">▌ STRATOS · CONSOLE</span>
+          <!-- mock trading chart -->
+          <svg viewBox="0 0 700 540" style="position:absolute;left:40px;top:80px;width:calc(100% - 80px);height:auto" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="strGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#da7756" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#da7756" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(238,236,226,.06)" stroke-width="1">
+              <line x1="0" y1="135" x2="700" y2="135"/><line x1="0" y1="270" x2="700" y2="270"/><line x1="0" y1="405" x2="700" y2="405"/>
+              <line x1="140" y1="0" x2="140" y2="540"/><line x1="280" y1="0" x2="280" y2="540"/><line x1="420" y1="0" x2="420" y2="540"/><line x1="560" y1="0" x2="560" y2="540"/>
+            </g>
+            <path d="M0 380 L60 340 L120 360 L180 300 L240 250 L300 280 L360 220 L420 180 L480 200 L540 160 L600 120 L700 90"
+                  stroke="#da7756" stroke-width="3" fill="none"/>
+            <path d="M0 380 L60 340 L120 360 L180 300 L240 250 L300 280 L360 220 L420 180 L480 200 L540 160 L600 120 L700 90 L700 540 L0 540 Z"
+                  fill="url(#strGrad)"/>
+            <!-- candles -->
+            <g fill="#eeece2">
+              <rect x="80" y="320" width="6" height="50" opacity="0.5"/>
+              <rect x="200" y="270" width="6" height="40" opacity="0.5"/>
+              <rect x="330" y="220" width="6" height="60" opacity="0.5"/>
+              <rect x="450" y="180" width="6" height="30" opacity="0.5"/>
+            </g>
+            <text x="600" y="80" font-family="JetBrains Mono" font-size="20" fill="#da7756" letter-spacing="2">+12.4%</text>
+            <text x="20" y="510" font-family="JetBrains Mono" font-size="14" fill="rgba(238,236,226,.4)" letter-spacing="1">ES1!</text>
+            <text x="640" y="510" font-family="JetBrains Mono" font-size="14" fill="rgba(238,236,226,.4)" letter-spacing="1">LIVE</text>
+          </svg>
+          <span class="filename">/sypnose-runs/stratos-deploy.log · exit 0</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>TRADITIONAL ESTIMATE · 8 WEEKS · DELIVERED · 27 H</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 10 — STACK ================================ -->
+  <section class="slide dark" data-screen-label="10 Stack">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#eeece2"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name" style="color:var(--cream)">sypnose</span></span>
+      <span>10 / 15 · TECH STACK</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 10 — THE STACK UNDERNEATH</p>
+      <h2 class="h-1" style="color:var(--cream)">Boring on purpose.</h2>
+      <p class="lede" style="color:rgba(238,236,226,.6);max-width:1300px">No proprietary protocols. No hand-rolled cryptography. Every layer is a thing your CTO has heard of and your security team has audited before.</p>
+
+      <div class="stack-grid">
+        <div class="stack-card" style="background:var(--slate-4);color:var(--cream);border-color:rgba(238,236,226,.08)">
+          <span class="layer">▌ ORCHESTRATION</span>
+          <h4 style="color:var(--cream)">Worker shell</h4>
+          <div class="list" style="color:rgba(238,236,226,.7)">
+            <b style="color:var(--terra)">claude-code</b> — 512K LOC audited<br/>
+            <b style="color:var(--terra)">gemini-vertex</b> — parallel cheap runs<br/>
+            <b style="color:var(--terra)">mcp-servers</b> — tool access layer<br/>
+            <b style="color:var(--terra)">cli-router</b> — 47 models, by cost
+          </div>
+        </div>
+        <div class="stack-card" style="background:var(--slate-4);color:var(--cream);border-color:rgba(238,236,226,.08)">
+          <span class="layer">▌ INFRASTRUCTURE</span>
+          <h4 style="color:var(--cream)">Cloud + edge</h4>
+          <div class="list" style="color:rgba(238,236,226,.7)">
+            <b style="color:var(--terra)">cloudflare-access</b> — zero-trust auth<br/>
+            <b style="color:var(--terra)">postgres + pgvector</b> — memory layer<br/>
+            <b style="color:var(--terra)">redis</b> — task queue<br/>
+            <b style="color:var(--terra)">1 vps</b> — yes, just one
+          </div>
+        </div>
+        <div class="stack-card" style="background:var(--terra);color:var(--slate);border-color:var(--terra)">
+          <span class="layer" style="color:var(--slate-4);opacity:0.7">▌ OBSERVABILITY</span>
+          <h4 style="color:var(--slate)">Proof, in real time</h4>
+          <div class="list" style="color:var(--slate)">
+            <b style="color:var(--slate-4)">grafana</b> — every metric on this deck<br/>
+            <b style="color:var(--slate-4)">loki</b> — full worker logs · 90 days<br/>
+            <b style="color:var(--slate-4)">tempo</b> — A2A traces · 741 ms<br/>
+            <b style="color:var(--slate-4)">prometheus</b> — alerts, no SaaS
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>BORING TECH IS THE POINT</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 11 — PRICING ================================ -->
+  <section class="slide" data-screen-label="11 Pricing">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>11 / 15 · PRICING</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 11 — THREE TIERS</p>
+      <h2 class="h-1">Free. Business. Enterprise.</h2>
+
+      <div class="tiers">
+        <div class="tier">
+          <span class="label">▌ TIER 01</span>
+          <h3 class="name">Free</h3>
+          <div class="price-row"><span class="price">$0</span><span class="per">/ forever · BYO keys</span></div>
+          <ul class="features">
+            <li>Up to 300 workers, your tokens</li>
+            <li>Full memory layer · 4-year</li>
+            <li>All 47 models · routed locally</li>
+            <li>MIT license · github.com/sypnose-cloud</li>
+            <li>Community Discord</li>
+          </ul>
+        </div>
+
+        <div class="tier best">
+          <span class="ribbon">★ Best fit</span>
+          <span class="label">▌ TIER 02</span>
+          <h3 class="name">Business</h3>
+          <div class="price-row"><span class="price">$2,400</span><span class="per">/ month · 5 seats</span></div>
+          <ul class="features">
+            <li>Our compute · 95% free-tier routed</li>
+            <li>Hosted memory + Grafana dashboards</li>
+            <li>Overnight build queue · 9 agents</li>
+            <li>Slack channel with the team</li>
+            <li>99.9% SLA · weekly digest</li>
+          </ul>
+        </div>
+
+        <div class="tier">
+          <span class="label">▌ TIER 03</span>
+          <h3 class="name">Enterprise</h3>
+          <div class="price-row"><span class="price">Custom</span><span class="per">/ annual · VPC</span></div>
+          <ul class="features">
+            <li>Deployed in your VPC</li>
+            <li>SOC 2 paper trail · SSO · audit</li>
+            <li>Your retention · your providers</li>
+            <li>Dedicated architect</li>
+            <li>White-glove POC · 6h free</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>NO HIDDEN SEATS · NO PER-TOKEN SURCHARGES</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 12 — FREE TIER ================================ -->
+  <section class="slide" data-screen-label="12 Free Tier">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>12 / 15 · TIER 01 · FREE</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 12 — AGENT FREE</p>
+      <div class="detail-grid">
+        <div>
+          <h2 class="h-1">For the<br/>solo builder.</h2>
+          <p class="lede">Bring your own API keys. We bring the orchestrator, the memory, and the entire 47-model router. Zero dollars. Forever.</p>
+
+          <div class="feat-list">
+            <div class="feat"><span class="num">01</span><div><h5>One-line install</h5><p>curl -fsSL https://sypnose.cloud/install | bash</p></div></div>
+            <div class="feat"><span class="num">02</span><div><h5>Local memory layer</h5><p>Postgres + pgvector spun up by the installer. Stays on your machine.</p></div></div>
+            <div class="feat"><span class="num">03</span><div><h5>BYO keys</h5><p>Claude, GPT, Gemini, Mistral, Ollama — routed by your config.</p></div></div>
+            <div class="feat"><span class="num">04</span><div><h5>MIT licensed</h5><p>github.com/sypnose-cloud · agent-free · agent-sypnose. Fork it.</p></div></div>
+          </div>
+        </div>
+        <div class="price-card">
+          <span class="pl">▌ AGENT FREE</span>
+          <div class="pp">$0</div>
+          <div class="pn">Forever.<br/>BYO keys.</div>
+          <div class="ph"></div>
+          <div class="pd">No credit card. No telemetry. No upsell. We make money on Business and Enterprise — this tier exists so builders can ship without a budget meeting.</div>
+          <div class="ph"></div>
+          <div style="font-family:'JetBrains Mono';font-size:18px;color:var(--terra-deep);letter-spacing:1.5px">▌ INSTALL</div>
+          <div style="font-family:'JetBrains Mono';font-size:16px;color:var(--slate);margin-top:6px;line-height:1.5">$ curl -fsSL<br/>&nbsp;&nbsp;sypnose.cloud/install<br/>&nbsp;&nbsp;| bash</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>STARTED HERE? COME BACK FOR BUSINESS TIER.</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 13 — BUSINESS TIER ================================ -->
+  <section class="slide dark" data-screen-label="13 Business Tier">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#eeece2"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name" style="color:var(--cream)">sypnose</span></span>
+      <span>13 / 15 · TIER 02 · BUSINESS ★</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 13 — AGENT SYPNOSE · ★ BEST FIT</p>
+      <div class="detail-grid">
+        <div>
+          <h2 class="h-1" style="color:var(--cream)">For teams<br/>that ship.</h2>
+          <p class="lede" style="color:rgba(238,236,226,.7)">Managed compute, hosted memory, the overnight build queue that closed 312 tasks with zero errors last month. Five seats included.</p>
+
+          <div class="feat-list">
+            <div class="feat"><span class="num">01</span><div><h5 style="color:var(--cream)">Our compute pool</h5><p>95% routed across 11 free tiers. You pay flat. We absorb spikes.</p></div></div>
+            <div class="feat"><span class="num">02</span><div><h5 style="color:var(--cream)">Overnight build queue</h5><p>9 agents · 312 tasks · 0 errors — last benchmark run, Apr 2026.</p></div></div>
+            <div class="feat"><span class="num">03</span><div><h5 style="color:var(--cream)">Slack channel</h5><p>Direct line to the team — including Carlos. No tier-1 support theater.</p></div></div>
+            <div class="feat"><span class="num">04</span><div><h5 style="color:var(--cream)">Weekly digest</h5><p>Workers used, tasks closed, tokens burned, top errors — every Monday 09:00 UTC.</p></div></div>
+          </div>
+        </div>
+        <div class="price-card">
+          <span class="pl">▌ AGENT SYPNOSE ★</span>
+          <div class="pp">$2,400</div>
+          <div class="pn">per month.<br/>5 seats included.</div>
+          <div class="ph"></div>
+          <div class="pd">Annual: $24,000 (-17%). Add seat: $360/mo. Add overnight queue capacity: per-pool quote. Stripe billing, paid by invoice for teams over 10 seats.</div>
+          <div class="ph"></div>
+          <div style="font-family:'JetBrains Mono';font-size:18px;color:var(--terra);letter-spacing:1.5px">▌ NEXT STEP</div>
+          <div style="font-family:'Poppins';font-weight:600;font-size:22px;color:var(--cream);margin-top:6px;line-height:1.4">6h POC · free<br/>hello@sypnose.cloud</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>★ THE TIER WE RECOMMEND TO YOU</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 14 — ENTERPRISE ================================ -->
+  <section class="slide" data-screen-label="14 Enterprise Tier">
+    <div class="chrome">
+      <span class="wm-mini"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="48" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg><span class="name">sypnose</span></span>
+      <span>14 / 15 · TIER 03 · ENTERPRISE</span>
+    </div>
+    <div class="stage">
+      <p class="eyebrow">▌ § 14 — AGENT PLATFORM</p>
+      <div class="detail-grid">
+        <div>
+          <h2 class="h-1">For VPC<br/>customers.</h2>
+          <p class="lede">Deployed inside your network. SOC 2 paper trail. Your provider choice, your retention policy. We sign an MSA, you sign an order form.</p>
+
+          <div class="feat-list">
+            <div class="feat"><span class="num">01</span><div><h5>VPC deployment</h5><p>Helm chart in your cluster · or Terraform module · or both.</p></div></div>
+            <div class="feat"><span class="num">02</span><div><h5>SOC 2 + SSO</h5><p>Audit logging, IP allowlisting, SAML / OIDC, retention controls.</p></div></div>
+            <div class="feat"><span class="num">03</span><div><h5>Dedicated architect</h5><p>One engineer from our side, in your channels, with SLA on response.</p></div></div>
+            <div class="feat"><span class="num">04</span><div><h5>Your providers</h5><p>Bring your Anthropic, Bedrock, Azure OpenAI, on-prem Llama — we route.</p></div></div>
+          </div>
+        </div>
+        <div class="price-card">
+          <span class="pl">▌ AGENT PLATFORM</span>
+          <div class="pp" style="font-size:90px">Custom</div>
+          <div class="pn">Annual.<br/>Per deployment.</div>
+          <div class="ph"></div>
+          <div class="pd">Quoted per environment, per seat tier, per data-residency requirement. Procurement-friendly: master service agreement, security review, vendor questionnaire — all handled.</div>
+          <div class="ph"></div>
+          <div style="font-family:'JetBrains Mono';font-size:18px;color:var(--terra-deep);letter-spacing:1.5px">▌ KICKOFF</div>
+          <div style="font-family:'Poppins';font-weight:600;font-size:22px;color:var(--slate);margin-top:6px;line-height:1.4">6h white-glove POC<br/>enterprise@sypnose.cloud</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>SYPNOSE.CLOUD</span><span>YOUR CLUSTER · YOUR KEYS · YOUR AUDIT TRAIL</span></div>
+  </section>
+
+  <!-- ================================ SLIDE 15 — CONTACT / CTA ================================ -->
+  <section class="slide dark s15" data-screen-label="15 Contact">
+    <div class="cover-bg"></div>
+    <div class="cover-grid"></div>
+    <div class="chrome">
+      <span><span class="dot"></span>SYPNOSE · MITHOS</span>
+      <span>15 / 15 · BOOK THE POC</span>
+    </div>
+
+    <div style="position:absolute;left:120px;right:120px;top:200px;bottom:160px;display:flex;flex-direction:column;justify-content:space-between">
+      <div>
+        <p class="eyebrow" style="color:var(--terra)">▌ § 15 — THANK YOU. NOW LET'S WORK.</p>
+        <div class="lockup">
+          <svg viewBox="0 0 200 200">
+            <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+            <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+              <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+              <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+              <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+            </g>
+            <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+              <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+            <circle cx="100" cy="100" r="18" fill="#da7756"/>
+          </svg>
+          <div>
+            <div class="tx">One command.<br/><span>Entire AI org.</span></div>
+            <div class="mn">— Sypnose Mithos · since January 2026 ·</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <div class="cta-card">
+          <span class="ll">▌ 6-HOUR POC · FREE</span>
+          <h3 class="hh">Ship one real feature<br/>in a single day.</h3>
+          <p class="dd">Pick the feature you've been postponing. We ship it on Sypnose, tests included, code-review passed. You keep the PR — no obligation after.</p>
+          <div class="bb">→ hello@sypnose.cloud</div>
+        </div>
+        <div class="cta-card dark">
+          <span class="ll">▌ TALK TO CARLOS</span>
+          <h3 class="hh" style="font-size:48px">Architect direct.<br/>No funnel.</h3>
+          <p class="dd">Carlos De La Torre — Architect of SYPNOSE — replies inside 24h to every legitimate request. No SDR. No discovery call. Just an engineer.</p>
+          <div class="bb" style="border-top-color:rgba(61,57,41,.2)">+ 1 809 424 0731 · WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose — Brand Identity Bundle</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terra:#da7756;--terra-deep:#b85f3f;
+    --cream:#eeece2;--cream-2:#e6e2d2;
+    --slate:#3d3929;--slate-2:#5a5443;--slate-3:#8a8472;--slate-4:#2a261b;
+    --rule:rgba(61,57,41,.14);
+  }
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:var(--cream);color:var(--slate);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+  /* ============= top bar ============= */
+  .topbar{
+    position:sticky;top:0;z-index:10;background:rgba(238,236,226,.85);backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--rule);
+    padding:18px 56px;display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-2);
+  }
+  .topbar .mk{display:flex;align-items:center;gap:12px}
+  .topbar .mk svg{width:28px;height:28px}
+  .topbar .mk .name{font-family:'Poppins';font-weight:700;font-size:18px;color:var(--slate);letter-spacing:-0.4px;text-transform:none}
+  .topbar .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:8px;vertical-align:middle}
+
+  .page{max-width:1480px;margin:0 auto;padding:80px 56px 120px}
+
+  /* ============= hero ============= */
+  .hero{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:end;padding-bottom:64px;border-bottom:1px solid var(--rule);margin-bottom:64px}
+  @media (max-width:1100px){.hero{grid-template-columns:1fr;gap:32px}}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--terra-deep);margin:0 0 24px}
+  h1.hero-h{font-family:'Poppins';font-weight:700;font-size:120px;line-height:.92;letter-spacing:-0.045em;margin:0 0 24px}
+  h1.hero-h em{font-family:'Lora';font-style:italic;font-weight:500;color:var(--terra)}
+  .hero-lede{font-family:'Lora';font-style:italic;font-size:24px;line-height:1.4;color:var(--slate-2);max-width:780px;margin:0}
+
+  .meta-block{font-family:'JetBrains Mono';font-size:11px;line-height:1.9;color:var(--slate-2);letter-spacing:.06em}
+  .meta-block .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--rule)}
+  .meta-block .row b{color:var(--terra-deep);font-weight:600}
+  .meta-block .row:last-child{border-bottom:none}
+
+  /* ============= metric strip ============= */
+  .metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin-bottom:80px}
+  @media (max-width:1100px){.metrics{grid-template-columns:repeat(3,1fr)}}
+  .m{background:var(--cream);padding:24px 22px;display:flex;flex-direction:column;gap:6px}
+  .m .l{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--terra-deep)}
+  .m .v{font-family:'Poppins';font-weight:700;font-size:36px;letter-spacing:-0.025em;color:var(--slate);line-height:1}
+  .m .v .u{font-size:18px;color:var(--terra);font-weight:600;margin-left:2px}
+  .m .d{font-family:'DM Sans';font-size:11.5px;color:var(--slate-3);line-height:1.4;margin-top:2px}
+
+  /* ============= block grid ============= */
+  .section-head{
+    display:grid;grid-template-columns:220px 1fr;gap:48px;
+    padding-bottom:24px;border-bottom:1px solid var(--rule);margin-bottom:36px;
+  }
+  .section-tag{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate-3);padding-top:8px}
+  .section-tag b{color:var(--terra-deep);font-weight:600}
+  .section-title{font-family:'Poppins';font-weight:600;font-size:36px;line-height:1.05;letter-spacing:-0.022em;margin:0 0 10px}
+  .section-desc{font-size:15px;line-height:1.6;color:var(--slate-2);max-width:680px;margin:0}
+
+  .blocks{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  @media (max-width:1100px){.blocks{grid-template-columns:1fr}}
+  .blk{
+    background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;
+    display:flex;flex-direction:column;text-decoration:none;color:inherit;
+    box-shadow:0 1px 0 rgba(61,57,41,.04);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .blk:hover{transform:translateY(-3px);box-shadow:0 24px 60px -30px rgba(61,57,41,.3);border-color:rgba(218,119,86,.4)}
+  .blk-art{height:260px;position:relative;overflow:hidden;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:center}
+  .blk-art.cream{background:var(--cream)}
+  .blk-art.dark{background:var(--slate)}
+  .blk-art.terra{background:var(--terra)}
+  .blk-foot{padding:22px 26px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end}
+  .blk-num{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.18em;color:var(--terra-deep);text-transform:uppercase;margin-bottom:6px;display:block}
+  .blk-name{font-family:'Poppins';font-weight:600;font-size:24px;letter-spacing:-0.018em;margin:0 0 6px;color:var(--slate)}
+  .blk-desc{font-family:'DM Sans';font-size:13px;color:var(--slate-2);line-height:1.5;margin:0}
+  .blk-arrow{font-family:'JetBrains Mono';font-size:22px;color:var(--terra);font-weight:600;align-self:start;padding-top:4px}
+
+  /* art panels for each block */
+  .art-logos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:80%;height:80%;padding:14px}
+  .art-logos > div{display:flex;align-items:center;justify-content:center;border-radius:4px}
+
+  /* small SVG factory */
+  .sym{width:60px;height:60px}
+
+  .colophon{
+    margin-top:120px;padding-top:32px;border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;
+    font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;color:var(--slate-3);text-transform:uppercase;
+  }
+  @media (max-width:900px){.colophon{grid-template-columns:1fr}}
+  .colophon b{color:var(--slate);font-weight:600;display:block;margin-bottom:8px}
+  .colophon a{color:var(--terra-deep);text-decoration:none}
+  .swatches{display:flex;gap:10px;margin-top:6px}
+  .swatches i{width:18px;height:18px;border-radius:3px;border:1px solid var(--rule);display:inline-block}
+</style>
+</head>
+<body>
+
+<!-- ================== TOP BAR ================== -->
+<div class="topbar">
+  <div class="mk">
+    <svg viewBox="0 0 200 200">
+      <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+      <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/><line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="130" y2="48.04"/><line x1="100" y1="100" x2="70" y2="48.04"/></g>
+      <g fill="#3d3929"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/><circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+      <circle cx="100" cy="100" r="18" fill="#da7756"/>
+    </svg>
+    <span class="name">sypnose</span>
+    <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--terra);letter-spacing:2px">▌ MITHOS</span>
+  </div>
+  <span><span class="dot"></span>BRAND IDENTITY · V1.0 · 12 MAY 2026</span>
+</div>
+
+<main class="page" data-screen-label="Sypnose Identity Index">
+
+  <!-- ================== HERO ================== -->
+  <section class="hero">
+    <div>
+      <p class="eyebrow">▌ Corporate identity bundle · 8 of 8 complete</p>
+      <h1 class="hero-h">One command.<br/><em>Entire AI<br/>organization.</em></h1>
+      <p class="hero-lede">The full identity system for Sypnose Mithos — eight deliverable blocks, one Iron Rule, three colors, four fonts. Built for the SaaS Carlos De La Torre runs out of Puerto Plata, live since January 2026.</p>
+    </div>
+    <div class="meta-block">
+      <div class="row"><span>Architect</span><b>Carlos De La Torre</b></div>
+      <div class="row"><span>Edition</span><b>Mithos · v1.0</b></div>
+      <div class="row"><span>Released</span><b>12 May 2026</b></div>
+      <div class="row"><span>Live since</span><b>January 2026</b></div>
+      <div class="row"><span>License</span><b>MIT · bundle</b></div>
+      <div class="row"><span>Repo</span><b>github.com/<br/>sypnose-cloud</b></div>
+    </div>
+  </section>
+
+  <!-- ================== METRICS STRIP ================== -->
+  <div class="metrics">
+    <div class="m"><span class="l">Workers</span><span class="v">300</span><span class="d">parallel pool</span></div>
+    <div class="m"><span class="l">Models</span><span class="v">47</span><span class="d">routed by cost</span></div>
+    <div class="m"><span class="l">A2A</span><span class="v">741<span class="u">ms</span></span><span class="d">end-to-end</span></div>
+    <div class="m"><span class="l">Free compute</span><span class="v">95<span class="u">%</span></span><span class="d">11 providers</span></div>
+    <div class="m"><span class="l">PR pass</span><span class="v">93<span class="u">%</span></span><span class="d">first attempt</span></div>
+    <div class="m"><span class="l">Memory</span><span class="v">4<span class="u">yr</span></span><span class="d">pgvector horizon</span></div>
+  </div>
+
+  <!-- ================== BLOCKS SECTION ================== -->
+  <header class="section-head">
+    <div class="section-tag">§ BLOCKS &nbsp;·&nbsp; <b>8 / 8 SHIPPED</b></div>
+    <div>
+      <h2 class="section-title">Eight deliverable blocks.<br/>One visual vocabulary.</h2>
+      <p class="section-desc">Each block stands alone — open any HTML to view, print, or copy markup. Each block also rhymes with every other: same palette, same type stack, same Iron-Rule voice.</p>
+    </div>
+  </header>
+
+  <div class="blocks">
+
+    <!-- 01 -->
+    <a class="blk" href="Logo System.html">
+      <div class="blk-art cream">
+        <div class="art-logos">
+          <div><svg class="sym" viewBox="0 0 200 200"><path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/><g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/><line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="130" y2="48.04"/><line x1="100" y1="100" x2="70" y2="48.04"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/><circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g><circle cx="100" cy="100" r="18" fill="#da7756"/></svg></div>
+          <div style="background:#3d3929"><svg class="sym" viewBox="0 0 200 200"><g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/><line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="130" y2="48.04"/><line x1="100" y1="100" x2="70" y2="48.04"/></g><g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/><circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g><circle cx="100" cy="100" r="18" fill="#da7756"/></svg></div>
+          <div style="background:#da7756"><svg class="sym" viewBox="0 0 200 200"><text x="100" y="148" text-anchor="middle" font-family="Lora" font-style="italic" font-weight="500" font-size="180" fill="#eeece2">S</text><circle cx="138" cy="62" r="9" fill="#eeece2"/></svg></div>
+          <div style="background:#fff;grid-column:span 3"><svg viewBox="0 0 200 60" width="200" height="60"><text x="0" y="48" font-family="Poppins" font-weight="700" font-size="52" fill="#3d3929" letter-spacing="-2">sypnose</text><circle cx="180" cy="40" r="5" fill="#da7756"/></svg></div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 01 · LOGO SYSTEM</span>
+          <h3 class="blk-name">Logo System</h3>
+          <p class="blk-desc">12 variants · construction grid · clearspace · animation. The mark, defined down to the unit.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 02 -->
+    <a class="blk" href="Favicon Set.html">
+      <div class="blk-art cream">
+        <div style="display:flex;gap:14px;align-items:flex-end">
+          <svg viewBox="0 0 16 16" width="20" height="20" shape-rendering="crispEdges"><rect width="16" height="16" fill="#eeece2"/><rect x="6" y="6" width="4" height="4" fill="#da7756"/><rect x="12" y="7" width="2" height="2" fill="#3d3929"/><rect x="2" y="7" width="2" height="2" fill="#3d3929"/><rect x="10" y="2" width="2" height="2" fill="#3d3929"/><rect x="4" y="2" width="2" height="2" fill="#3d3929"/><rect x="10" y="12" width="2" height="2" fill="#3d3929"/><rect x="4" y="12" width="2" height="2" fill="#3d3929"/></svg>
+          <svg viewBox="0 0 200 200" width="36" height="36"><rect width="200" height="200" rx="36" fill="#eeece2"/><circle cx="100" cy="100" r="44" fill="#da7756"/><g fill="#3d3929"><circle cx="170" cy="100" r="14"/><circle cx="30" cy="100" r="14"/><circle cx="135" cy="40" r="14"/><circle cx="65" cy="40" r="14"/><circle cx="135" cy="160" r="14"/><circle cx="65" cy="160" r="14"/></g></svg>
+          <div style="width:60px;height:60px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px rgba(61,57,41,.4)"><svg viewBox="0 0 200 200" width="40" height="40"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg></div>
+          <div style="width:90px;height:90px;background:#3d3929;border-radius:20px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 200 200" width="60" height="60"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg></div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 02 · FAVICON SET</span>
+          <h3 class="blk-name">Favicon Set</h3>
+          <p class="blk-desc">10 sizes · manifest.json · OG card · `&lt;head&gt;` snippet. From 16 px to LinkedIn unfurls.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 03 -->
+    <a class="blk" href="Email Signatures.html">
+      <div class="blk-art" style="background:#f6f4ec">
+        <div style="background:#fff;width:80%;border:1px solid var(--rule);border-radius:6px;padding:18px;box-shadow:0 16px 40px -24px rgba(61,57,41,.3)">
+          <div style="display:flex;gap:14px;align-items:center">
+            <div style="padding-right:14px;border-right:2px solid var(--terra)"><svg viewBox="0 0 200 200" width="34" height="34"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg></div>
+            <div>
+              <div style="font-family:Poppins;font-weight:600;font-size:13px;color:var(--slate);letter-spacing:-0.2px">Carlos De La Torre</div>
+              <div style="font-family:'DM Sans';font-size:11px;color:var(--slate-2)">Architect of <b style="color:var(--terra)">SYPNOSE</b></div>
+              <div style="font-family:'JetBrains Mono';font-size:9px;color:var(--slate-3);letter-spacing:1px;margin-top:4px">SYPNOSE.CLOUD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 03 · EMAIL SIGNATURES</span>
+          <h3 class="blk-name">Email Signatures</h3>
+          <p class="blk-desc">6 signatures — minimal · complete · promotional × light/dark. Table HTML, web-safe stacks.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 04 -->
+    <a class="blk" href="Business Cards.html">
+      <div class="blk-art cream">
+        <div style="position:relative;width:280px;height:170px">
+          <div style="position:absolute;left:0;top:14px;width:260px;height:150px;background:#3d3929;border-radius:6px;box-shadow:0 16px 40px -20px rgba(61,57,41,.5);overflow:hidden;color:var(--cream);padding:18px">
+            <div style="font-family:'JetBrains Mono';font-size:8px;letter-spacing:1.5px;color:var(--terra)">▌ MITHOS</div>
+            <div style="font-family:Lora;font-style:italic;font-size:22px;line-height:1.05;margin-top:18px">One command.<br/><span style="color:var(--terra)">Entire AI org.</span></div>
+            <div style="position:absolute;bottom:14px;left:18px;font-family:'JetBrains Mono';font-size:8px;color:var(--terra);letter-spacing:1.5px">SYPNOSE.CLOUD</div>
+          </div>
+          <div style="position:absolute;right:0;top:0;width:260px;height:150px;background:var(--cream);border:1px solid var(--rule);border-radius:6px;box-shadow:0 16px 40px -20px rgba(61,57,41,.4);padding:14px;color:var(--slate)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <div><div style="font-family:Poppins;font-weight:700;font-size:18px;letter-spacing:-0.6px">sypnose<span style="color:var(--terra)">.</span></div></div>
+              <svg viewBox="0 0 200 200" width="32" height="32"><circle cx="100" cy="100" r="40" fill="#da7756"/><g stroke="#3d3929" stroke-width="3" stroke-linecap="round"><line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/><line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/><line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/></g><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg>
+            </div>
+            <div style="margin-top:24px;font-family:Poppins;font-weight:600;font-size:13px;letter-spacing:-0.2px">Carlos De La Torre</div>
+            <div style="font-family:'DM Sans';font-size:9px;color:var(--slate-2);margin-top:2px">Architect of <b style="color:var(--terra);font-weight:600">SYPNOSE</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 04 · BUSINESS CARDS</span>
+          <h3 class="blk-name">Business Cards</h3>
+          <p class="blk-desc">Print 85×55 mm front + back with bleed · vCard QR 1080×1920 digital. CMYK + Pantone specs.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 05 -->
+    <a class="blk" href="Pitch Deck.html">
+      <div class="blk-art dark" style="overflow:hidden">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 400px 250px at 25% 110%, rgba(218,119,86,.25), transparent 60%)"></div>
+        <div style="position:absolute;inset:0;opacity:0.06;background-image:linear-gradient(rgba(238,236,226,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(238,236,226,.5) 1px,transparent 1px);background-size:30px 30px"></div>
+        <div style="position:relative;z-index:1;text-align:center">
+          <div style="font-family:'JetBrains Mono';font-size:10px;color:var(--terra);letter-spacing:3px;margin-bottom:14px">▌ ONE COMMAND.</div>
+          <div style="font-family:Poppins;font-weight:800;font-size:64px;color:var(--cream);line-height:.9;letter-spacing:-0.03em">sypnose<br/><em style="font-family:Lora;font-style:italic;color:var(--terra);font-weight:500">mithos.</em></div>
+          <div style="font-family:'JetBrains Mono';font-size:10px;color:rgba(238,236,226,.45);letter-spacing:2px;margin-top:14px">15 SLIDES · WITH SPEAKER NOTES</div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 05 · PITCH DECK</span>
+          <h3 class="blk-name">Pitch Deck · 15 slides</h3>
+          <p class="blk-desc">Mithos pitch · 1920×1080 · cover, problem, pipeline, Iron Rule, metrics, cases, pricing, POC CTA.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 06 -->
+    <a class="blk" href="Brand Guidelines.html">
+      <div class="blk-art" style="background:#252119">
+        <div style="display:flex;gap:14px;perspective:1200px">
+          <div style="width:130px;height:184px;background:var(--cream);border-radius:3px;box-shadow:0 18px 40px -10px rgba(0,0,0,.5);padding:18px;transform:rotateY(-12deg);transform-origin:right center;font-family:Poppins;font-weight:700;font-size:14px;color:var(--slate);line-height:1;letter-spacing:-0.4px">Brand<br/><em style="font-family:Lora;font-style:italic;color:var(--terra);font-weight:500">guidelines.</em><div style="position:absolute;bottom:14px;left:18px;font-family:'JetBrains Mono';font-size:7px;color:var(--terra-deep);letter-spacing:1.5px">▌ MITHOS · V1.0</div></div>
+          <div style="width:130px;height:184px;background:var(--slate);border-radius:3px;box-shadow:0 18px 40px -10px rgba(0,0,0,.6);padding:14px;transform:rotateY(12deg);transform-origin:left center;color:var(--cream)">
+            <div style="font-family:'JetBrains Mono';font-size:6px;color:var(--terra);letter-spacing:1.5px">▌ § 02 · IRON RULE</div>
+            <div style="font-family:Lora;font-style:italic;font-size:16px;margin-top:14px;line-height:1.05">"No proof,<br/><span style="color:var(--terra)">no done.”</span></div>
+            <div style="margin-top:18px;height:1px;background:rgba(238,236,226,.15)"></div>
+            <div style="margin-top:8px;font-family:'DM Sans';font-size:7px;color:rgba(238,236,226,.65);line-height:1.5">22 pages of typography, color, voice, applications.</div>
+          </div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 06 · BRAND GUIDELINES</span>
+          <h3 class="blk-name">Brand Guidelines · 22pp</h3>
+          <p class="blk-desc">Full printable A4 brand book · cover, philosophy, logo anatomy, palette, type, icons, voice, applications.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 07 -->
+    <a class="blk" href="Email Transactional.html">
+      <div class="blk-art" style="background:#f6f4ec">
+        <div style="width:78%;background:#fff;border-radius:8px;overflow:hidden;border-left:4px solid var(--terra);box-shadow:0 16px 40px -20px rgba(61,57,41,.3)">
+          <div style="padding:18px 20px">
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px"><svg viewBox="0 0 200 200" width="22" height="22"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span style="font-family:Poppins;font-weight:700;font-size:13px;color:var(--slate);letter-spacing:-0.3px">sypnose</span><span style="font-family:'JetBrains Mono';font-size:7px;color:var(--terra);letter-spacing:1.5px;margin-left:auto">▌ WELCOME</span></div>
+            <div style="font-family:Poppins;font-weight:700;font-size:18px;letter-spacing:-0.4px;line-height:1;color:var(--slate)">Five seats. One <em style="font-family:Lora;font-style:italic;color:var(--terra);font-weight:500">command away.</em></div>
+            <div style="margin-top:10px;display:flex;gap:8px"><div style="flex:1;background:#fafaf3;padding:8px;border-radius:4px"><div style="font-family:'JetBrains Mono';font-size:6px;color:var(--terra-deep);letter-spacing:1px">WORKERS</div><div style="font-family:Poppins;font-weight:700;font-size:14px;color:var(--slate)">300</div></div><div style="flex:1;background:#fafaf3;padding:8px;border-radius:4px"><div style="font-family:'JetBrains Mono';font-size:6px;color:var(--terra-deep);letter-spacing:1px">A2A</div><div style="font-family:Poppins;font-weight:700;font-size:14px;color:var(--slate)">741<span style="font-size:9px;color:var(--terra)">ms</span></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 07 · EMAIL TRANSACTIONAL</span>
+          <h3 class="blk-name">Email Transactional</h3>
+          <p class="blk-desc">6 SaaS emails — welcome, 80% quota, build fail, POC booked, invoice, weekly digest.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 08 -->
+    <a class="blk" href="Social Templates.html">
+      <div class="blk-art" style="background:linear-gradient(135deg,#3d3929 50%,#da7756 100%)">
+        <div style="display:flex;gap:12px">
+          <div style="width:120px;height:90px;background:var(--slate);border-radius:6px;padding:12px;color:var(--cream);box-shadow:0 12px 26px -10px rgba(0,0,0,.5)"><div style="font-family:Lora;font-style:italic;font-size:16px;line-height:.95">"No proof,<br/><span style="color:var(--terra)">no done.”</span></div></div>
+          <div style="width:90px;height:90px;background:var(--terra);border-radius:6px;padding:12px;color:var(--slate);box-shadow:0 12px 26px -10px rgba(0,0,0,.4)"><div style="font-family:'JetBrains Mono';font-size:6px;letter-spacing:1.5px;opacity:0.7">▌ A2A</div><div style="font-family:Poppins;font-weight:800;font-size:30px;line-height:.85;letter-spacing:-0.05em;margin-top:6px">741<span style="font-size:12px">ms</span></div></div>
+          <div style="width:60px;height:90px;background:var(--cream);border-radius:6px;padding:8px;color:var(--slate);box-shadow:0 12px 26px -10px rgba(0,0,0,.4)"><div style="font-family:'JetBrains Mono';font-size:5px;color:var(--terra-deep);letter-spacing:1px">▌ CASE</div><div style="font-family:Poppins;font-weight:700;font-size:11px;line-height:1;margin-top:6px">HUYGHU.<br/><em style="font-family:Lora;font-style:italic;color:var(--terra);font-weight:500">6h.</em></div></div>
+        </div>
+      </div>
+      <div class="blk-foot">
+        <div>
+          <span class="blk-num">▌ 08 · SOCIAL TEMPLATES</span>
+          <h3 class="blk-name">Social Templates</h3>
+          <p class="blk-desc">6 typologies × 3 dimensions · quote, metric, case, build-in-public, hiring, launch. LinkedIn + IG square + Story.</p>
+        </div>
+        <span class="blk-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ================== COLOPHON ================== -->
+  <footer class="colophon">
+    <div>
+      <b>▌ Identity</b>
+      SYPNOSE © 2026<br/>
+      Mithos Edition · v1.0<br/>
+      12 May 2026<br/>
+      MIT license · bundle
+    </div>
+    <div>
+      <b>▌ Palette</b>
+      Strict three-color
+      <div class="swatches">
+        <i style="background:#da7756" title="#DA7756 · Terra"></i>
+        <i style="background:#eeece2" title="#EEECE2 · Cream"></i>
+        <i style="background:#3d3929" title="#3D3929 · Slate"></i>
+      </div>
+      <span style="margin-top:10px;display:block">Poppins · Lora · DM Sans · JetBrains Mono</span>
+    </div>
+    <div>
+      <b>▌ Contact</b>
+      Carlos De La Torre<br/>
+      Architect of SYPNOSE<br/>
+      <a href="mailto:hello@sypnose.cloud">hello@sypnose.cloud</a><br/>
+      <a href="https://github.com/sypnose-cloud">github.com/sypnose-cloud</a>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>

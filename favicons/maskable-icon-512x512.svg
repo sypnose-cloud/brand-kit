@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<rect width="200" height="200" fill="#da7756"></rect>
+<g transform="translate(40,40) scale(0.6)">
+<path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.55"></path>
+<g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+<line x1="100" y1="100" x2="160" y2="100"></line><line x1="100" y1="100" x2="130" y2="151.96"></line>
+<line x1="100" y1="100" x2="70" y2="151.96"></line><line x1="100" y1="100" x2="40" y2="100"></line>
+<line x1="100" y1="100" x2="70" y2="48.04"></line><line x1="100" y1="100" x2="130" y2="48.04"></line>
+</g>
+<g fill="#eeece2"><circle cx="160" cy="100" r="9"></circle><circle cx="130" cy="151.96" r="9"></circle><circle cx="70" cy="151.96" r="9"></circle><circle cx="40" cy="100" r="9"></circle><circle cx="70" cy="48.04" r="9"></circle><circle cx="130" cy="48.04" r="9"></circle></g>
+<circle cx="100" cy="100" r="18" fill="#3d3929"></circle>
+</g></svg>

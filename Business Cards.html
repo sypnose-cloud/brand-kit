@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose — Business Cards</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--terra:#da7756;--terra-deep:#b85f3f;--cream:#eeece2;--cream-2:#e6e2d2;--slate:#3d3929;--slate-2:#5a5443;--slate-3:#8a8472;--rule:rgba(61,57,41,.14);--rule-strong:rgba(61,57,41,.28)}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:var(--cream);color:var(--slate);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1480px;margin:0 auto;padding:64px 56px 120px}
+  .meta{display:flex;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-2)}
+  .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:8px;vertical-align:middle}
+  .hero{padding:56px 0 40px;max-width:980px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra-deep);margin:0 0 24px}
+  h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:72px;line-height:.98;letter-spacing:-0.035em;margin:0 0 22px}
+  h1 em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--terra)}
+  .lede{font-family:'Lora',serif;font-style:italic;font-size:22px;line-height:1.45;color:var(--slate-2);max-width:760px}
+  .section{margin-top:96px}
+  .section-head{display:grid;grid-template-columns:220px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .section-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate-3);padding-top:8px}
+  .section-tag b{color:var(--terra-deep);font-weight:600}
+  .section-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:36px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px}
+  .section-desc{font-size:15px;line-height:1.6;color:var(--slate-2);max-width:680px;margin:0}
+
+  /* print card chrome */
+  .print-row{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  @media (max-width:1100px){.print-row{grid-template-columns:1fr}}
+  .card-stage{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:48px 40px;box-shadow:0 1px 0 rgba(61,57,41,.04),0 30px 80px -40px rgba(61,57,41,.25);position:relative}
+  .card-stage .label{position:absolute;top:18px;right:22px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--terra-deep);text-transform:uppercase}
+
+  /* card 85 × 55 mm @ 96dpi ≈ 321 × 208 px, escalado ×2 para preview = 642 × 416 */
+  .card{
+    width:642px;height:416px;
+    position:relative;overflow:hidden;
+    border-radius:6px;
+    box-shadow:0 24px 50px -30px rgba(61,57,41,.45), 0 0 0 1px rgba(61,57,41,.06);
+    margin:0 auto;
+  }
+  /* bleed guides */
+  .bleed-ring{
+    position:absolute;inset:-18px;border:1px dashed var(--terra);opacity:0.55;border-radius:8px;pointer-events:none;
+  }
+  .safe-ring{
+    position:absolute;inset:24px;border:1px dashed rgba(61,57,41,.22);border-radius:4px;pointer-events:none;
+  }
+  .bleed-tag,.safe-tag,.trim-tag{
+    position:absolute;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    background:#fff;padding:2px 6px;border:1px solid var(--rule);border-radius:3px;color:var(--terra-deep);
+  }
+  .bleed-tag{top:-26px;left:-18px;color:var(--terra-deep)}
+  .trim-tag{top:-26px;left:50%;transform:translateX(-50%);color:var(--slate-2)}
+  .safe-tag{bottom:-22px;right:24px;color:var(--slate-3)}
+
+  /* FRONT light */
+  .card-front{background:var(--cream);color:var(--slate);padding:48px 44px;display:flex;flex-direction:column;justify-content:space-between}
+  .card-front .top{display:flex;justify-content:space-between;align-items:flex-start}
+  .card-front .wm{font-family:'Poppins',sans-serif;font-weight:700;font-size:36px;letter-spacing:-1.4px;color:var(--slate)}
+  .card-front .mithos{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--terra);margin-top:2px}
+  .card-front .name-block .name{font-family:'Poppins',sans-serif;font-weight:600;font-size:22px;letter-spacing:-0.5px;line-height:1.1}
+  .card-front .name-block .role{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--slate-2);margin-top:4px;letter-spacing:0.2px}
+  .card-front .name-block .role b{color:var(--terra);font-weight:600}
+  .card-front .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-family:'DM Sans',sans-serif;font-size:11.5px;line-height:1.5}
+  .card-front .grid .lbl{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--slate-3);letter-spacing:1.5px;text-transform:uppercase;display:block}
+  .card-front .grid a,.card-front .grid span.val{color:var(--slate);text-decoration:none}
+  .card-front .grid span.brand{color:var(--terra);font-weight:600}
+
+  /* BACK dark */
+  .card-back{background:var(--slate);color:var(--cream);position:relative;overflow:hidden}
+  .card-back .bg-symbol{position:absolute;right:-90px;bottom:-110px;opacity:0.12}
+  .card-back .pad{padding:48px 44px;height:100%;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:1}
+  .card-back .topline{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--slate-3);text-transform:uppercase}
+  .card-back .tag{font-family:'Lora',serif;font-style:italic;font-weight:500;font-size:30px;line-height:1.1;color:var(--cream);max-width:380px}
+  .card-back .tag em{color:var(--terra);font-style:italic}
+  .card-back .mono{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1.8px;color:var(--cream-2)}
+  .card-back .mono .accent{color:var(--terra)}
+
+  /* vCard mobile preview */
+  .vcard-row{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+  @media (max-width:1100px){.vcard-row{grid-template-columns:1fr}}
+  .phone-frame{
+    width:340px;height:680px;margin:0 auto;
+    background:#0c0a06;border-radius:46px;padding:14px;
+    box-shadow:0 40px 80px -40px rgba(61,57,41,.5), inset 0 0 0 2px #2a261b;
+    position:relative;
+  }
+  .phone-notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:120px;height:28px;background:#0c0a06;border-radius:20px;z-index:2}
+  .phone-screen{
+    width:100%;height:100%;border-radius:34px;overflow:hidden;
+    background:#3d3929;position:relative;
+  }
+  /* the 1080×1920 → preview at 312×636 (compressed) */
+  .vcard{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,#3d3929 0%,#3d3929 55%,#2a261b 100%);
+    color:#eeece2;padding:54px 28px 28px;display:flex;flex-direction:column;
+    font-family:'DM Sans',sans-serif;
+  }
+  .vcard .hdr-mono{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#da7756;margin-bottom:18px}
+  .vcard .name{font-family:'Poppins';font-weight:700;font-size:28px;letter-spacing:-0.8px;line-height:1}
+  .vcard .role{font-family:'DM Sans';font-size:13px;color:#bfb9a4;margin-top:6px}
+  .vcard .role b{color:#da7756;font-weight:600}
+  .vcard .rule{height:1px;background:rgba(238,236,226,.15);margin:18px 0}
+  .vcard .info{font-size:12px;line-height:1.7}
+  .vcard .info .lbl{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:1.4px;color:#8a8472;text-transform:uppercase;display:block}
+  .vcard .info-row{margin-bottom:10px}
+  .vcard .qr-wrap{margin-top:auto;background:#eeece2;border-radius:14px;padding:14px;display:flex;gap:14px;align-items:center}
+  .vcard .qr-text{flex:1;font-family:'DM Sans';font-size:10px;color:#3d3929;line-height:1.4}
+  .vcard .qr-text b{font-family:'Poppins';font-weight:600;font-size:11px;display:block;color:#3d3929}
+  .vcard .ftr{margin-top:14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:#8a8472}
+
+  /* mecard / vCard spec card */
+  .spec-card{background:var(--slate);color:var(--cream);border-radius:8px;padding:28px 32px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;overflow:auto;border:1px solid rgba(255,255,255,.06)}
+  .spec-card .head{display:flex;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a8472}
+  .spec-card .k{color:#da7756}.spec-card .s{color:#cfb98a}.spec-card .c{color:#7a7460;font-style:italic}
+
+  /* print specs sheet */
+  .print-spec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}
+  .ps{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:18px}
+  .ps b{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--terra-deep);text-transform:uppercase;display:block;margin-bottom:8px}
+  .ps span{font-family:'Poppins';font-weight:600;font-size:18px;color:var(--slate);display:block;margin-bottom:4px;letter-spacing:-0.4px}
+  .ps small{font-size:11.5px;color:var(--slate-2);line-height:1.5}
+
+  .colophon{margin-top:96px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-3)}
+  .swatches{display:flex;gap:14px}.sw{display:flex;align-items:center;gap:8px}.sw i{width:14px;height:14px;border-radius:3px;border:1px solid var(--rule);display:inline-block}
+
+  @media (max-width:760px){
+    .card-stage{padding:30px 16px;overflow-x:auto}
+    h1{font-size:48px}
+  }
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="Sypnose Business Cards">
+
+  <div class="meta">
+    <span><span class="dot"></span>Sypnose · Brand Identity · Mithos Edition</span>
+    <span>Vol. 04 / 08 — Business Cards · v1.0 · 12 May 2026</span>
+  </div>
+
+  <section class="hero">
+    <p class="eyebrow">▌ Block 04 — Card System</p>
+    <h1>Print &amp; digital.<br/>85 × 55 mm.<br/><em>One QR.</em></h1>
+    <p class="lede">The print card prints CMYK on 350 gsm uncoated stock with terra cotta foil on the back rule; the digital card is a 1080 × 1920 image with an embedded MECARD QR that saves direct to Contacts. Two surfaces, one identity.</p>
+  </section>
+
+  <!-- ============== PRINT specs ============== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 04.A &nbsp;·&nbsp; <b>PRINT SPEC</b></div>
+      <div>
+        <h2 class="section-title">85 × 55 mm. 3 mm bleed. CMYK.</h2>
+        <p class="section-desc">Standard European card. Front: cream stock. Back: dark slate ink overprint with terra cotta spot color rule. Trim guides shown as cyan dashed lines below.</p>
+      </div>
+    </header>
+
+    <div class="print-spec-grid">
+      <div class="ps"><b>Trim size</b><span>85 × 55 mm</span><small>European standard. Fits every wallet.</small></div>
+      <div class="ps"><b>Bleed</b><span>+ 3 mm</span><small>Full bleed: 91 × 61 mm. PDF/X-4 export.</small></div>
+      <div class="ps"><b>Safe zone</b><span>− 5 mm</span><small>Type stays inside 75 × 45 mm.</small></div>
+      <div class="ps"><b>Stock</b><span>350 gsm uncoated</span><small>Mohawk Superfine eggshell or equiv.</small></div>
+      <div class="ps"><b>Front ink</b><span>4-color CMYK</span><small>Cream paper, slate ink, terra rule.</small></div>
+      <div class="ps"><b>Back ink</b><span>Slate + spot</span><small>Pantone 7531 C ground + 165 C accent.</small></div>
+      <div class="ps"><b>Finish</b><span>Soft-touch matte</span><small>Optional terra foil on tagline.</small></div>
+      <div class="ps"><b>Corners</b><span>2 mm radius</span><small>Slight round. No die-cuts.</small></div>
+    </div>
+  </section>
+
+  <!-- ============== FRONT + BACK ============== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 04.B &nbsp;·&nbsp; <b>FRONT &amp; BACK</b></div>
+      <div>
+        <h2 class="section-title">Two faces. One conversation.</h2>
+        <p class="section-desc">Front is for the introduction. Back is for the memory — the tagline a prospect will read on the cab ride home.</p>
+      </div>
+    </header>
+
+    <div class="print-row">
+
+      <!-- FRONT -->
+      <div class="card-stage">
+        <span class="label">4.1 · FRONT</span>
+        <div style="position:relative;width:642px;max-width:100%;margin:30px auto 24px">
+          <div class="card card-front" data-side="front">
+            <div class="top">
+              <div>
+                <div class="wm">sypnose<span style="color:var(--terra)">.</span></div>
+                <div class="mithos">▌ MITHOS · ARCHITECT-IN-RESIDENCE</div>
+              </div>
+              <svg viewBox="0 0 200 200" width="72" height="72">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+                <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g fill="#3d3929"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+                <circle cx="100" cy="100" r="18" fill="#da7756"/>
+              </svg>
+            </div>
+
+            <div>
+              <div class="name-block">
+                <div class="name">Carlos De La Torre</div>
+                <div class="role">Architect of <b>SYPNOSE</b> · Puerto Plata, Dominican Republic</div>
+              </div>
+
+              <div style="height:18px"></div>
+
+              <div class="grid">
+                <div>
+                  <span class="lbl">EMAIL</span>
+                  <a>carlos@huyghusrl.com</a>
+                </div>
+                <div>
+                  <span class="lbl">TEL · WHATSAPP</span>
+                  <a>+1 809 424 0731</a>
+                </div>
+                <div>
+                  <span class="lbl">WEB</span>
+                  <span class="val brand">sypnose.cloud</span>
+                </div>
+                <div>
+                  <span class="lbl">SOCIAL</span>
+                  <a>linkedin/in/carlosdelatorre-ai</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <span class="bleed-tag">▌ BLEED 3 MM</span>
+          <span class="trim-tag">TRIM 85 × 55 MM</span>
+          <span class="safe-tag">SAFE ZONE</span>
+          <div class="bleed-ring"></div>
+          <div class="safe-ring"></div>
+        </div>
+      </div>
+
+      <!-- BACK -->
+      <div class="card-stage">
+        <span class="label">4.2 · BACK</span>
+        <div style="position:relative;width:642px;max-width:100%;margin:30px auto 24px">
+          <div class="card card-back" data-side="back">
+            <!-- bg symbol giant -->
+            <svg class="bg-symbol" viewBox="0 0 200 200" width="500" height="500">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4"/>
+              <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+              <circle cx="100" cy="100" r="18" fill="#da7756"/>
+            </svg>
+
+            <div class="pad">
+              <div class="topline">
+                <span>▌ SYPNOSE · MITHOS</span>
+                <span style="color:var(--terra)">SINCE JAN 2026</span>
+              </div>
+
+              <div class="tag">One command.<br/><em>Entire AI organization.</em></div>
+
+              <div>
+                <div class="mono"><span class="accent">300</span> WORKERS · <span class="accent">47</span> MODELS · <span class="accent">741 MS</span> A2A</div>
+                <div class="mono" style="margin-top:6px;color:#bfb9a4">SYPNOSE.CLOUD · GITHUB.COM/SYPNOSE-CLOUD</div>
+              </div>
+            </div>
+          </div>
+          <span class="bleed-tag">▌ BLEED 3 MM</span>
+          <span class="trim-tag">TRIM 85 × 55 MM</span>
+          <span class="safe-tag">SAFE ZONE</span>
+          <div class="bleed-ring"></div>
+          <div class="safe-ring"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== vCard digital ============== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 04.C &nbsp;·&nbsp; <b>VCARD · 1080 × 1920</b></div>
+      <div>
+        <h2 class="section-title">Save to Contacts in one tap.</h2>
+        <p class="section-desc">Drop the PNG into an AirDrop, iMessage, or LinkedIn DM. The MECARD QR is parsed natively by iOS and Android — no app, no signup, no tracking pixel.</p>
+      </div>
+    </header>
+
+    <div class="vcard-row">
+
+      <div class="card-stage">
+        <span class="label">4.3 · DIGITAL · 1080×1920</span>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="vcard">
+              <div class="hdr-mono">▌ SYPNOSE · MITHOS</div>
+              <div class="name">Carlos<br/>De La Torre</div>
+              <div class="role">Architect of <b>SYPNOSE</b><br/>Puerto Plata, Dominican Republic</div>
+              <div class="rule"></div>
+              <div class="info">
+                <div class="info-row"><span class="lbl">EMAIL</span>carlos@huyghusrl.com</div>
+                <div class="info-row"><span class="lbl">TEL · WHATSAPP</span>+1 809 424 0731</div>
+                <div class="info-row"><span class="lbl">WEB</span><span style="color:#da7756;font-weight:600">sypnose.cloud</span></div>
+              </div>
+
+              <div class="qr-wrap">
+                <!-- inline QR-ish glyph block, real export will replace with true QR -->
+                <svg viewBox="0 0 100 100" width="80" height="80">
+                  <rect width="100" height="100" fill="#eeece2"/>
+                  <g fill="#3d3929" shape-rendering="crispEdges">
+                    <!-- finder patterns -->
+                    <rect x="6" y="6" width="22" height="22"/><rect x="10" y="10" width="14" height="14" fill="#eeece2"/><rect x="14" y="14" width="6" height="6"/>
+                    <rect x="72" y="6" width="22" height="22"/><rect x="76" y="10" width="14" height="14" fill="#eeece2"/><rect x="80" y="14" width="6" height="6"/>
+                    <rect x="6" y="72" width="22" height="22"/><rect x="10" y="76" width="14" height="14" fill="#eeece2"/><rect x="14" y="80" width="6" height="6"/>
+                    <!-- data dots, deterministic-ish -->
+                    <rect x="34" y="6" width="4" height="4"/><rect x="42" y="6" width="4" height="4"/><rect x="50" y="6" width="4" height="4"/><rect x="62" y="6" width="4" height="4"/>
+                    <rect x="34" y="14" width="4" height="4"/><rect x="46" y="14" width="4" height="4"/><rect x="58" y="14" width="4" height="4"/>
+                    <rect x="38" y="22" width="4" height="4"/><rect x="50" y="22" width="4" height="4"/><rect x="62" y="22" width="4" height="4"/>
+                    <rect x="6" y="34" width="4" height="4"/><rect x="14" y="34" width="4" height="4"/><rect x="22" y="34" width="4" height="4"/>
+                    <rect x="34" y="34" width="4" height="4"/><rect x="42" y="34" width="4" height="4"/><rect x="50" y="34" width="4" height="4"/><rect x="58" y="34" width="4" height="4"/><rect x="74" y="34" width="4" height="4"/><rect x="82" y="34" width="4" height="4"/>
+                    <rect x="10" y="42" width="4" height="4"/><rect x="22" y="42" width="4" height="4"/><rect x="38" y="42" width="4" height="4"/><rect x="50" y="42" width="4" height="4"/><rect x="62" y="42" width="4" height="4"/><rect x="78" y="42" width="4" height="4"/><rect x="90" y="42" width="4" height="4"/>
+                    <rect x="6" y="50" width="4" height="4"/><rect x="18" y="50" width="4" height="4"/><rect x="34" y="50" width="4" height="4"/><rect x="46" y="50" width="4" height="4"/><rect x="62" y="50" width="4" height="4"/><rect x="74" y="50" width="4" height="4"/><rect x="86" y="50" width="4" height="4"/>
+                    <rect x="14" y="58" width="4" height="4"/><rect x="30" y="58" width="4" height="4"/><rect x="42" y="58" width="4" height="4"/><rect x="58" y="58" width="4" height="4"/><rect x="70" y="58" width="4" height="4"/><rect x="82" y="58" width="4" height="4"/>
+                    <rect x="6" y="66" width="4" height="4"/><rect x="22" y="66" width="4" height="4"/><rect x="38" y="66" width="4" height="4"/><rect x="50" y="66" width="4" height="4"/><rect x="66" y="66" width="4" height="4"/><rect x="78" y="66" width="4" height="4"/><rect x="90" y="66" width="4" height="4"/>
+                    <rect x="34" y="74" width="4" height="4"/><rect x="46" y="74" width="4" height="4"/><rect x="58" y="74" width="4" height="4"/><rect x="70" y="74" width="4" height="4"/><rect x="82" y="74" width="4" height="4"/>
+                    <rect x="38" y="82" width="4" height="4"/><rect x="50" y="82" width="4" height="4"/><rect x="62" y="82" width="4" height="4"/><rect x="74" y="82" width="4" height="4"/><rect x="90" y="82" width="4" height="4"/>
+                    <rect x="34" y="90" width="4" height="4"/><rect x="46" y="90" width="4" height="4"/><rect x="58" y="90" width="4" height="4"/><rect x="78" y="90" width="4" height="4"/>
+                  </g>
+                  <!-- center logo -->
+                  <rect x="40" y="40" width="20" height="20" fill="#eeece2"/>
+                  <circle cx="50" cy="50" r="6" fill="#da7756"/>
+                </svg>
+                <div class="qr-text">
+                  <b>Scan to save</b>
+                  Add to Contacts ·<br/>MECARD · iOS · Android
+                </div>
+              </div>
+
+              <div class="ftr">SYPNOSE.CLOUD · ONE COMMAND.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="spec-card">
+          <div class="head"><span>MECARD payload</span><span>vCard 3.0 · UTF-8</span></div>
+<pre style="margin:0">MECARD:
+N:<span class="s">De La Torre,Carlos</span>;
+ORG:<span class="s">SYPNOSE</span>;
+TITLE:<span class="s">Architect of SYPNOSE</span>;
+TEL:<span class="s">+18094240731</span>;
+EMAIL:<span class="s">carlos@huyghusrl.com</span>;
+URL:<span class="s">https://sypnose.cloud</span>;
+ADR:<span class="s">,,Puerto Plata,,,Dominican Republic</span>;
+NOTE:<span class="s">One command. Entire AI organization.</span>;
+;</pre>
+        </div>
+
+        <div style="margin-top:24px;font-family:'DM Sans';font-size:14px;line-height:1.65;color:var(--slate-2);max-width:520px">
+          <p style="margin:0 0 10px"><b style="font-family:'Poppins';color:var(--slate)">QR generator.</b> Pipe the payload above through <code style="font-family:'JetBrains Mono';color:var(--terra-deep)">qrencode -t SVG -l H</code> (level H, 30% damage tolerance) so the terra cotta symbol can sit dead-center without breaking scans.</p>
+          <p style="margin:0 0 10px"><b style="font-family:'Poppins';color:var(--slate)">Center mark.</b> The terra cotta hub overlays the QR at 20% of total size — well inside H-level recovery margin.</p>
+          <p style="margin:0"><b style="font-family:'Poppins';color:var(--slate)">Export.</b> Render the SVG at 1080 × 1920 with 3× supersampling, save as PNG-24 with no compression. Final file <code style="font-family:'JetBrains Mono'">vcard-carlos.png</code> ~ 180&nbsp;KB.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div>SYPNOSE © 2026 · Identity v1.0 · Block 04</div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#da7756"></i>#DA7756 · PMS 165 C</span>
+      <span class="sw"><i style="background:#eeece2"></i>#EEECE2</span>
+      <span class="sw"><i style="background:#3d3929"></i>#3D3929 · PMS 7531 C</span>
+    </div>
+    <div>Next ▸ Block 05 — Pitch Deck</div>
+  </footer>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose — Favicon Set</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--terra:#da7756;--terra-deep:#b85f3f;--cream:#eeece2;--cream-2:#e6e2d2;--slate:#3d3929;--slate-2:#5a5443;--slate-3:#8a8472;--rule:rgba(61,57,41,.14);--rule-strong:rgba(61,57,41,.28)}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:var(--cream);color:var(--slate);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1480px;margin:0 auto;padding:64px 56px 120px}
+  .meta{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-2)}
+  .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:8px;vertical-align:middle}
+  .hero{padding:56px 0 40px;max-width:980px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra-deep);margin:0 0 24px}
+  h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:72px;line-height:.98;letter-spacing:-0.035em;margin:0 0 22px}
+  h1 em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--terra)}
+  .lede{font-family:'Lora',serif;font-style:italic;font-size:22px;line-height:1.45;color:var(--slate-2);max-width:760px}
+  .section{margin-top:96px}
+  .section-head{display:grid;grid-template-columns:220px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .section-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate-3);padding-top:8px}
+  .section-tag b{color:var(--terra-deep);font-weight:600}
+  .section-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:36px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px}
+  .section-desc{font-size:15px;line-height:1.6;color:var(--slate-2);max-width:680px;margin:0}
+
+  /* favicon grid */
+  .fav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+  .fav{background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 0 rgba(61,57,41,.04)}
+  .fav-stage{height:200px;display:flex;align-items:center;justify-content:center;background:var(--cream);position:relative}
+  .fav-stage.dark{background:var(--slate)}
+  .fav-stage.white{background:#fff;border-bottom:1px solid var(--rule)}
+  .fav-foot{padding:14px 18px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline}
+  .fav-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--slate-3);text-transform:uppercase}
+  .fav-name{font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;letter-spacing:-0.01em}
+  .fav-size{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--terra-deep)}
+
+  /* OG */
+  .og-row{display:grid;grid-template-columns:1fr;gap:24px}
+  .og-stage{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:32px;box-shadow:0 1px 0 rgba(61,57,41,.04)}
+  .og-frame{width:100%;aspect-ratio:1200/630;background:var(--slate);border-radius:6px;overflow:hidden;position:relative}
+
+  /* manifest */
+  .code-card{background:var(--slate);color:var(--cream);border-radius:8px;padding:28px 32px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;overflow:auto;border:1px solid rgba(255,255,255,.06)}
+  .code-card .k{color:#da7756}
+  .code-card .s{color:#cfb98a}
+  .code-card .n{color:#a3c9aa}
+  .code-card .c{color:#7a7460;font-style:italic}
+  .code-card .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a8472}
+
+  .colophon{margin-top:96px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-3)}
+  .swatches{display:flex;gap:14px}.sw{display:flex;align-items:center;gap:8px}.sw i{width:14px;height:14px;border-radius:3px;border:1px solid var(--rule);display:inline-block}
+
+  /* shared symbol sizes */
+  .sym-shell{background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(61,57,41,.15)}
+  .pixel-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:8px 8px}
+
+  @media (max-width:1100px){.fav-grid{grid-template-columns:repeat(2,1fr)}.section-head{grid-template-columns:1fr}h1{font-size:54px}}
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="Sypnose Favicon Set">
+
+  <div class="meta">
+    <span><span class="dot"></span>Sypnose · Brand Identity · Mithos Edition</span>
+    <span>Vol. 02 / 08 — Favicon Set · v1.0 · 12 May 2026</span>
+  </div>
+
+  <section class="hero">
+    <p class="eyebrow">▌ Block 02 — System Icons</p>
+    <h1>Ten files.<br/>One mark.<br/><em>Every surface.</em></h1>
+    <p class="lede">From a 16-pixel browser tab to a 1200×630 LinkedIn card — the symbol stays readable, the terra cotta hub stays terra cotta, and the silhouette never breaks. Drop-in for any web project under <span style="font-family:'JetBrains Mono';color:var(--terra-deep)">github.com/sypnose-cloud</span>.</p>
+  </section>
+
+  <!-- =========== icons =========== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 02.A &nbsp;·&nbsp; <b>10 RASTER &amp; VECTOR ASSETS</b></div>
+      <div>
+        <h2 class="section-title">Every size pixel-hinted, not auto-scaled.</h2>
+        <p class="section-desc">Below 24 px the mark switches to the simplified silhouette (variant 1.8): a terra hub on a cream disc with 6 solid satellites. No spokes, no hex perimeter — those become visual noise at small scale.</p>
+      </div>
+    </header>
+
+    <div class="fav-grid">
+
+      <!-- 2.1 favicon-16 -->
+      <article class="fav">
+        <div class="fav-stage">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+            <svg viewBox="0 0 16 16" width="80" height="80" shape-rendering="crispEdges">
+              <rect width="16" height="16" fill="#eeece2"/>
+              <rect x="6" y="6" width="4" height="4" fill="#da7756"/>
+              <rect x="12" y="7" width="2" height="2" fill="#3d3929"/>
+              <rect x="2" y="7" width="2" height="2" fill="#3d3929"/>
+              <rect x="10" y="2" width="2" height="2" fill="#3d3929"/>
+              <rect x="4" y="2" width="2" height="2" fill="#3d3929"/>
+              <rect x="10" y="12" width="2" height="2" fill="#3d3929"/>
+              <rect x="4" y="12" width="2" height="2" fill="#3d3929"/>
+            </svg>
+            <svg viewBox="0 0 16 16" width="16" height="16" shape-rendering="crispEdges">
+              <rect width="16" height="16" fill="#eeece2"/><rect x="6" y="6" width="4" height="4" fill="#da7756"/>
+              <rect x="12" y="7" width="2" height="2" fill="#3d3929"/><rect x="2" y="7" width="2" height="2" fill="#3d3929"/>
+              <rect x="10" y="2" width="2" height="2" fill="#3d3929"/><rect x="4" y="2" width="2" height="2" fill="#3d3929"/>
+              <rect x="10" y="12" width="2" height="2" fill="#3d3929"/><rect x="4" y="12" width="2" height="2" fill="#3d3929"/>
+            </svg>
+          </div>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.1</span><span class="fav-name">favicon-16.png</span><span class="fav-size">16×16</span></div>
+      </article>
+
+      <!-- 2.2 favicon-32 -->
+      <article class="fav">
+        <div class="fav-stage">
+          <svg viewBox="0 0 32 32" width="96" height="96">
+            <rect width="32" height="32" rx="4" fill="#eeece2"/>
+            <circle cx="16" cy="16" r="6" fill="#da7756"/>
+            <g fill="#3d3929"><circle cx="27" cy="16" r="2.2"/><circle cx="5" cy="16" r="2.2"/>
+            <circle cx="21.5" cy="6.5" r="2.2"/><circle cx="10.5" cy="6.5" r="2.2"/>
+            <circle cx="21.5" cy="25.5" r="2.2"/><circle cx="10.5" cy="25.5" r="2.2"/></g>
+          </svg>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.2</span><span class="fav-name">favicon-32.png</span><span class="fav-size">32×32</span></div>
+      </article>
+
+      <!-- 2.3 favicon-48 -->
+      <article class="fav">
+        <div class="fav-stage">
+          <svg viewBox="0 0 200 200" width="120" height="120">
+            <rect width="200" height="200" rx="36" fill="#eeece2"/>
+            <g stroke="#3d3929" stroke-width="3" stroke-linecap="round" opacity="0.85">
+              <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="40" y2="100"/>
+              <line x1="100" y1="100" x2="130" y2="148"/><line x1="100" y1="100" x2="70" y2="148"/>
+              <line x1="100" y1="100" x2="130" y2="52"/><line x1="100" y1="100" x2="70" y2="52"/>
+            </g>
+            <g fill="#3d3929">
+              <circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/>
+              <circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/>
+              <circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/>
+            </g>
+            <circle cx="100" cy="100" r="22" fill="#da7756"/>
+          </svg>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.3</span><span class="fav-name">favicon-48.png</span><span class="fav-size">48×48</span></div>
+      </article>
+
+      <!-- 2.4 apple-touch -->
+      <article class="fav">
+        <div class="fav-stage">
+          <div style="width:140px;height:140px;background:var(--cream);border-radius:30px;box-shadow:0 1px 0 rgba(61,57,41,.06),0 18px 40px -24px rgba(61,57,41,.4);display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 200 200" width="100" height="100">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+              <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <g fill="#3d3929"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+              <circle cx="100" cy="100" r="18" fill="#da7756"/>
+            </svg>
+          </div>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.4</span><span class="fav-name">apple-touch-icon.png</span><span class="fav-size">180×180</span></div>
+      </article>
+
+      <!-- 2.5 android 192 -->
+      <article class="fav">
+        <div class="fav-stage">
+          <div style="width:140px;height:140px;background:var(--slate);border-radius:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px -24px rgba(61,57,41,.4)">
+            <svg viewBox="0 0 200 200" width="100" height="100">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+              <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+              <circle cx="100" cy="100" r="18" fill="#da7756"/>
+            </svg>
+          </div>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.5</span><span class="fav-name">android-chrome-192.png</span><span class="fav-size">192×192</span></div>
+      </article>
+
+      <!-- 2.6 android 512 -->
+      <article class="fav">
+        <div class="fav-stage dark">
+          <svg viewBox="0 0 200 200" width="160" height="160">
+            <rect width="200" height="200" rx="42" fill="#3d3929"/>
+            <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+            <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+              <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+              <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+              <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+            </g>
+            <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+              <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+            <circle cx="100" cy="100" r="18" fill="#da7756"/>
+          </svg>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.6</span><span class="fav-name">android-chrome-512.png</span><span class="fav-size">512×512</span></div>
+      </article>
+
+      <!-- 2.7 safari pinned -->
+      <article class="fav">
+        <div class="fav-stage white">
+          <svg viewBox="0 0 200 200" width="120" height="120">
+            <g fill="#000">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#000" stroke-width="6" opacity="0.4"/>
+              <g stroke="#000" stroke-width="6" stroke-linecap="round" fill="none">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <circle cx="160" cy="100" r="11"/><circle cx="130" cy="151.96" r="11"/><circle cx="70" cy="151.96" r="11"/>
+              <circle cx="40" cy="100" r="11"/><circle cx="70" cy="48.04" r="11"/><circle cx="130" cy="48.04" r="11"/>
+              <circle cx="100" cy="100" r="22"/>
+            </g>
+          </svg>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.7</span><span class="fav-name">safari-pinned-tab.svg</span><span class="fav-size">vector · mono</span></div>
+      </article>
+
+      <!-- 2.8 mstile -->
+      <article class="fav">
+        <div class="fav-stage">
+          <div style="width:160px;height:160px;background:#da7756;display:flex;align-items:center;justify-content:center;position:relative;border-radius:2px">
+            <svg viewBox="0 0 200 200" width="120" height="120">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.6"/>
+              <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+              <circle cx="100" cy="100" r="18" fill="#3d3929"/>
+            </svg>
+          </div>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.8</span><span class="fav-name">mstile-150.png</span><span class="fav-size">150×150</span></div>
+      </article>
+
+      <!-- 2.9 maskable -->
+      <article class="fav">
+        <div class="fav-stage">
+          <div style="position:relative;width:160px;height:160px">
+            <div style="position:absolute;inset:0;background:var(--cream);border-radius:50%"></div>
+            <div style="position:absolute;inset:0;border:1px dashed var(--rule-strong);border-radius:50%"></div>
+            <svg viewBox="0 0 200 200" width="160" height="160" style="position:absolute;inset:0">
+              <g transform="translate(40,40) scale(0.6)">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#3d3929" stroke-width="2.4" opacity="0.55"/>
+                <g stroke="#3d3929" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g fill="#3d3929"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+                <circle cx="100" cy="100" r="18" fill="#da7756"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.9</span><span class="fav-name">maskable-icon-512.png</span><span class="fav-size">safe-zone 40%</span></div>
+      </article>
+
+      <!-- 2.10 OG image preview -->
+      <article class="fav">
+        <div class="fav-stage" style="height:200px;padding:14px">
+          <div style="width:100%;aspect-ratio:1200/630;background:#3d3929;border-radius:4px;overflow:hidden;position:relative">
+            <svg viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+              <rect width="1200" height="630" fill="#3d3929"/>
+              <g opacity="0.06" stroke="#eeece2" stroke-width="1">
+                <line x1="0" y1="210" x2="1200" y2="210"/><line x1="0" y1="420" x2="1200" y2="420"/>
+                <line x1="400" y1="0" x2="400" y2="630"/><line x1="800" y1="0" x2="800" y2="630"/>
+              </g>
+              <g transform="translate(80,180) scale(0.9)">
+                <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+                <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                  <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                  <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+                </g>
+                <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                  <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+                <circle cx="100" cy="100" r="18" fill="#da7756"/>
+              </g>
+              <text x="320" y="240" font-family="Poppins" font-weight="700" font-size="72" fill="#eeece2" letter-spacing="-2.5">sypnose</text>
+              <text x="320" y="300" font-family="Lora" font-style="italic" font-size="32" fill="#da7756">Mithos — one command. entire AI organization.</text>
+              <text x="80" y="560" font-family="JetBrains Mono" font-size="18" fill="#8a8472" letter-spacing="2">300 WORKERS · 47 MODELS · 741 MS A2A · 95% FREE COMPUTE</text>
+              <text x="80" y="585" font-family="JetBrains Mono" font-size="14" fill="#5a5443" letter-spacing="1.5">SYPNOSE.CLOUD · GITHUB.COM/SYPNOSE-CLOUD</text>
+            </svg>
+          </div>
+        </div>
+        <div class="fav-foot"><span class="fav-num">2.10</span><span class="fav-name">og-image.png</span><span class="fav-size">1200×630</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ OG anatomy ============ -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 02.B &nbsp;·&nbsp; <b>OG CARD · ANATOMY</b></div>
+      <div>
+        <h2 class="section-title">The card that ships every link.</h2>
+        <p class="section-desc">Used for LinkedIn, X, Slack, Discord and iMessage unfurls. Dark slate ground, terra cotta hub, four live metrics in monospace at the foot — the same brand voice as the CLI.</p>
+      </div>
+    </header>
+
+    <div class="og-row">
+      <div class="og-stage">
+        <div class="og-frame">
+          <svg viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
+            <rect width="1200" height="630" fill="#3d3929"/>
+            <g opacity="0.06" stroke="#eeece2" stroke-width="1">
+              <line x1="0" y1="210" x2="1200" y2="210"/><line x1="0" y1="420" x2="1200" y2="420"/>
+              <line x1="400" y1="0" x2="400" y2="630"/><line x1="800" y1="0" x2="800" y2="630"/>
+            </g>
+            <g transform="translate(80,150) scale(1.4)">
+              <path d="M160 100 L130 151.96 L70 151.96 L40 100 L70 48.04 L130 48.04 Z" fill="none" stroke="#eeece2" stroke-width="2.4" opacity="0.5"/>
+              <g stroke="#eeece2" stroke-width="2.4" stroke-linecap="round">
+                <line x1="100" y1="100" x2="160" y2="100"/><line x1="100" y1="100" x2="130" y2="151.96"/>
+                <line x1="100" y1="100" x2="70" y2="151.96"/><line x1="100" y1="100" x2="40" y2="100"/>
+                <line x1="100" y1="100" x2="70" y2="48.04"/><line x1="100" y1="100" x2="130" y2="48.04"/>
+              </g>
+              <g fill="#eeece2"><circle cx="160" cy="100" r="9"/><circle cx="130" cy="151.96" r="9"/><circle cx="70" cy="151.96" r="9"/>
+                <circle cx="40" cy="100" r="9"/><circle cx="70" cy="48.04" r="9"/><circle cx="130" cy="48.04" r="9"/></g>
+              <circle cx="100" cy="100" r="18" fill="#da7756"/>
+            </g>
+            <text x="430" y="240" font-family="Poppins" font-weight="700" font-size="88" fill="#eeece2" letter-spacing="-3.2">sypnose</text>
+            <text x="430" y="295" font-family="JetBrains Mono" font-weight="500" font-size="20" fill="#da7756" letter-spacing="3">MITHOS</text>
+            <text x="430" y="360" font-family="Lora" font-style="italic" font-size="38" fill="#eeece2">One command. Entire AI organization.</text>
+            <line x1="80" y1="510" x2="1120" y2="510" stroke="#eeece2" stroke-width="1" opacity="0.15"/>
+            <g font-family="JetBrains Mono" font-size="20" fill="#eeece2" letter-spacing="2">
+              <text x="80" y="560">300 WORKERS</text>
+              <text x="380" y="560" fill="#8a8472">·</text>
+              <text x="410" y="560">47 MODELS</text>
+              <text x="640" y="560" fill="#8a8472">·</text>
+              <text x="670" y="560">741 MS A2A</text>
+              <text x="920" y="560" fill="#8a8472">·</text>
+              <text x="950" y="560" fill="#da7756">95% FREE</text>
+            </g>
+            <text x="80" y="595" font-family="JetBrains Mono" font-size="14" fill="#5a5443" letter-spacing="1.5">SYPNOSE.CLOUD · LIVE SINCE JAN 2026 · MIT</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ manifest.json ============ -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 02.C &nbsp;·&nbsp; <b>PWA MANIFEST</b></div>
+      <div>
+        <h2 class="section-title">Drop-in manifest.json.</h2>
+        <p class="section-desc">Place at <code style="font-family:'JetBrains Mono';color:var(--terra-deep)">/site.webmanifest</code> with the icons at the paths listed below. Theme color is the slate; background is cream so the splash screen matches the brand surface.</p>
+      </div>
+    </header>
+
+    <div class="code-card">
+      <div class="head"><span>site.webmanifest</span><span>UTF-8 · 894 bytes</span></div>
+<pre style="margin:0;font-family:'JetBrains Mono',monospace">{
+  <span class="k">"name"</span>: <span class="s">"Sypnose Mithos"</span>,
+  <span class="k">"short_name"</span>: <span class="s">"Sypnose"</span>,
+  <span class="k">"description"</span>: <span class="s">"One command. Entire AI organization."</span>,
+  <span class="k">"start_url"</span>: <span class="s">"/"</span>,
+  <span class="k">"display"</span>: <span class="s">"standalone"</span>,
+  <span class="k">"orientation"</span>: <span class="s">"portrait"</span>,
+  <span class="k">"theme_color"</span>: <span class="s">"#3d3929"</span>,
+  <span class="k">"background_color"</span>: <span class="s">"#eeece2"</span>,
+  <span class="k">"scope"</span>: <span class="s">"/"</span>,
+  <span class="k">"id"</span>: <span class="s">"cloud.sypnose.app"</span>,
+  <span class="k">"categories"</span>: [<span class="s">"developer"</span>, <span class="s">"productivity"</span>, <span class="s">"utilities"</span>],
+  <span class="k">"icons"</span>: [
+    { <span class="k">"src"</span>: <span class="s">"/icons/favicon-16.png"</span>,            <span class="k">"sizes"</span>: <span class="s">"16x16"</span>,   <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icons/favicon-32.png"</span>,            <span class="k">"sizes"</span>: <span class="s">"32x32"</span>,   <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icons/favicon-48.png"</span>,            <span class="k">"sizes"</span>: <span class="s">"48x48"</span>,   <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icons/apple-touch-icon.png"</span>,      <span class="k">"sizes"</span>: <span class="s">"180x180"</span>, <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icons/android-chrome-192.png"</span>,   <span class="k">"sizes"</span>: <span class="s">"192x192"</span>, <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icons/android-chrome-512.png"</span>,   <span class="k">"sizes"</span>: <span class="s">"512x512"</span>, <span class="k">"type"</span>: <span class="s">"image/png"</span> },
+    { <span class="k">"src"</span>: <span class="s">"/icons/maskable-icon-512.png"</span>,    <span class="k">"sizes"</span>: <span class="s">"512x512"</span>, <span class="k">"type"</span>: <span class="s">"image/png"</span>, <span class="k">"purpose"</span>: <span class="s">"maskable"</span> }
+  ],
+  <span class="k">"shortcuts"</span>: [
+    { <span class="k">"name"</span>: <span class="s">"Start a new build"</span>, <span class="k">"url"</span>: <span class="s">"/console/new"</span> },
+    { <span class="k">"name"</span>: <span class="s">"Book a 6h POC"</span>,     <span class="k">"url"</span>: <span class="s">"/poc"</span> }
+  ]
+}</pre>
+    </div>
+  </section>
+
+  <!-- ============ HTML head snippet ============ -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 02.D &nbsp;·&nbsp; <b>&lt;head&gt; SNIPPET</b></div>
+      <div>
+        <h2 class="section-title">Paste once. Ship everywhere.</h2>
+        <p class="section-desc">Drop this block inside <code style="font-family:'JetBrains Mono';color:var(--terra-deep)">&lt;head&gt;</code> on every Sypnose property. The OG card is the only image referenced — meta tags do the rest.</p>
+      </div>
+    </header>
+
+    <div class="code-card">
+      <div class="head"><span>index.html · &lt;head&gt;</span><span>copy &amp; paste</span></div>
+<pre style="margin:0;font-family:'JetBrains Mono',monospace"><span class="c">&lt;!-- icons --&gt;</span>
+&lt;<span class="k">link</span> rel=<span class="s">"icon"</span> type=<span class="s">"image/png"</span> sizes=<span class="s">"32x32"</span> href=<span class="s">"/icons/favicon-32.png"</span>&gt;
+&lt;<span class="k">link</span> rel=<span class="s">"icon"</span> type=<span class="s">"image/png"</span> sizes=<span class="s">"16x16"</span> href=<span class="s">"/icons/favicon-16.png"</span>&gt;
+&lt;<span class="k">link</span> rel=<span class="s">"apple-touch-icon"</span> sizes=<span class="s">"180x180"</span> href=<span class="s">"/icons/apple-touch-icon.png"</span>&gt;
+&lt;<span class="k">link</span> rel=<span class="s">"mask-icon"</span> href=<span class="s">"/icons/safari-pinned-tab.svg"</span> color=<span class="s">"#da7756"</span>&gt;
+&lt;<span class="k">link</span> rel=<span class="s">"manifest"</span> href=<span class="s">"/site.webmanifest"</span>&gt;
+&lt;<span class="k">meta</span> name=<span class="s">"theme-color"</span> content=<span class="s">"#3d3929"</span>&gt;
+&lt;<span class="k">meta</span> name=<span class="s">"msapplication-TileColor"</span> content=<span class="s">"#da7756"</span>&gt;
+&lt;<span class="k">meta</span> name=<span class="s">"msapplication-TileImage"</span> content=<span class="s">"/icons/mstile-150.png"</span>&gt;
+
+<span class="c">&lt;!-- social card --&gt;</span>
+&lt;<span class="k">meta</span> property=<span class="s">"og:title"</span>       content=<span class="s">"Sypnose Mithos"</span>&gt;
+&lt;<span class="k">meta</span> property=<span class="s">"og:description"</span> content=<span class="s">"One command. Entire AI organization."</span>&gt;
+&lt;<span class="k">meta</span> property=<span class="s">"og:image"</span>       content=<span class="s">"https://sypnose.cloud/og-image.png"</span>&gt;
+&lt;<span class="k">meta</span> property=<span class="s">"og:url"</span>         content=<span class="s">"https://sypnose.cloud"</span>&gt;
+&lt;<span class="k">meta</span> property=<span class="s">"og:type"</span>        content=<span class="s">"website"</span>&gt;
+&lt;<span class="k">meta</span> name=<span class="s">"twitter:card"</span>      content=<span class="s">"summary_large_image"</span>&gt;
+&lt;<span class="k">meta</span> name=<span class="s">"twitter:site"</span>      content=<span class="s">"@sypnose"</span>&gt;</pre>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div>SYPNOSE © 2026 · Identity v1.0 · Block 02</div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#da7756"></i>#DA7756</span>
+      <span class="sw"><i style="background:#eeece2"></i>#EEECE2</span>
+      <span class="sw"><i style="background:#3d3929"></i>#3D3929</span>
+    </div>
+    <div>Next ▸ Block 03 — Email Signatures</div>
+  </footer>
+
+</main>
+</body>
+</html>

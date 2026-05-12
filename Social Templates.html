@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sypnose — Social Templates</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--terra:#da7756;--terra-deep:#b85f3f;--cream:#eeece2;--cream-2:#e6e2d2;--slate:#3d3929;--slate-2:#5a5443;--slate-3:#8a8472;--slate-4:#2a261b;--rule:rgba(61,57,41,.14)}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:var(--cream);color:var(--slate);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1480px;margin:0 auto;padding:64px 56px 120px}
+  .meta{display:flex;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-2)}
+  .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--terra);margin-right:8px;vertical-align:middle}
+  .hero{padding:56px 0 40px;max-width:980px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra-deep);margin:0 0 24px}
+  h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:72px;line-height:.98;letter-spacing:-0.035em;margin:0 0 22px}
+  h1 em{font-family:'Lora',serif;font-style:italic;font-weight:500;color:var(--terra)}
+  .lede{font-family:'Lora',serif;font-style:italic;font-size:22px;line-height:1.45;color:var(--slate-2);max-width:760px}
+
+  /* sections */
+  .section{margin-top:96px}
+  .section-head{display:grid;grid-template-columns:220px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid var(--rule);margin-bottom:40px}
+  .section-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate-3);padding-top:8px}
+  .section-tag b{color:var(--terra-deep);font-weight:600}
+  .section-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:36px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px}
+  .section-desc{font-size:15px;line-height:1.6;color:var(--slate-2);max-width:680px;margin:0}
+
+  /* layout: each typology shows 3 dims side by side */
+  .row3{display:grid;grid-template-columns:1.2fr 1fr 0.6fr;gap:24px;align-items:start}
+  @media (max-width:1100px){.row3{grid-template-columns:1fr}}
+
+  .card-wrap{background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;box-shadow:0 1px 0 rgba(61,57,41,.04),0 24px 60px -36px rgba(61,57,41,.18);position:relative}
+  .card-foot{padding:14px 18px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;background:#fff}
+  .card-num{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.18em;color:var(--slate-3);text-transform:uppercase}
+  .card-name{font-family:'Poppins';font-weight:600;font-size:13px;letter-spacing:-0.01em}
+  .card-size{font-family:'JetBrains Mono';font-size:10px;color:var(--terra-deep)}
+  .card-stage{display:flex;align-items:center;justify-content:center;background:#fafaf3;padding:24px;position:relative;overflow:hidden}
+
+  /* canvas frames — at scale so previews fit cleanly */
+  .li{aspect-ratio:1200/627;width:100%;background:#3d3929;color:#eeece2;position:relative;overflow:hidden;border-radius:4px}
+  .ig{aspect-ratio:1/1;width:100%;background:#3d3929;color:#eeece2;position:relative;overflow:hidden;border-radius:4px;max-width:380px;margin:0 auto}
+  .story{aspect-ratio:1080/1920;width:100%;background:#3d3929;color:#eeece2;position:relative;overflow:hidden;border-radius:12px;max-width:200px;margin:0 auto}
+
+  /* shared brand chrome */
+  .brand-mini{position:absolute;display:flex;align-items:center;gap:6px;font-family:'Poppins';font-weight:700;letter-spacing:-0.4px}
+  .brand-mini svg{width:18px;height:18px}
+  .brand-mini .nm{font-size:13px}
+
+  .grid-bg{position:absolute;inset:0;opacity:0.06;background-image:linear-gradient(rgba(238,236,226,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(238,236,226,.5) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+  .glow{position:absolute;border-radius:50%;filter:blur(50px);pointer-events:none}
+
+  /* type tokens */
+  .ey{font-family:'JetBrains Mono';letter-spacing:.22em;text-transform:uppercase}
+
+  .colophon{margin-top:96px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-3)}
+  .swatches{display:flex;gap:14px}.sw{display:flex;align-items:center;gap:8px}.sw i{width:14px;height:14px;border-radius:3px;border:1px solid var(--rule);display:inline-block}
+
+  /* logo mini factory */
+</style>
+</head>
+<body>
+<main class="page" data-screen-label="Sypnose Social Templates">
+
+  <div class="meta">
+    <span><span class="dot"></span>Sypnose · Brand Identity · Mithos Edition</span>
+    <span>Vol. 08 / 08 — Social Templates · v1.0 · 12 May 2026</span>
+  </div>
+
+  <section class="hero">
+    <p class="eyebrow">▌ Block 08 — Social System</p>
+    <h1>Six typologies.<br/>Three dimensions.<br/><em>Eighteen ships.</em></h1>
+    <p class="lede">Quote, metric, case, build-in-public, hiring, launch. Each typology built once and laid out for LinkedIn 1200×627, Instagram Square 1080×1080, and Instagram Story 1080×1920. One visual vocabulary across every channel — no exceptions.</p>
+  </section>
+
+  <!-- ======================== TYPOLOGY 01 — QUOTE ======================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 08.A &nbsp;·&nbsp; <b>01 · QUOTE</b></div>
+      <div>
+        <h2 class="section-title">Quote · the manifesto line.</h2>
+        <p class="section-desc">A single Lora-italic phrase, mono attribution under it. Dark slate ground only — quotes do not run on cream.</p>
+      </div>
+    </header>
+
+    <div class="row3">
+      <!-- LI -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="li">
+          <div class="glow" style="width:600px;height:600px;background:rgba(218,119,86,.22);left:-200px;top:-200px"></div>
+          <div class="grid-bg"></div>
+          <div class="brand-mini" style="top:36px;left:42px;color:#eeece2">
+            <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg>
+            <span class="nm">sypnose</span>
+          </div>
+          <div style="position:absolute;top:36px;right:42px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;color:#da7756;text-transform:uppercase">▌ THE IRON RULE</div>
+
+          <div style="position:absolute;left:42px;right:42px;top:50%;transform:translateY(-50%)">
+            <div style="font-family:Lora;font-style:italic;font-weight:500;font-size:72px;line-height:.98;letter-spacing:-0.02em;color:#eeece2">"No proof,<br/><span style="color:#da7756">no done.”</span></div>
+          </div>
+
+          <div style="position:absolute;bottom:34px;left:42px;right:42px;display:flex;justify-content:space-between;align-items:baseline;font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:rgba(238,236,226,.5);text-transform:uppercase">
+            <span>— SYPNOSE · ORCHESTRATOR LAYER · SINCE JAN 2026</span>
+            <span style="color:#da7756">SYPNOSE.CLOUD</span>
+          </div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.01.LI</span><span class="card-name">Quote · LinkedIn</span><span class="card-size">1200×627</span></div>
+      </article>
+
+      <!-- IG -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="ig">
+          <div class="glow" style="width:500px;height:500px;background:rgba(218,119,86,.2);right:-150px;bottom:-150px"></div>
+          <div class="grid-bg"></div>
+          <div class="brand-mini" style="top:34px;left:34px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;left:34px;right:34px;top:50%;transform:translateY(-52%)">
+            <div style="font-family:'JetBrains Mono';font-size:10px;color:#da7756;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px">▌ THE IRON RULE</div>
+            <div style="font-family:Lora;font-style:italic;font-weight:500;font-size:54px;line-height:.96;letter-spacing:-0.02em;color:#eeece2">"No proof,<br/><span style="color:#da7756">no done.”</span></div>
+          </div>
+          <div style="position:absolute;bottom:30px;left:34px;right:34px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;color:rgba(238,236,226,.5);text-transform:uppercase">— SYPNOSE · SINCE JAN 2026</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.01.IG</span><span class="card-name">Quote · Square</span><span class="card-size">1080×1080</span></div>
+      </article>
+
+      <!-- STORY -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="story">
+          <div class="glow" style="width:280px;height:280px;background:rgba(218,119,86,.25);left:-80px;bottom:200px"></div>
+          <div class="grid-bg"></div>
+          <div class="brand-mini" style="top:40px;left:24px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm" style="font-size:11px">sypnose</span></div>
+          <div style="position:absolute;left:24px;right:24px;top:46%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:7px;color:#da7756;letter-spacing:.18em;margin-bottom:10px">▌ IRON RULE</div>
+            <div style="font-family:Lora;font-style:italic;font-weight:500;font-size:34px;line-height:.94;letter-spacing:-0.01em;color:#eeece2">"No proof,<br/><span style="color:#da7756">no done.”</span></div>
+          </div>
+          <div style="position:absolute;bottom:36px;left:24px;right:24px;text-align:center;font-family:'JetBrains Mono';font-size:7px;letter-spacing:2px;color:rgba(238,236,226,.5)">SWIPE UP · SYPNOSE.CLOUD</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.01.ST</span><span class="card-name">Quote · Story</span><span class="card-size">1080×1920</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================== TYPOLOGY 02 — METRIC DROP ======================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 08.B &nbsp;·&nbsp; <b>02 · METRIC DROP</b></div>
+      <div>
+        <h2 class="section-title">Live metric · one number, no ornament.</h2>
+        <p class="section-desc">Terra cotta ground. One enormous numeral. Label and source in monospace. Reserve for actually significant Grafana spikes.</p>
+      </div>
+    </header>
+
+    <div class="row3">
+      <!-- LI -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="li" style="background:#da7756;color:#3d3929">
+          <div class="brand-mini" style="top:36px;left:42px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#3d3929"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;top:36px;right:42px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;color:#3d3929;text-transform:uppercase;opacity:0.75">▌ A2A · END-TO-END · MAY 2026</div>
+
+          <div style="position:absolute;left:42px;right:42px;top:50%;transform:translateY(-58%);display:flex;align-items:baseline;gap:18px">
+            <div style="font-family:Poppins;font-weight:800;font-size:200px;line-height:.84;letter-spacing:-0.06em;color:#3d3929">741</div>
+            <div><div style="font-family:Poppins;font-weight:700;font-size:60px;color:#3d3929;line-height:1;letter-spacing:-0.025em">ms</div><div style="font-family:'JetBrains Mono';font-size:11px;color:#3d3929;letter-spacing:1.8px;opacity:0.75;margin-top:4px">AGENT-TO-AGENT</div></div>
+          </div>
+
+          <div style="position:absolute;bottom:34px;left:42px;right:42px;display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:#3d3929;opacity:0.75;text-transform:uppercase">
+            <span>END-TO-END · INCL. MEMORY HYDRATION</span>
+            <span>SYPNOSE.CLOUD</span>
+          </div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.02.LI</span><span class="card-name">Metric · LinkedIn</span><span class="card-size">1200×627</span></div>
+      </article>
+
+      <!-- IG -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="ig" style="background:#da7756;color:#3d3929">
+          <div class="brand-mini" style="top:34px;left:34px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#3d3929"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;left:34px;right:34px;top:50%;transform:translateY(-52%)">
+            <div style="font-family:'JetBrains Mono';font-size:10px;letter-spacing:.22em;color:#3d3929;opacity:0.75;margin-bottom:8px">▌ A2A · MAY 2026</div>
+            <div style="display:flex;align-items:baseline;gap:10px"><div style="font-family:Poppins;font-weight:800;font-size:170px;line-height:.84;letter-spacing:-0.055em;color:#3d3929">741</div><div style="font-family:Poppins;font-weight:700;font-size:48px;color:#3d3929">ms</div></div>
+            <div style="font-family:Poppins;font-weight:600;font-size:24px;color:#3d3929;letter-spacing:-0.015em;margin-top:8px">Agent-to-agent latency.</div>
+          </div>
+          <div style="position:absolute;bottom:30px;left:34px;right:34px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;color:#3d3929;opacity:0.65">SYPNOSE.CLOUD · LIVE METRICS</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.02.IG</span><span class="card-name">Metric · Square</span><span class="card-size">1080×1080</span></div>
+      </article>
+
+      <!-- STORY -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="story" style="background:#da7756;color:#3d3929">
+          <div class="brand-mini" style="top:40px;left:24px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#3d3929"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm" style="font-size:11px">sypnose</span></div>
+          <div style="position:absolute;left:24px;right:24px;top:46%;transform:translateY(-50%);text-align:left">
+            <div style="font-family:'JetBrains Mono';font-size:7px;color:#3d3929;letter-spacing:.18em;margin-bottom:6px;opacity:0.7">▌ A2A LATENCY</div>
+            <div style="font-family:Poppins;font-weight:800;font-size:110px;line-height:.84;letter-spacing:-0.05em;color:#3d3929">741<span style="font-size:34px">ms</span></div>
+            <div style="font-family:Poppins;font-weight:600;font-size:16px;color:#3d3929;letter-spacing:-0.015em;margin-top:6px">End-to-end.</div>
+          </div>
+          <div style="position:absolute;bottom:36px;left:24px;right:24px;text-align:center;font-family:'JetBrains Mono';font-size:7px;letter-spacing:2px;color:#3d3929;opacity:0.6">SWIPE UP · SYPNOSE.CLOUD</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.02.ST</span><span class="card-name">Metric · Story</span><span class="card-size">1080×1920</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================== TYPOLOGY 03 — CASE STUDY ======================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 08.C &nbsp;·&nbsp; <b>03 · CASE STUDY</b></div>
+      <div>
+        <h2 class="section-title">Case study · proof, in numbers.</h2>
+        <p class="section-desc">Cream ground, slate type. One headline noun + one number. The "you'd-write-this-down" template.</p>
+      </div>
+    </header>
+
+    <div class="row3">
+      <!-- LI -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="li" style="background:#eeece2;color:#3d3929">
+          <div class="brand-mini" style="top:36px;left:42px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;top:36px;right:42px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;color:#b85f3f;text-transform:uppercase">▌ CASE · BUILD #024</div>
+
+          <div style="position:absolute;left:42px;right:42px;top:46%;transform:translateY(-50%)">
+            <div style="font-family:Poppins;font-weight:700;font-size:64px;line-height:.94;letter-spacing:-0.035em;color:#3d3929">HUYGHU brand kit.<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">Six hours.</em></div>
+          </div>
+
+          <div style="position:absolute;bottom:40px;left:42px;right:42px;display:flex;gap:40px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:#5a5443">
+            <span><b style="font-family:Poppins;font-weight:700;font-size:26px;color:#3d3929;display:block;letter-spacing:-0.015em">142</b>FILES SHIPPED</span>
+            <span><b style="font-family:Poppins;font-weight:700;font-size:26px;color:#3d3929;display:block;letter-spacing:-0.015em">8</b>BLOCKS</span>
+            <span><b style="font-family:Poppins;font-weight:700;font-size:26px;color:#da7756;display:block;letter-spacing:-0.015em">0</b>RE-RUNS</span>
+            <span style="margin-left:auto;align-self:flex-end;color:#b85f3f">SYPNOSE.CLOUD</span>
+          </div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.03.LI</span><span class="card-name">Case · LinkedIn</span><span class="card-size">1200×627</span></div>
+      </article>
+
+      <!-- IG -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="ig" style="background:#eeece2;color:#3d3929">
+          <div class="brand-mini" style="top:34px;left:34px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;left:34px;right:34px;top:48%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:10px;letter-spacing:.22em;color:#b85f3f;margin-bottom:10px">▌ CASE · BUILD #024</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:48px;line-height:.95;letter-spacing:-0.03em">HUYGHU brand kit.<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">Six hours.</em></div>
+            <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(61,57,41,.18);display:flex;gap:24px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;color:#5a5443">
+              <span><b style="font-family:Poppins;font-weight:700;font-size:18px;color:#3d3929;display:block">142</b>FILES</span>
+              <span><b style="font-family:Poppins;font-weight:700;font-size:18px;color:#3d3929;display:block">8</b>BLOCKS</span>
+              <span><b style="font-family:Poppins;font-weight:700;font-size:18px;color:#da7756;display:block">0</b>RE-RUNS</span>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:30px;left:34px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;color:#b85f3f">SYPNOSE.CLOUD</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.03.IG</span><span class="card-name">Case · Square</span><span class="card-size">1080×1080</span></div>
+      </article>
+
+      <!-- STORY -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="story" style="background:#eeece2;color:#3d3929">
+          <div class="brand-mini" style="top:40px;left:24px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm" style="font-size:11px">sypnose</span></div>
+          <div style="position:absolute;left:24px;right:24px;top:44%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:7px;color:#b85f3f;letter-spacing:.18em;margin-bottom:8px">▌ CASE · #024</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:30px;line-height:.95;letter-spacing:-0.02em">HUYGHU brand kit.<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">Six hours.</em></div>
+            <div style="margin-top:16px;font-family:'JetBrains Mono';font-size:8px;color:#5a5443;line-height:1.8;letter-spacing:1.2px">
+              <div>142 FILES · 8 BLOCKS</div>
+              <div style="color:#da7756">0 RE-RUNS · 0 ERRORS</div>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:36px;left:24px;right:24px;text-align:center;font-family:'JetBrains Mono';font-size:7px;letter-spacing:2px;color:#b85f3f">SYPNOSE.CLOUD</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.03.ST</span><span class="card-name">Case · Story</span><span class="card-size">1080×1920</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================== TYPOLOGY 04 — BUILD IN PUBLIC ======================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 08.D &nbsp;·&nbsp; <b>04 · BUILD IN PUBLIC</b></div>
+      <div>
+        <h2 class="section-title">Build in public · the lesson, on a terminal.</h2>
+        <p class="section-desc">A short Carlos-voiced lesson rendered on the Sypnose dark terminal — day number, takeaway, code line.</p>
+      </div>
+    </header>
+
+    <div class="row3">
+      <!-- LI -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="li" style="background:#2a261b">
+          <div class="brand-mini" style="top:36px;left:42px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;top:36px;right:42px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;color:#da7756;text-transform:uppercase">▌ BUILD LOG · DAY 087</div>
+
+          <div style="position:absolute;left:42px;right:42px;top:46%;transform:translateY(-50%)">
+            <div style="font-family:Lora;font-style:italic;font-weight:500;font-size:54px;line-height:1.02;letter-spacing:-0.02em;color:#eeece2">Learned the hard way:<br/><span style="color:#da7756">never let a worker mark itself done.</span></div>
+            <div style="margin-top:24px;font-family:'JetBrains Mono';font-size:14px;color:#a3c9aa;background:rgba(238,236,226,.04);padding:8px 12px;border-radius:4px;border-left:3px solid #da7756;display:inline-block">$ reviewer.exit_code != worker.exit_code  <span style="color:#7a7460"># always</span></div>
+          </div>
+
+          <div style="position:absolute;bottom:34px;left:42px;right:42px;display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:rgba(238,236,226,.45);text-transform:uppercase">
+            <span>— CARLOS · ARCHITECT · MAY 2026</span>
+            <span style="color:#da7756">SYPNOSE.CLOUD/LOG</span>
+          </div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.04.LI</span><span class="card-name">Build in public · LinkedIn</span><span class="card-size">1200×627</span></div>
+      </article>
+
+      <!-- IG -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="ig" style="background:#2a261b">
+          <div class="brand-mini" style="top:34px;left:34px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;left:34px;right:34px;top:50%;transform:translateY(-52%)">
+            <div style="font-family:'JetBrains Mono';font-size:10px;color:#da7756;letter-spacing:.22em;margin-bottom:14px">▌ DAY 087 · LOG</div>
+            <div style="font-family:Lora;font-style:italic;font-weight:500;font-size:38px;line-height:1.05;color:#eeece2">Never let a worker<br/><span style="color:#da7756">mark itself done.</span></div>
+            <div style="margin-top:20px;font-family:'JetBrains Mono';font-size:11px;color:#a3c9aa;border-left:3px solid #da7756;padding:6px 10px;background:rgba(238,236,226,.04)">$ reviewer != worker  <span style="color:#7a7460"># always</span></div>
+          </div>
+          <div style="position:absolute;bottom:30px;left:34px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;color:rgba(238,236,226,.45)">SYPNOSE.CLOUD/LOG</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.04.IG</span><span class="card-name">Build · Square</span><span class="card-size">1080×1080</span></div>
+      </article>
+
+      <!-- STORY -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="story" style="background:#2a261b">
+          <div class="brand-mini" style="top:40px;left:24px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm" style="font-size:11px">sypnose</span></div>
+          <div style="position:absolute;left:24px;right:24px;top:42%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:7px;color:#da7756;letter-spacing:.18em;margin-bottom:8px">▌ DAY 087</div>
+            <div style="font-family:Lora;font-style:italic;font-weight:500;font-size:26px;line-height:1.0;color:#eeece2">Never let a worker<br/><span style="color:#da7756">mark itself done.</span></div>
+            <div style="margin-top:14px;font-family:'JetBrains Mono';font-size:8px;color:#a3c9aa;border-left:2px solid #da7756;padding:4px 8px;background:rgba(238,236,226,.04)">$ reviewer != worker</div>
+          </div>
+          <div style="position:absolute;bottom:36px;left:24px;right:24px;text-align:center;font-family:'JetBrains Mono';font-size:7px;letter-spacing:2px;color:rgba(238,236,226,.4)">SYPNOSE.CLOUD/LOG</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.04.ST</span><span class="card-name">Build · Story</span><span class="card-size">1080×1920</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================== TYPOLOGY 05 — HIRING / CONTRACTING ======================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 08.E &nbsp;·&nbsp; <b>05 · HIRING / POC CTA</b></div>
+      <div>
+        <h2 class="section-title">Hiring · 6h POC call to action.</h2>
+        <p class="section-desc">Slate ground, terra cotta CTA tile. One specific ask, one inbox. Never "interested in our work? DM us."</p>
+      </div>
+    </header>
+
+    <div class="row3">
+      <!-- LI -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="li" style="background:#3d3929;color:#eeece2">
+          <div class="brand-mini" style="top:36px;left:42px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;top:36px;right:42px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;color:#da7756;text-transform:uppercase">▌ 6H POC · FREE · 2 SLOTS</div>
+
+          <div style="position:absolute;left:42px;top:50%;transform:translateY(-50%);max-width:560px">
+            <div style="font-family:Poppins;font-weight:700;font-size:54px;line-height:.96;letter-spacing:-0.03em;color:#eeece2">Ship one feature<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">in a single day.</em></div>
+            <div style="margin-top:16px;font-family:'DM Sans';font-size:16px;color:rgba(238,236,226,.7);line-height:1.5">Pick a backlog item. We ship it on Sypnose, tests included. You keep the PR.</div>
+          </div>
+
+          <div style="position:absolute;right:42px;top:50%;transform:translateY(-50%);width:260px;background:#da7756;color:#3d3929;border-radius:12px;padding:24px">
+            <div style="font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;opacity:0.7">▌ DM TO BOOK</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:28px;letter-spacing:-0.7px;line-height:1;margin:8px 0">hello@<br/>sypnose<br/>.cloud</div>
+            <div style="font-family:'DM Sans';font-size:13px;margin-top:8px;opacity:0.85">No SDR. No funnel.</div>
+          </div>
+
+          <div style="position:absolute;bottom:34px;left:42px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:rgba(238,236,226,.45);text-transform:uppercase">— FRIDAYS · 09:00 → 15:00 UTC-4 · 2 SLOTS / WK</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.05.LI</span><span class="card-name">Hiring · LinkedIn</span><span class="card-size">1200×627</span></div>
+      </article>
+
+      <!-- IG -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="ig" style="background:#3d3929;color:#eeece2">
+          <div class="brand-mini" style="top:34px;left:34px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;left:34px;right:34px;top:42%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:10px;color:#da7756;letter-spacing:.22em;margin-bottom:14px">▌ 6H POC · FREE · 2 SLOTS</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:42px;line-height:.95;letter-spacing:-0.025em;color:#eeece2">Ship one feature<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">in a single day.</em></div>
+          </div>
+          <div style="position:absolute;left:34px;right:34px;bottom:34px;background:#da7756;color:#3d3929;border-radius:10px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;opacity:0.75">▌ DM TO BOOK</div>
+              <div style="font-family:Poppins;font-weight:700;font-size:20px;letter-spacing:-0.4px;margin-top:2px">hello@sypnose.cloud</div>
+            </div>
+            <span style="font-family:'JetBrains Mono';font-size:22px;font-weight:600">→</span>
+          </div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.05.IG</span><span class="card-name">Hiring · Square</span><span class="card-size">1080×1080</span></div>
+      </article>
+
+      <!-- STORY -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="story" style="background:#3d3929;color:#eeece2">
+          <div class="brand-mini" style="top:40px;left:24px;color:#eeece2"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#eeece2"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm" style="font-size:11px">sypnose</span></div>
+          <div style="position:absolute;left:24px;right:24px;top:38%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:7px;color:#da7756;letter-spacing:.18em;margin-bottom:8px">▌ 6H POC · FREE</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:28px;line-height:.95;letter-spacing:-0.02em;color:#eeece2">Ship one<br/>feature<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">in a day.</em></div>
+          </div>
+          <div style="position:absolute;left:24px;right:24px;bottom:50px;background:#da7756;color:#3d3929;border-radius:8px;padding:14px;text-align:center">
+            <div style="font-family:'JetBrains Mono';font-size:7px;letter-spacing:1.5px;opacity:0.75">▌ DM TO BOOK</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:14px;margin-top:2px">hello@sypnose.cloud</div>
+          </div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.05.ST</span><span class="card-name">Hiring · Story</span><span class="card-size">1080×1920</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======================== TYPOLOGY 06 — PRODUCT LAUNCH ======================== -->
+  <section class="section">
+    <header class="section-head">
+      <div class="section-tag">§ 08.F &nbsp;·&nbsp; <b>06 · PRODUCT LAUNCH</b></div>
+      <div>
+        <h2 class="section-title">Launch · a new Sypnose feature.</h2>
+        <p class="section-desc">Hero feature name, a single change-log line, and the install command at the foot. Used only for actual ships, never for teases.</p>
+      </div>
+    </header>
+
+    <div class="row3">
+      <!-- LI -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="li" style="background:#eeece2;color:#3d3929">
+          <div class="glow" style="width:600px;height:600px;background:rgba(218,119,86,.18);right:-200px;top:-200px"></div>
+          <div class="brand-mini" style="top:36px;left:42px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;top:36px;right:42px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;color:#b85f3f;text-transform:uppercase">▌ SHIPPED · V0.4.7 · MITHOS</div>
+
+          <div style="position:absolute;left:42px;right:42px;top:50%;transform:translateY(-58%)">
+            <div style="font-family:Poppins;font-weight:700;font-size:60px;line-height:.94;letter-spacing:-0.035em;color:#3d3929">Overnight queue.<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">Nine agents at once.</em></div>
+            <div style="margin-top:14px;font-family:'DM Sans';font-size:17px;color:#5a5443;line-height:1.5;max-width:640px">Schedule up to 9 parallel agents overnight. Last bench: 312 tasks · 0 errors · 6h 22m.</div>
+          </div>
+
+          <div style="position:absolute;bottom:34px;left:42px;right:42px;display:flex;justify-content:space-between;align-items:center">
+            <div style="font-family:'JetBrains Mono';font-size:13px;color:#3d3929;background:#3d3929;color:#eeece2;padding:8px 14px;border-radius:4px">$ sypnose schedule --agents 9 --at 03:00</div>
+            <div style="font-family:'JetBrains Mono';font-size:11px;letter-spacing:2px;color:#b85f3f">SYPNOSE.CLOUD/CHANGELOG</div>
+          </div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.06.LI</span><span class="card-name">Launch · LinkedIn</span><span class="card-size">1200×627</span></div>
+      </article>
+
+      <!-- IG -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="ig" style="background:#eeece2;color:#3d3929">
+          <div class="glow" style="width:500px;height:500px;background:rgba(218,119,86,.18);right:-150px;top:-150px"></div>
+          <div class="brand-mini" style="top:34px;left:34px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm">sypnose</span></div>
+          <div style="position:absolute;left:34px;right:34px;top:48%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:10px;letter-spacing:.22em;color:#b85f3f;margin-bottom:10px">▌ SHIPPED · v0.4.7</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:42px;line-height:.96;letter-spacing:-0.028em">Overnight queue.<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">Nine at once.</em></div>
+            <div style="margin-top:12px;font-family:'DM Sans';font-size:13px;color:#5a5443;line-height:1.45">312 tasks · 0 errors · 6h 22m — last benchmark run.</div>
+          </div>
+          <div style="position:absolute;bottom:30px;left:34px;right:34px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:1.5px;color:#3d3929;background:#3d3929;color:#eeece2;padding:8px 12px;border-radius:4px">$ sypnose schedule --at 03:00</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.06.IG</span><span class="card-name">Launch · Square</span><span class="card-size">1080×1080</span></div>
+      </article>
+
+      <!-- STORY -->
+      <article class="card-wrap">
+        <div class="card-stage"><div class="story" style="background:#eeece2;color:#3d3929">
+          <div class="glow" style="width:280px;height:280px;background:rgba(218,119,86,.22);right:-100px;top:200px"></div>
+          <div class="brand-mini" style="top:40px;left:24px;color:#3d3929"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="40" fill="#da7756"/><g fill="#3d3929"><circle cx="160" cy="100" r="11"/><circle cx="40" cy="100" r="11"/><circle cx="130" cy="148" r="11"/><circle cx="70" cy="148" r="11"/><circle cx="130" cy="52" r="11"/><circle cx="70" cy="52" r="11"/></g></svg><span class="nm" style="font-size:11px">sypnose</span></div>
+          <div style="position:absolute;left:24px;right:24px;top:42%;transform:translateY(-50%)">
+            <div style="font-family:'JetBrains Mono';font-size:7px;letter-spacing:.18em;color:#b85f3f;margin-bottom:8px">▌ v0.4.7 · SHIPPED</div>
+            <div style="font-family:Poppins;font-weight:700;font-size:28px;line-height:.94;letter-spacing:-0.02em">Overnight<br/>queue.<br/><em style="font-family:Lora;font-style:italic;color:#da7756;font-weight:500">9 at once.</em></div>
+            <div style="margin-top:12px;font-family:'DM Sans';font-size:10px;color:#5a5443;line-height:1.45">312 tasks · 0 errors · 6h 22m.</div>
+          </div>
+          <div style="position:absolute;bottom:36px;left:24px;right:24px;font-family:'JetBrains Mono';font-size:8px;letter-spacing:1.2px;color:#eeece2;background:#3d3929;padding:8px 10px;border-radius:4px;text-align:center">$ sypnose schedule --at 03:00</div>
+        </div></div>
+        <div class="card-foot"><span class="card-num">8.06.ST</span><span class="card-name">Launch · Story</span><span class="card-size">1080×1920</span></div>
+      </article>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div>SYPNOSE © 2026 · Identity v1.0 · Block 08</div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#da7756"></i>#DA7756</span>
+      <span class="sw"><i style="background:#eeece2"></i>#EEECE2</span>
+      <span class="sw"><i style="background:#3d3929"></i>#3D3929</span>
+    </div>
+    <div>End ▸ 8 / 8 — Bundle complete</div>
+  </footer>
+
+</main>
+</body>
+</html>
