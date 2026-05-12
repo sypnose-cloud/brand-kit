@@ -1,12 +1,16 @@
 # SYPNOSE — Brand Identity Bundle
 
-**Mithos Edition · v1.0 · 12 May 2026**
+**Mithos Edition · v1.1 · 12 May 2026**
 
 Complete corporate identity system for **Sypnose Mithos** — the AI worker orchestration platform built by Carlos De La Torre, Architect of SYPNOSE.
 
 > *"One command. Entire AI organization."*
 
 Eight deliverable blocks, all built to the **Iron Rule**: no claim without a metric, no asset without a purpose.
+
+**What's new in v1.1**
+- Block 05 · native editable **`.pptx`** export (1920×1080, 15 slides + speaker notes)
+- Block 08 · expanded from 18 → **36 social templates** (12 typologies × 3 dimensions)
 
 ---
 
@@ -25,10 +29,14 @@ sypnose-identity/
 ├── Pitch Deck.html                 ← Block 05 · 15 slides + speaker notes (1920×1080)
 ├── Brand Guidelines.html           ← Block 06 · 22-page printable A4 brand book
 ├── Email Transactional.html        ← Block 07 · 6 SaaS emails (welcome, quota, fail, POC, invoice, digest)
-├── Social Templates.html           ← Block 08 · 6 typologies × 3 dimensions = 18 templates
+├── Social Templates.html           ← Block 08 · 12 typologies × 3 dimensions = 36 templates
 │
 ├── assets/
-│   └── symbol.svg                  ← canonical symbol vector
+│   ├── symbol.svg                  ← canonical symbol vector
+│   └── Sypnose-Pitch-Deck-v1.1.pptx ← ★ native editable PowerPoint (722 KB)
+├── favicons/                       ← 10 SVG favicon variants + manifest.json + browserconfig.xml
+├── signatures/                     ← 6 standalone signature HTML files
+├── site.webmanifest                ← PWA manifest for sypnose.cloud
 └── deck-stage.js                   ← slide deck runtime
 ```
 
@@ -185,10 +193,10 @@ dist/
 | 02 Favicon Set | `Favicon Set.html` | Any new web property under sypnose.cloud. |
 | 03 Email Signatures | `Email Signatures.html` | Copy the HTML directly into Gmail / Superhuman signature editor. |
 | 04 Business Cards | `Business Cards.html` | Print run · vCard QR generation. |
-| 05 Pitch Deck | `Pitch Deck.html` | Sales calls for Business tier. Speaker notes are scripted. |
+| 05 Pitch Deck | `Pitch Deck.html` + `assets/Sypnose-Pitch-Deck-v1.1.pptx` | Sales calls for Business tier. Open the HTML for the live deck, or the PPTX for PowerPoint / Keynote editing. Speaker notes embedded in both. |
 | 06 Brand Guidelines | `Brand Guidelines.html` | Onboarding new contributors. Print to PDF via the ▶ button. |
 | 07 Email Transactional | `Email Transactional.html` | Wire into the SaaS — copy the table HTML, swap merge tags. |
-| 08 Social Templates | `Social Templates.html` | Any post to LinkedIn / IG. Six typologies, do not invent a seventh. |
+| 08 Social Templates | `Social Templates.html` | Any post to LinkedIn / IG. **12 typologies** × 3 dimensions = 36 templates. Do not invent a thirteenth. |
 
 ---
 
@@ -215,3 +223,15 @@ MIT — the bundle, the code, the assets. **The mark itself** (the hub-and-six-s
 ---
 
 **SYPNOSE © 2026** · *No proof, no done.*
+
+---
+
+## ▌ Changelog
+
+### v1.1 · 12 May 2026
+- **Block 05** · added native editable `Sypnose-Pitch-Deck-v1.1.pptx` (15 slides, 1920×1080, speaker notes attached)
+- **Block 08** · expanded from 18 → 36 social templates (added 6 typologies: testimonial, partnership, jobs ladder, behind-the-scenes, milestone, comparison)
+
+### v1.0 · 12 May 2026
+- Initial release · all 8 blocks shipped
+- Logo System, Favicons, Signatures, Business Cards, Pitch Deck (HTML), Brand Guidelines, Email Transactional, Social Templates (18)
