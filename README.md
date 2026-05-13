@@ -206,7 +206,7 @@ dist/
 |---|---|
 | **Architect** | Carlos De La Torre |
 | **Role** | Architect of SYPNOSE |
-| **Email** | `carlos@huyghusrl.com` · `hello@sypnose.cloud` |
+| **Email** | `carlos@sypnose.cloud` · `hello@sypnose.cloud` |
 | **Tel** | +1 809 424 0731 (WhatsApp) |
 | **Web** | [sypnose.cloud](https://sypnose.cloud) |
 | **GitHub** | [github.com/sypnose-cloud](https://github.com/sypnose-cloud) |
